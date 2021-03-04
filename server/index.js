@@ -7,9 +7,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const config = require('./config/key');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const mongoose = require("mongoose");
-const connect = mongoose.connect(config.mongoURI,
+const connect = mongoose.connect(process.env.MONGO_URI,
     {
         useNewUrlParser: true, useUnifiedTopology: true,
         useCreateIndex: true, useFindAndModify: false

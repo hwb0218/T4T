@@ -14,3 +14,22 @@ router.post('/register', (req, res) => {
         });
     });
 });
+
+router.post('/login', (req, res) => {
+    User.findOne({ email: req.body.email }, (err, user) => {
+        if(!user) {
+            return res.json({
+                loginSuccess: false,
+                message: '인증 실패, 이메일을 찾을 수 없습니다.'
+            });
+        }
+        user.comparePassword(req.body.password, (err, isMatch) => {
+           if (!isMatch) {
+               return res.json({ loginSuccess: false, message: '비밀번호가 틀렸습니다.'});
+           }
+            user.generateToken((err, user) => {
+
+            })
+        });
+    });
+});
