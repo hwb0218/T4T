@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/User');
+console.dir(User);
+const { auth } = require('../middleware/auth');
 
 router.post('/register', (req, res) => {
     const user = new User(req.body);
@@ -28,8 +30,27 @@ router.post('/login', (req, res) => {
                return res.json({ loginSuccess: false, message: '비밀번호가 틀렸습니다.'});
            }
             user.generateToken((err, user) => {
-
-            })
+               if (err) {
+                   return res.status(400).send(err);
+               }
+               res.cookie('w_authExp', user.tokenExp);
+               res.cookie('w_auth', user.token)
+                   .status(200)
+                   .json({ loginSuccess: true, userId: user._id });
+            });
         });
     });
 });
+
+router.get('/logout', auth, (req, res) => {
+    User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" }, (err, doc) => {
+       if (err) {
+           return res.json({ success: false, err });
+       }
+       return res.status(200).send({
+           success: true
+       });
+    });
+});
+
+module.exports = router;
