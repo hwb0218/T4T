@@ -1,14 +1,28 @@
 import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { registerUser } from '../../../_actions/userActions';
 import './RegisterPage.css';
 
 const RegisterPage = () => {
+    const dispatch = useDispatch();
     const { register, handleSubmit, watch, errors } = useForm();
     const password = useRef(null);
     password.current = watch('password');
 
     const onSubmit = (data) => {
         console.log('data', data);
+        const { email, name, password, passwordConfirm } = data;
+        const dataToSubmit = {
+            email,
+            name,
+            password,
+            passwordConfirm
+        };
+        dispatch(registerUser(dataToSubmit))
+            .then(response => {
+                console.log(response);
+            })
     };
 
     return (
@@ -28,13 +42,13 @@ const RegisterPage = () => {
             {errors.password && errors.password.type === 'minLength' && <p>비밀번호는 최소 6자리 이상입니다.</p>}
 
             <label>Password Confirm</label>
-            <input name="password_confirm"
+            <input name="passwordConfirm"
                    type="password"
                    ref={register({ required: true,
                        validate: (value) => (value === password.current) })}
             />
-            {errors.password_confirm && errors.password_confirm.type === 'required' && <p>비밀번호가 필요합니다.</p>}
-            {errors.password_confirm && errors.password_confirm.type === 'validate' && <p>비밀번호가 맞지 않습니다.</p>}
+            {errors.passwordConfirm && errors.passwordConfirm.type === 'required' && <p>비밀번호가 필요합니다.</p>}
+            {errors.passwordConfirm && errors.passwordConfirm.type === 'validate' && <p>비밀번호가 맞지 않습니다.</p>}
             <input type="submit" value="가입하기" />
         </form>
     );

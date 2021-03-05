@@ -1,12 +1,12 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import LoginPage from "./views/LoginPage/LoginPage";
 
 function App() {
   return (
-    <div className="App">
-      <RegisterPage />
-    </div>
+
+      <Route exact path="/" component={RegisterPage} />
   );
 }
 

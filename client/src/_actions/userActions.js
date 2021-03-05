@@ -24,4 +24,11 @@ const loginUser = (dataToSubmit) => {
 const logoutUser = () => {
     const request = axios.get('/api/users/logout')
         .then(response => response.data)
+
+    return {
+        type: LOGOUT_USER,
+        payload: request
+    }
 }
+
+export { registerUser, loginUser, logoutUser };
