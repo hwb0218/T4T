@@ -1,14 +1,26 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { loginUser } from "../../../_actions/userActions";
 import './LoginPage.css';
 
-const LoginPage = () => {
+const LoginPage = ({ history }) => {
+    const dispatch = useDispatch();
     const { register, handleSubmit, errors } = useForm();
 
     const onSubmit = (data) => {
-        console.log('data................',data);
-    };
+        const { email, password } = data;
+        const dataToSubmit = { email, password };
 
+        dispatch(loginUser(dataToSubmit))
+            .then(response => {
+                if (response.payload.loginSuccess) {
+                    history.push("/");
+                } else {
+                    alert(response.payload.err);
+                }
+            });
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

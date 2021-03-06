@@ -4,7 +4,8 @@ import { useForm } from 'react-hook-form';
 import { registerUser } from '../../../_actions/userActions';
 import './RegisterPage.css';
 
-const RegisterPage = () => {
+const RegisterPage = ({ history }) => {
+    // const history = useHistory();
     const dispatch = useDispatch();
     const { register, handleSubmit, watch, errors } = useForm();
     const password = useRef(null);
@@ -19,10 +20,15 @@ const RegisterPage = () => {
             password,
             passwordConfirm
         };
+
         dispatch(registerUser(dataToSubmit))
             .then(response => {
-                console.log(response);
-            })
+                if (response.payload.success) {
+                    history.push('/login');
+                } else {
+                    alert(response.payload.err);
+                }
+            });
     };
 
     return (
