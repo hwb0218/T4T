@@ -1,10 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import RandingPage from "./views/RandingPage/RandingPage";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import LoginPage from "./views/LoginPage/LoginPage";
+import Navbar from "./views/NavBar/Navbar";
 import axios from 'axios';
+import styled from 'styled-components';
 
 function App({history}) {
     const logoutHandler = () => {
@@ -19,17 +21,20 @@ function App({history}) {
     }
 
     return (
-    <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
-      <Link to="/">홈</Link>
-      <Link to="/register">회원가입</Link>
-      <Link to="/login">로그인</Link>
-      <Link to="/logout" onClick={logoutHandler}>로그아웃</Link>
-      <Switch>
-          <Route exact path="/" component={RandingPage}/>
-          <Route path="/register" component={RegisterPage}/>
-          <Route path="/login" component={LoginPage}/>
-      </Switch>
-    </div>
+    <Fragment>
+        <Navbar />
+        <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
+          <Link to="/">홈</Link>
+          <Link to="/register">회원가입</Link>
+          <Link to="/login">로그인</Link>
+          <Link to="/logout" onClick={logoutHandler}>로그아웃</Link>
+          <Switch>
+              <Route exact path="/" component={RandingPage}/>
+              <Route path="/register" component={RegisterPage}/>
+              <Route path="/login" component={LoginPage}/>
+          </Switch>
+        </div>
+    </Fragment>
 );
 }
 

@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { registerUser } from '../../../_actions/userActions';
-import './RegisterPage.css';
 
 const RegisterPage = ({ history }) => {
     // const history = useHistory();
