@@ -5,6 +5,7 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStyles from "./styles/GlobalStyles";
+import Theme from './styles/theme';
 
 import Reducer from './_reducers/rootReducer';
 import { Provider } from 'react-redux';
@@ -23,8 +24,10 @@ ReactDOM.render(
     )}
   >
       <BrowserRouter>
-          <GlobalStyles />
+      <GlobalStyles />
+        <Theme>
             <App />
+        </Theme>
       </BrowserRouter>
   </Provider>
   , document.getElementById('root')

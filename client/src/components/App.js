@@ -1,40 +1,24 @@
-import React, { Fragment, Suspense } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
+import Auth from '../hoc/auth';
 import RandingPage from "./views/RandingPage/RandingPage";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import LoginPage from "./views/LoginPage/LoginPage";
 import Navbar from "./views/NavBar/Navbar";
-import axios from 'axios';
-import styled from 'styled-components';
 
-function App({history}) {
-    const logoutHandler = () => {
-        axios.get('/api/users/logout')
-            .then(response => {
-                if (response.status === 200) {
-                    history.push('/login');
-                } else {
-                    alert('Log Out Failed');
-                }
-            });
-    }
-
+const App = () => {
     return (
-    <Fragment>
+    <>
         <Navbar />
         <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
-          <Link to="/">홈</Link>
-          <Link to="/register">회원가입</Link>
-          <Link to="/login">로그인</Link>
-          <Link to="/logout" onClick={logoutHandler}>로그아웃</Link>
           <Switch>
-              <Route exact path="/" component={RandingPage}/>
-              <Route path="/register" component={RegisterPage}/>
-              <Route path="/login" component={LoginPage}/>
+              <Route exact path="/" component={Auth(RandingPage, null)}/>
+              <Route path="/register" component={Auth(RegisterPage, false)}/>
+              <Route path="/login" component={Auth(LoginPage, false)}/>
           </Switch>
         </div>
-    </Fragment>
+    </>
 );
 }
 
