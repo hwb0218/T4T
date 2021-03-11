@@ -5,9 +5,7 @@ import media from "./media";
 const Theme = ({ children }) => (
     <ThemeProvider
         theme={{
-            primaryFont: "Arial",
-            primaryColor: "#666",
-            ...media,
+            ...media
         }}
     >
         {children}

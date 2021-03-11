@@ -1,25 +1,29 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import Auth from '../hoc/auth';
 import RandingPage from "./views/RandingPage/RandingPage";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import LoginPage from "./views/LoginPage/LoginPage";
 import Navbar from "./views/NavBar/Navbar";
+import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
+import GlobalStyles from "../styles/GlobalStyles";
 
 const App = () => {
     return (
-    <>
-        <Navbar />
-        <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
-          <Switch>
-              <Route exact path="/" component={Auth(RandingPage, null)}/>
-              <Route path="/register" component={Auth(RegisterPage, false)}/>
-              <Route path="/login" component={Auth(LoginPage, false)}/>
-          </Switch>
-        </div>
-    </>
+        <Router>
+            <GlobalStyles />
+            <Navbar />
+            <div style={{ paddingTop: '75px', minHeight: 'calc(100vh - 80px)', height: '200vh' }}>
+                <Switch>
+                    <Route exact path="/" component={Auth(RandingPage, null)}/>
+                    <Route path="/register" component={Auth(RegisterPage, false)}/>
+                    <Route path="/login" component={Auth(LoginPage, false)}/>
+                    <Route path="/product/upload" component={Auth(UploadProductPage, true)} />
+                </Switch>
+            </div>
+        </Router>
 );
 }
 
-export default withRouter(App);
+export default App;

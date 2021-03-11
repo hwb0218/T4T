@@ -1,18 +1,33 @@
-import { createGlobalStyle } from 'styled-components';
+import styled ,{ createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
     ${reset}
-    a{
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        paading: 0;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+    a {
         text-decoration: none;
         color: inherit;
     }
-    *{
-        box-sizing: border-box;
-    }
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
+`;
+
+export const Container = styled.div`
+  z-index: 1;
+  width: 100%;
+  //max-width: 1300px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 50px;
+  padding-left: 50px;
+  
+  ${({ theme }) => theme.tablet`
+    padding-left: 30px;
+    padding-right: 30px;
+  `}
 `;
 
 export default GlobalStyles;

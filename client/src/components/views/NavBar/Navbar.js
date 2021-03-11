@@ -1,46 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
-import RightMenu from "./Sections/RightMenu";
-
-const NavBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  z-index: 5;
-  width: 100%;
-  height: 68px;
-  padding: 0 40px;
-  border-bottom: solid 1px #e8e8e8;
-  box-shadow: 0 0 30px #f3f1f1;
-  background-color: white;
-  white-space: nowrap;
-`
-
-const Input = styled.input`
-
-`
-
-const MenuLeft = styled.div`
-  flex: none
-`
-
-const MenuRight = styled.div`
-  flex: none
-`
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from './Sections/Button';
+import Dropdown from './Sections/Dropdown';
+import LoggedIn from "./NavItems/LoggedIn";
+import { Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu } from './Navbar.elements';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { IconContext } from 'react-icons/lib';
+import NotLogin from "./NavItems/NotLogin";
+import LoginPage from "../LoginPage/LoginPage";
 
 const Navbar = () => {
+    const user = useSelector(state => state.user);
+    const [click, setClick] = useState(false);
+    const handleClick = () => setClick(!click);
+
     return (
-        <NavBar>
-            <MenuLeft>
-                <Link to='/'>Thanks For Traveling</Link>
-                <Input></Input>
-            </MenuLeft>
-            <MenuRight>
-                <RightMenu></RightMenu>
-            </MenuRight>
-        </NavBar>
+        <>
+            <IconContext.Provider value={{ color: '#5f0080' }}>
+                <Nav>
+                    <NavbarContainer>
+                        <NavLogo to='/'>
+                            Thanks For Traveling
+                        </NavLogo>
+                        <MobileIcon onClick={handleClick}>
+                            {click ? <FaTimes /> : <FaBars />}
+                        </MobileIcon>
+                        <NavMenu onClick={handleClick} click={click}>
+                            {user.userData && !user.userData.isAuth ? <NotLogin /> : <LoggedIn />}
+                        </NavMenu>
+                    </NavbarContainer>
+                </Nav>
+            </IconContext.Provider>
+        </>
     );
 };
 
