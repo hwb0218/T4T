@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { loginUser } from "../../../_actions/userActions";
-// import './LoginPage.css';
+import { Form, PTag, Input, Label, InputSubmit } from "../../../styles/GlobalStyles";
 
 const LoginPage = ({ history }) => {
     const dispatch = useDispatch();
@@ -17,24 +17,24 @@ const LoginPage = ({ history }) => {
                 if (response.payload.loginSuccess) {
                     history.push("/");
                 } else {
-                    alert(response.payload.err);
+                    alert('아이디나 비밀번호를 확인하세요.');
                 }
             });
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <label>Email</label>
-            <input name="email" type="email" ref={register({ required: true, pattern: /^\S+@\S+$/i })} />
-            {errors.email && <p>이메일이 필요합니다.</p>}
+        <Form onSubmit={handleSubmit(onSubmit)}>
+            <Label>Email</Label>
+            <Input name="email" type="email" ref={register({ required: true, pattern: /^\S+@\S+$/i })} />
+            {errors.email && <PTag>이메일이 필요합니다.</PTag>}
 
-            <label>Password</label>
-            <input name="password" type="password" ref={register({ required: true, minLength: 6 })} />
-            {errors.password && errors.password.type === 'required' && <p>비밀번호가 필요합니다.</p>}
-            {errors.password && errors.password.type === 'minLength' && <p>비밀번호는 최소 6자리 이상입니다.</p>}
+            <Label>Password</Label>
+            <Input name="password" type="password" ref={register({ required: true, minLength: 6 })} />
+            {errors.password && errors.password.type === 'required' && <PTag>비밀번호가 필요합니다.</PTag>}
+            {errors.password && errors.password.type === 'minLength' && <PTag>비밀번호는 최소 6자리 이상입니다.</PTag>}
 
-            <input type="submit" />
-        </form>
+            <InputSubmit type="submit" value='로그인'/>
+        </Form>
     );
 };
 

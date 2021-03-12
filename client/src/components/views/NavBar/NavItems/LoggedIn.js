@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { logoutUser } from "../../../../_actions/userActions";
-import { NavItem, NavLinks } from "../Navbar.elements";
+import { NavItem, NavLinks } from "../NavbarElements";
 
 const LoggedIn = ({ history }) => {
     const dispatch = useDispatch();

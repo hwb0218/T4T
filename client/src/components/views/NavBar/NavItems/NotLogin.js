@@ -1,23 +1,25 @@
 import React from 'react';
-import {NavItem, NavLinks} from "../Navbar.elements";
+import { NavItem, NavLinks, NavItemBtn, NavBtnLink, Button } from "../NavbarElements";
 
-const NotLogin = () => {
-    const navItems = [
-        { '회원가입' : '/register' },
-        { '로그인': '/login'},
-    ];
-
+const NotLogin = ({ button }) => {
     return (
         <>
-            {navItems.map(navItem => (
-                Object.entries(navItem).map(([key, value]) => (
-                    <NavItem key={key}>
-                        <NavLinks to={value}>{key}</NavLinks>
-                    </NavItem>
-                ))
-            ))}
+            <NavItem>
+                <NavLinks to='login'>로그인</NavLinks>
+            </NavItem>
+            <NavItemBtn>
+                {button ? (
+                    <NavBtnLink to='/register'>
+                        <Button>회원가입</Button>
+                    </NavBtnLink>
+                ) : (
+                    <NavBtnLink to='/register'>
+                        <Button fontBig>회원가입</Button>
+                    </NavBtnLink>
+                )}
+            </NavItemBtn>
         </>
-    );
+    )
 };
 
 export default NotLogin;

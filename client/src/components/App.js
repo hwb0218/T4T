@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { BrowserRouter as Router, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Auth from '../hoc/auth';
 import RandingPage from "./views/RandingPage/RandingPage";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
@@ -14,7 +14,7 @@ const App = () => {
         <Router>
             <GlobalStyles />
             <Navbar />
-            <div style={{ paddingTop: '75px', minHeight: 'calc(100vh - 80px)', height: '200vh' }}>
+            <div style={{ paddingTop: '35px' , minHeight: 'calc(100vh - 80px)' }}>
                 <Switch>
                     <Route exact path="/" component={Auth(RandingPage, null)}/>
                     <Route path="/register" component={Auth(RegisterPage, false)}/>
