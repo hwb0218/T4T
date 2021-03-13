@@ -22,7 +22,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
-app.use('/api', require('./routes/img'));
+app.use('/api/product', require('./routes/product'));
+
+app.use('/uploads', express.static('uploads'));
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
