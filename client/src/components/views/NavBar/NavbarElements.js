@@ -55,6 +55,10 @@ export const MobileIcon = styled.div`
     transform: translate(-100%, 80%);
     font-size: 1.8rem;
     cursor: pointer;
+    
+    &:hover {
+      opacity: 0.5;
+    }
   `}
 `;
 
@@ -121,7 +125,7 @@ export const Button = styled.button`
   white-space: nowrap;
   padding: 10px 20px;
   color: #CCCCCC;
-  font-size: ${({ fontBig }) => (fontBig ? '20px' : '1rem')};
+  font-size: 1rem;
   outline: none;  
   border: none;
   cursor: pointer;
@@ -133,6 +137,7 @@ export const Button = styled.button`
   
   ${({ theme }) => theme.mobile`
     width: 100%;
+    font-size: 20px;
   `}
 `;
 

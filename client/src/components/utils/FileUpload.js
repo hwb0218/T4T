@@ -1,21 +1,33 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import axios from "axios";
-import emptyPic from '../../images/empty-image.png';
-import { FaRegImage } from "react-icons/fa";
+import { Wrapper, Image, Img, ContentIcon, ContentText, CancelBtn, FileName, CustomBtn } from './FileUploadElements';
+import { FaCloudUploadAlt, FaTimes } from "react-icons/fa";
 
 const FileUpload = () => {
     const [selectedFiles, setSelectedFiles] = useState(null);
     const [previewURL, setPreviewURL] = useState("");
+    const [fileNames, setFileNames] = useState("");
+
+    const inputEl = useRef(null);
+
+    useEffect(() => {
+    }, [selectedFiles]);
 
     const handleImageChange = (e) => {
+        const value = e.target.value.split(/\\/);
+        const filename = value[value.length - 1];
+        setFileNames(filename);
+
         const reader = new FileReader();
         const file = e.target.files[0];
 
         reader.onloadend = () => {
             setPreviewURL(reader.result);
         }
-        reader.readAsDataURL(file);
-        setSelectedFiles(file);
+        if (file) {
+            reader.readAsDataURL(file);
+            setSelectedFiles(file);
+        }
     }
 
     const onClick = async (e) => {
@@ -36,18 +48,28 @@ const FileUpload = () => {
         }
     }
 
+    const defaultBtnActive = () => {
+        inputEl.current.click();
+    }
+
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
-            {selectedFiles !== null ?
-                <img src={previewURL} alt=""/> :
-                <img src={emptyPic} style={{ backgroundImage: 'url(/images/empty-image)' , width: '80%', height: '350px', margin: '0 auto', borderRadius: '5px' }}/>
-            }
-            <input type="file" id='input' onChange={handleImageChange} accept='image/*' style={{ display: 'inline-block', width: '30%'}}/>
-            <div>
-                <label htmlFor="input"><FaRegImage /></label>
+        <>
+            <Wrapper select={selectedFiles}>
+                <Image>
+                    {previewURL ? <Img src={previewURL} /> : ''}
+                </Image>
+                <div>
+                    <ContentIcon><FaCloudUploadAlt /></ContentIcon>
+                    <ContentText>선택한 파일이 없습니다</ContentText>
+                </div>
+                <CancelBtn><FaTimes /></CancelBtn>
+                <FileName>{fileNames}</FileName>
+            </Wrapper>
+            <div style={{ width: '100%' }}>
+                <input type="file" onChange={handleImageChange} accept='image/*' ref={inputEl} hidden />
+                <CustomBtn onClick={defaultBtnActive} type='button'>파일 선택</CustomBtn>
             </div>
-            <button onClick={onClick} style={{ display: 'inline-block',width: '50%'}}>추가</button>
-        </div>
+        </>
     );
 };
 
