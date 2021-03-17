@@ -95,7 +95,7 @@ export const NavItem = styled.li`
 `
 
 export const NavLinks = styled(Link)`
-  color: #5f0080; 
+  color: #5B5B7B; 
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;
@@ -106,7 +106,7 @@ export const NavLinks = styled(Link)`
   }
   
   ${({ theme }) => theme.mobile`
-    color: #5f0080;
+    color: #5B5B7B;
     text-align: center;
     padding: 2rem;
     width: 100%;

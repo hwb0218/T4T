@@ -7,7 +7,6 @@ const FileUpload = () => {
     const [selectedFiles, setSelectedFiles] = useState(null);
     const [previewURL, setPreviewURL] = useState("");
     const [fileNames, setFileNames] = useState("");
-
     const inputEl = useRef(null);
 
     useEffect(() => {
@@ -22,11 +21,11 @@ const FileUpload = () => {
         const file = e.target.files[0];
 
         reader.onloadend = () => {
+            setSelectedFiles(file);
             setPreviewURL(reader.result);
         }
         if (file) {
             reader.readAsDataURL(file);
-            setSelectedFiles(file);
         }
     }
 
@@ -41,7 +40,7 @@ const FileUpload = () => {
         }
         try {
             const res = await axios.post('/api/product/upload', formData, config);
-            console.log(res.data);
+            // console.log(res.data);
             // setImages(res);
         } catch (error) {
             console.error(error);
@@ -50,6 +49,12 @@ const FileUpload = () => {
 
     const defaultBtnActive = () => {
         inputEl.current.click();
+    }
+
+    const ClickCancelBtn = () => {
+        setSelectedFiles(null);
+        setPreviewURL('');
+        inputEl.current.value = '';
     }
 
     return (
@@ -62,12 +67,13 @@ const FileUpload = () => {
                     <ContentIcon><FaCloudUploadAlt /></ContentIcon>
                     <ContentText>선택한 파일이 없습니다</ContentText>
                 </div>
-                <CancelBtn><FaTimes /></CancelBtn>
+                <CancelBtn onClick={ClickCancelBtn}><FaTimes /></CancelBtn>
                 <FileName>{fileNames}</FileName>
             </Wrapper>
-            <div style={{ width: '100%' }}>
+            <div style={{ display: 'flex', width: '100%'}}>
                 <input type="file" onChange={handleImageChange} accept='image/*' ref={inputEl} hidden />
                 <CustomBtn onClick={defaultBtnActive} type='button'>파일 선택</CustomBtn>
+                <CustomBtn type='button'>추가</CustomBtn>
             </div>
         </>
     );

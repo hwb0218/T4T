@@ -6,8 +6,8 @@ export const Wrapper = styled.div`
   align-items: center;
   position: relative;
   width: 90%;
-  height: 300px;
-  margin-bottom: 20px;
+  height: 33vh;
+  margin-bottom: 1rem;
   border: ${({ select }) => (select ? 'none' : '2px dashed #c2cdda')};
   border-radius: 10px;
   background: #fff;
@@ -40,7 +40,7 @@ export const Img = styled.img`
   width: 100%;
   min-width: 280px;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export const ContentIcon = styled.div`
@@ -71,21 +71,25 @@ export const FileName = styled.div`
   color: #fff;
   padding: 13px 0;
   font-size: 18px;
-  background: #9658fe;
+  background: #5f0080;
   display: none;
 `;
 
 export const CustomBtn = styled.button`
   display: block;
-  width: 90%;
-  height: 50px;
+  width: 40%;
+  height: 40px;
   margin: 0 auto;
-  border: none;
-  border-radius: 25px;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 500;
+  border: 1.2px solid #5f0080;
+  color: #5f0080;
+  border-radius: 5px;
+  background: white;
+  font-size: 1rem;
+  font-weight: 600;
   letter-spacing: 1px;
-  background: #9658fe;
   cursor: pointer;
+  
+  &:focus {
+    outline: none;
+  }
 `
