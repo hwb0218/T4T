@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   position: relative;
   width: 90%;
   height: 33vh;
-  margin-bottom: 1rem;
   border: ${({ select }) => (select ? 'none' : '2px dashed #c2cdda')};
   border-radius: 10px;
   background: #fff;

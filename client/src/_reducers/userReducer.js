@@ -1,6 +1,6 @@
 import { LOGIN_USER, AUTH_USER, REGISTER_USER, LOGOUT_USER } from '../_actions/types';
 
-export default function (state = {}, action) {
+const userReducer = (state = {}, action) => {
     switch (action.type) {
         case REGISTER_USER:
             return { ...state, register: action.payload };
@@ -14,3 +14,5 @@ export default function (state = {}, action) {
             return state;
     }
 }
+
+export default userReducer;

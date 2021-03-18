@@ -1,14 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const fs = require('fs');
 const path = require('path');
-
-// fs.readdir('/uploads', (err) => {
-//     if (err) {
-//         fs.mkdirSync('uploads');
-//     }
-// });
 
 const upload = multer({
     storage: multer.diskStorage({
@@ -28,11 +21,15 @@ const upload = multer({
         }
     }),
     limits: { fileSize: 5 * 1024 * 1024 },
-});
+}).single('img');
 
-router.post('/upload', upload.single('img'), (req, res) => {
-    console.log(req.file);
-    return res.status(200).json({ url: `/img/${req.file.filename}`});
+router.post('/upload', (req, res) => {
+    upload(req, res, err => {
+        if (err) {
+            return req.json({ success: false, err })
+        }
+        return res.status(200).json({ success: true, filePath: req.file.path, fileName: req.file.filename });
+    })
 });
 
 module.exports = router;
