@@ -12,8 +12,9 @@ export const Img = styled.img`
 export const Container = styled.div`
   position: relative;
   width: 90%;
+  border: 1px dashed orange;
   border-radius: 10px;
-  overflow: hidden;
+  //overflow: hidden;
 `;
 
 const arrow = css`
@@ -39,8 +40,6 @@ export const SliderContainer = styled.div`
   display: flex;
   border-radius: 10px;
   height: 33vh;
-  ${({ currentSlide }) => css`
-      transform: translateX(-${currentSlide}00%);
-    `};
+  transform: translateX(0);
   transition: transform 0.35s ease-in-out;
 `;

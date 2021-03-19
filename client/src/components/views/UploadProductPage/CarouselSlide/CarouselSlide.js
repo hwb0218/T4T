@@ -1,42 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clickRightBtn } from '../../../../_actions/fileUpload/fileUploadActions';
 import Slide from "./Slide";
 import { Container, SliderContainer } from "./CarouselSlideElements";
 import Arrow from './Arrow';
 
 const CarouselSlide = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const dispatch = useDispatch();
     const sliderRef = useRef(null);
 
-    const images = useSelector(state => state.fileUpload);
-    const numSlides = images.length;
+    const storeImages = useSelector(state => state.fileUpload);
 
     const onArrowClick = (direction) => {
-        const increment = (direction === 'left' ? -1 : 1);
-        const nextSlide = (currentSlide + increment + numSlides) % numSlides;
-        setCurrentSlide(nextSlide);
-    }
-
-    useEffect(() => {
-        cloneNode();
-    }, [images]);
-
-    const cloneNode = () => {
-        if (sliderRef.current.firstChild && sliderRef.current.lastChild) {
-            const firstChild = sliderRef.current.firstElementChild;
-            const lastChild = sliderRef.current.lastElementChild;
-            const clonedFirst = firstChild.cloneNode(true);
-            const clonedLast = lastChild.cloneNode(true);
-            console.log(clonedFirst, clonedLast);
-            sliderRef.current.appendChild(clonedFirst);
-            sliderRef.current.insertBefore(clonedLast, sliderRef.current.firstElementChild);
+        if (direction === 'right') {
+            dispatch(clickRightBtn(storeImages[0]));
         }
     }
 
     return (
         <Container>
             <SliderContainer currentSlide={currentSlide} ref={sliderRef}>
-                <Slide images={images}/>
+                <Slide images={storeImages}/>
             </SliderContainer>
             <Arrow direction='left' clickFunction={onArrowClick} />
             <Arrow direction='right' clickFunction={onArrowClick} />
