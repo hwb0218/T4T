@@ -3,7 +3,6 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 export const Img = styled.img`
   width: 100%;
-  object-fit: contain;
   &::selection {
     outline: none;
   }
@@ -40,6 +39,16 @@ export const SliderContainer = styled.div`
   display: flex;
   border-radius: 10px;
   height: 33vh;
-  transform: translateX(0);
-  transition: transform 0.35s ease-in-out;
-`;
+  justify-content: flex-start;
+  
+  ${({ currentSlide }) => (currentSlide === 0 
+    ? css`
+      transform: translateX(${currentSlide}%);
+      transition: ${currentSlide};
+    ` : css`
+      transform: translateX(-${currentSlide}00%);
+      transition: transform 0.35s ease-in-out;
+  `)} 
+  
+  
+`
