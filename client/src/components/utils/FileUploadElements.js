@@ -39,7 +39,6 @@ export const Img = styled.img`
   width: 100%;
   min-width: 280px;
   height: 100%;
-  object-fit: contain;
 `;
 
 export const ContentIcon = styled.div`
@@ -58,7 +57,7 @@ export const CancelBtn = styled.div`
   right: 15px;
   top: 15px;
   font-size: 20px;
-  color: #9658fe;
+  color: black;
   cursor: pointer;
   display: none;
 `;

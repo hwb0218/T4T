@@ -10,7 +10,7 @@ const CarouselSlide = () => {
     const storeImages = useSelector(state => state.fileUpload);
     const numSlides = storeImages.length;
 
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const [currentSlide, setCurrentSlide] = useState(1);
 
     const onArrowClick = (direction) => {
         const increment = (direction === 'left' ? -1 : 1);
@@ -32,7 +32,7 @@ const CarouselSlide = () => {
 
     return (
         <Container>
-            <SliderContainer currentSlide={currentSlide}>
+            <SliderContainer currentSlide={currentSlide} images={storeImages}>
                 <Slide images={storeImages}/>
             </SliderContainer>
             <Arrow direction='left' clickFunction={onArrowClick} />
