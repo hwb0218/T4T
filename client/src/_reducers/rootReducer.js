@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux';
-import user from './userReducer';
-import fileUpload from './fileUploadReducer';
+import { combineReducers } from "redux";
+import user from "./userReducer";
+import fileUpload from "./fileUploadReducer";
 
 const rootReducer = combineReducers({
-    user,
-    fileUpload
+  user,
+  fileUpload,
 });
 
 export default rootReducer;

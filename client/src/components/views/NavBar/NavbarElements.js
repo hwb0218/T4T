@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { Container } from "../../../styles/GlobalStyles";
 
 export const Nav = styled.nav`
@@ -21,7 +21,7 @@ export const NavbarContainer = styled(Container)`
   justify-content: space-between;
   align-items: center;
   height: 80px;
-  
+
   ${Container}
 `;
 
@@ -32,11 +32,11 @@ export const NavLogo = styled(Link)`
   align-items: center;
   font-size: 1.7rem;
   font-weight: bold;
-  
+
   &::selection {
     outline: none;
   }
-  
+
   ${({ theme }) => theme.mobile`
     font-size: 1rem;
     color: #5f0080;
@@ -45,7 +45,7 @@ export const NavLogo = styled(Link)`
 
 export const MobileIcon = styled.div`
   display: none;
-  
+
   ${({ theme }) => theme.mobile`
     color: #5f0080;
     display: block;
@@ -57,7 +57,7 @@ export const MobileIcon = styled.div`
     cursor: pointer;
     
     &:hover {
-      opacity: 0.5;
+      opacity: 0.6;
     }
   `}
 `;
@@ -66,7 +66,7 @@ export const NavMenu = styled.ul`
   display: flex;
   align-items: center;
   text-align: center;
-  
+
   ${({ theme }) => theme.mobile`
     background-color: #fff;
     display: block;
@@ -75,7 +75,7 @@ export const NavMenu = styled.ul`
     height: 90vh;
     position: absolute;
     top: 80px;
-    left: ${({ click }) => (click ? '0px' : '-100%')};
+    left: ${({ click }) => (click ? "0px" : "-100%")};
     opacity: 1;
     transition: all 0.3s ease;
     box-shadow: 0 0 30px #f3f1f1;
@@ -84,29 +84,29 @@ export const NavMenu = styled.ul`
 
 export const NavItem = styled.li`
   height: 80px;
-  
+
   &:hover {
     opacity: 0.5;
   }
-  
+
   ${({ theme }) => theme.mobile`
     width: 100%;
   `}
-`
+`;
 
 export const NavLinks = styled(Link)`
-  color: #5B5B7B; 
+  color: #5f0080;
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;
   height: 100%;
-  
+
   &::selection {
     outline: none;
   }
-  
+
   ${({ theme }) => theme.mobile`
-    color: #5B5B7B;
+    color: #5f0080;
     text-align: center;
     padding: 2rem;
     width: 100%;
@@ -124,17 +124,17 @@ export const Button = styled.button`
   background: #5f0080;
   white-space: nowrap;
   padding: 10px 20px;
-  color: #CCCCCC;
+  color: #cccccc;
   font-size: 1rem;
-  outline: none;  
+  outline: none;
   border: none;
   cursor: pointer;
-  
+
   &:hover {
     transition: 0.15s all;
-    opacity: 0.5; 
+    opacity: 0.5;
   }
-  
+
   ${({ theme }) => theme.mobile`
     width: 100%;
     font-size: 20px;
@@ -160,4 +160,4 @@ export const NavBtnLink = styled(Link)`
   width: 100%;
   border: none;
   outline: none;
-`
+`;

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -7,23 +7,24 @@ export const Wrapper = styled.div`
   position: relative;
   width: 90%;
   height: 33vh;
-  border: ${({ select }) => (select ? 'none' : '2px dashed #c2cdda')};
+  border: ${({ select }) => (select ? "none" : "2px dashed #c2cdda")};
   border-radius: 10px;
   background: #fff;
   overflow: hidden;
-  
-  ${({ select }) => (select 
-    ? (css`
-        &:hover {
-          ${CancelBtn} {
-            display: block;
+
+  ${({ select }) =>
+    select
+      ? css`
+          &:hover {
+            ${CancelBtn} {
+              display: block;
+            }
+            ${FileName} {
+              display: block;
+            }
           }
-          ${FileName} {
-            display: block;
-          }
-        }
-    `) 
-    : 'none')}
+        `
+      : "none"}
 `;
 
 export const Image = styled.div`
@@ -42,15 +43,15 @@ export const Img = styled.img`
 `;
 
 export const ContentIcon = styled.div`
-  font-size: 100px; 
+  font-size: 100px;
   color: #9658fe;
-`
+`;
 
 export const ContentText = styled.div`
   font-size: 20px;
   font-weight: 500;
-  color: #5B5B7B;
-`
+  color: #5b5b7b;
+`;
 
 export const CancelBtn = styled.div`
   position: absolute;
@@ -86,8 +87,8 @@ export const CustomBtn = styled.button`
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
-  
+
   &:focus {
     outline: none;
   }
-`
+`;

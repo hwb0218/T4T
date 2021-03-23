@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import {FaTimes} from "react-icons/fa/index";
+import React from "react";
+import styled from "styled-components";
+import { FaTimes } from "react-icons/fa/index";
 import { CancelBtn } from "./FileUploadElements";
 
 const ImageWrapper = styled.div`
@@ -9,7 +9,7 @@ const ImageWrapper = styled.div`
   position: relative;
   user-select: none;
   overflow-y: hidden;
-  
+
   &:hover {
     ${CancelBtn} {
       display: block;
@@ -20,17 +20,18 @@ const ImageWrapper = styled.div`
 `;
 
 const Images = ({ images, deleteImage }) => {
-
-    return (
-        <>
-            {images.map(({id, image}) => (
-                <ImageWrapper key={id}>
-                    <img src={image} style={{ width: '100%', height: '100%' }} />
-                    <CancelBtn onClick={() => deleteImage(id)}><FaTimes /></CancelBtn>
-                </ImageWrapper>
-            ))}
-        </>
-    );
+  return (
+    <>
+      {images.map(({ id, image }) => (
+        <ImageWrapper key={id}>
+          <img src={image} style={{ width: "100%", height: "100%" }} />
+          <CancelBtn onClick={() => deleteImage(id)}>
+            <FaTimes />
+          </CancelBtn>
+        </ImageWrapper>
+      ))}
+    </>
+  );
 };
 
 export default Images;
