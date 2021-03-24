@@ -1,9 +1,10 @@
-import styled, { css } from "styled-components";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import styled from "styled-components";
 
 export const Form = styled.form`
-  max-width: 250px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  min-width: 500px;
 `;
 
 export const PTag = styled.p`
@@ -33,6 +34,7 @@ export const Input = styled.input`
 export const Textarea = styled.textarea`
   display: block;
   width: 100%;
+  height: 50px;
   background-color: white;
   border: 1px solid #5f0080;
   border-radius: 2px;
@@ -70,11 +72,11 @@ export const InputSubmit = styled(Input).attrs({
 })`
   background-color: #5f0080;
   color: white;
-  text-transform: uppercase;
   border: none;
   border-radius: 8px;
   margin-top: 1rem;
-  padding: 20px;
+  margin-bottom: 0;
+  padding: 16px;
   font-size: 16px;
   font-weight: 100;
   letter-spacing: 10px;

@@ -28,20 +28,18 @@ const upload = multer({
     },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
-}).single("img");
+}).array("img");
 
 router.post("/upload", (req, res) => {
   upload(req, res, (err) => {
     if (err) {
-      return req.json({ success: false, err });
+      return res.json({ success: false, err });
     }
-    return res
-      .status(200)
-      .json({
-        success: true,
-        filePath: req.file.path,
-        fileName: req.file.filename,
-      });
+    return res.status(200).json({
+      success: true,
+      filePath: req.files,
+      // fileName: req.files.filename,
+    });
   });
 });
 

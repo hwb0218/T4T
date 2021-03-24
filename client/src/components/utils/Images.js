@@ -22,9 +22,16 @@ const ImageWrapper = styled.div`
 const Images = ({ images, deleteImage }) => {
   return (
     <>
-      {images.map(({ id, image }) => (
+      {images.map(({ id, previewImage }) => (
         <ImageWrapper key={id}>
-          <img src={image} style={{ width: "100%", height: "100%" }} />
+          <img
+            src={previewImage}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "scale-down",
+            }}
+          />
           <CancelBtn onClick={() => deleteImage(id)}>
             <FaTimes />
           </CancelBtn>

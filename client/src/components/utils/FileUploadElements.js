@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 90%;
+  width: 100%;
   height: 33vh;
   border: ${({ select }) => (select ? "none" : "2px dashed #c2cdda")};
   border-radius: 10px;

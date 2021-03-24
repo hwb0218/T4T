@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import Images from "./Images";
 import { useDispatch } from "react-redux";
 import { fileUpload } from "../../_actions/fileUpload/fileUploadActions";
@@ -15,7 +16,7 @@ import {
 } from "./FileUploadElements";
 import { FaCloudUploadAlt, FaTimes } from "react-icons/fa";
 
-const FileUpload = () => {
+const FileUpload = ({ updateImage }) => {
   const [selectedFiles, setSelectedFiles] = useState(null);
   const [previewURL, setPreviewURL] = useState("");
   const [fileNames, setFileNames] = useState("");
@@ -42,29 +43,34 @@ const FileUpload = () => {
   };
 
   const addImage = () => {
-    if (selectedFiles && images.length < 6) {
-      const nextImage = images.concat({ id, image: previewURL });
+    if (selectedFiles && images.length < 3) {
+      const nextImage = images.concat({
+        id,
+        previewImage: previewURL,
+        selectedFiles,
+      });
       setImages(nextImage);
       setId(id + 1);
+      updateImage(nextImage);
     }
   };
 
   const onClick = async () => {
     if (selectedFiles) {
-      const formData = new FormData();
-      formData.append("img", selectedFiles);
-
-      const config = {
-        headers: { "content-type": "multipart/form-data" },
-      };
-      try {
-        const res = await axios.post("/api/product/upload", formData, config);
-        const filePath = res.data.filePath;
-        console.log(filePath);
-        setImages([...images, filePath]);
-      } catch (error) {
-        console.error(error);
-      }
+      // const formData = new FormData();
+      // formData.append("img", selectedFiles);
+      //
+      // const config = {
+      //   headers: { "content-type": "multipart/form-data" },
+      // };
+      // try {
+      //   const res = await axios.post("/api/product/upload", formData, config);
+      //   const filePath = res.data.filePath;
+      //   console.log(filePath);
+      //   setImages([...images, filePath]);
+      // } catch (error) {
+      //   console.error(error);
+      // }
     }
   };
 
@@ -81,12 +87,12 @@ const FileUpload = () => {
   const deleteImage = (selectedImage) => {
     const newImages = images.filter(({ id }) => id !== selectedImage);
     setImages(newImages);
+    updateImage(newImages);
   };
 
   return (
     <div
       style={{
-        maxWidth: "600px",
         width: "100%",
         display: "grid",
         textAlign: "center",
@@ -106,7 +112,7 @@ const FileUpload = () => {
         </CancelBtn>
         <FileName>{fileNames}</FileName>
       </Wrapper>
-      <div style={{ display: "flex", width: "100%", margin: "1rem auto" }}>
+      <div style={{ display: "flex", width: "100%", margin: "1rem 0" }}>
         <input
           type="file"
           onChange={handleImageChange}
@@ -123,7 +129,10 @@ const FileUpload = () => {
       </div>
       <div
         style={{
-          width: "90%",
+          width: "100%",
+          height: "165px",
+          border: "2px dashed #c2cdda",
+          borderRadius: "10px",
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
           columnGap: "0.6rem",
