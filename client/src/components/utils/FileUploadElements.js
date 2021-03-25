@@ -50,7 +50,7 @@ export const ContentIcon = styled.div`
 export const ContentText = styled.div`
   font-size: 20px;
   font-weight: 500;
-  color: #5b5b7b;
+  color: #bf1650;
 `;
 
 export const CancelBtn = styled.div`

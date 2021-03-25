@@ -69,9 +69,9 @@ userSchema.methods.comparePassword = function (plainPassword, cb) {
 userSchema.methods.generateToken = function (cb) {
   const user = this;
   const token = jwt.sign(user._id.toHexString(), "secret");
-  const oneHour = moment().add(1, "hour").valueOf();
+  const thirtyMin = moment().add(30, "minutes").valueOf();
 
-  user.tokenExp = oneHour;
+  user.tokenExp = thirtyMin;
   user.token = token;
   user.save((err, user) => {
     if (err) {
@@ -93,6 +93,6 @@ userSchema.statics.findByToken = function (token, cb) {
   });
 };
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
-module.exports = {User}
+module.exports = { User };

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const { Product } = require("../models/Product");
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -37,8 +38,19 @@ router.post("/upload", (req, res) => {
     }
     return res.status(200).json({
       success: true,
-      filePath: req.files,
-      // fileName: req.files.filename,
+      files: req.files.map(({ path }) => path),
+    });
+  });
+});
+
+router.post("/", (req, res) => {
+  const product = new Product(req.body);
+  product.save((err, doc) => {
+    if (err) {
+      return res.status(400).json({ success: false, err });
+    }
+    return res.status(200).json({
+      success: true,
     });
   });
 });
