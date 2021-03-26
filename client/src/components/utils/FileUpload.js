@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useFormContext } from "react-hook-form";
+import imageCompression from "browser-image-compression";
 import Images from "./Images";
 import {
   Wrapper,
@@ -24,20 +25,27 @@ const FileUpload = ({ updateImage }) => {
 
   const inputEl = useRef(null);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
+    console.dir(e.currentTarget);
     const value = e.target.value.split(/\\/);
     const filename = value[value.length - 1];
     setViewFileNames(filename);
 
-    const reader = new FileReader();
     const file = e.target.files[0];
 
-    reader.onloadend = () => {
-      setSelectedFiles(file);
-      setPreviewURL(reader.result);
+    const options = {
+      maxsizeMB: 2,
+      maxWidthOrHeight: 600,
     };
-    if (file) {
-      reader.readAsDataURL(file);
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      const promise = await imageCompression.getDataUrlFromFile(compressedFile);
+
+      setSelectedFiles(compressedFile);
+      setPreviewURL(promise);
+    } catch (err) {
+      console.error(err);
     }
   };
 
