@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import sliderImages from "./sliderImages";
 import { Img } from "./CarouselSlideElements";
 
-const Slide = ({ images }) => {
+const Slide = () => {
   return (
     <>
-      {images.map((img, i) => (
+      {sliderImages.map((img, i) => (
         <Img src={img} key={i} />
       ))}
     </>

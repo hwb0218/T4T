@@ -35,19 +35,70 @@ export const ArrowRight = styled(FaChevronRight)`
   top: 45%;
 `;
 
-export const SliderContainer = styled.div`
-  display: flex;
-  height: 37vh;
-  justify-content: flex-start;
+export const Circle = styled.div`
+  width: 20px;
+  height: 20px;
+  border: 4px solid white;
+  border-radius: 25px;
 
+  & + & {
+    margin-left: 2rem;
+  }
+
+  ${({ active }) =>
+    active &&
+    css`
+      background: white;
+    `}
+`;
+
+const prevSlide = css`
   ${({ currentSlide }) =>
-    currentSlide === 1
+    currentSlide === 5
       ? css`
-          transform: translateX(-${currentSlide}00%);
+          transform: translateX(-500%);
           transition: none;
         `
       : css`
           transform: translateX(-${currentSlide}00%);
-          transition: transform 0.35s ease-in-out;
+          transition: transform 300ms ease;
         `}
 `;
+
+const nextSlide = css`
+  ${({ currentSlide }) =>
+    currentSlide === 1
+      ? css`
+          transform: translateX(-100%);
+          transition: none;
+        `
+      : css`
+          transform: translateX(-${currentSlide}00%);
+          transition: transform 300ms ease;
+        `}
+`;
+
+export const SliderContainer = styled.div`
+  display: flex;
+  height: 37vh;
+
+  ${({ direction }) =>
+    direction === "left"
+      ? css`
+          ${prevSlide}
+        `
+      : css`
+          ${nextSlide}
+        `}
+`;
+
+//${({ currentSlide }) =>
+//   currentSlide === (5 || 1)
+//     ? css`
+//         transform: translateX(-${currentSlide}00%);
+//         transition: none;
+//       `
+//     : css`
+//         transform: translateX(-${currentSlide}00%);
+//         transition: transform 500ms ease-in-out;
+//       `}
