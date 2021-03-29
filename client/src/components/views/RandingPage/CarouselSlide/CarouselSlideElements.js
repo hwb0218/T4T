@@ -36,19 +36,28 @@ export const ArrowRight = styled(FaChevronRight)`
 `;
 
 export const Circle = styled.div`
-  width: 20px;
-  height: 20px;
-  border: 4px solid white;
+  width: 18px;
+  height: 18px;
+  border: 3px solid white;
   border-radius: 25px;
 
   & + & {
-    margin-left: 2rem;
+    margin-left: 2.5rem;
+    &:nth-child(2) {
+      margin-left: 0;
+    }
+  }
+
+  &:first-child,
+  &:last-child {
+    display: none;
   }
 
   ${({ active }) =>
     active &&
     css`
       background: white;
+      transition: background 0.1s ease-out;
     `}
 `;
 
@@ -61,7 +70,7 @@ const prevSlide = css`
         `
       : css`
           transform: translateX(-${currentSlide}00%);
-          transition: transform 300ms ease;
+          transition: transform 500ms ease-out;
         `}
 `;
 
@@ -74,13 +83,13 @@ const nextSlide = css`
         `
       : css`
           transform: translateX(-${currentSlide}00%);
-          transition: transform 300ms ease;
+          transition: transform 500ms ease-out;
         `}
 `;
 
 export const SliderContainer = styled.div`
   display: flex;
-  height: 37vh;
+  height: 32vh;
 
   ${({ direction }) =>
     direction === "left"
@@ -90,6 +99,13 @@ export const SliderContainer = styled.div`
       : css`
           ${nextSlide}
         `}
+
+  ${({ direction, currentSlide }) =>
+    direction === "" &&
+    css`
+      transform: translateX(-${currentSlide}00%);
+      transition: transform 550ms ease-out;
+    `}
 `;
 
 //${({ currentSlide }) =>

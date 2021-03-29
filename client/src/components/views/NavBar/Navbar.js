@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import LoggedIn from "./NavItems/LoggedIn";
 import {
@@ -20,10 +20,10 @@ const Navbar = () => {
 
   return (
     <>
-      <IconContext.Provider value={{ color: "#000000" }}>
+      <IconContext.Provider value={{ color: "#5f0080" }}>
         <Nav>
           <NavbarContainer>
-            <NavLogo to="/">Thanks For Traveling</NavLogo>
+            <NavLogo href="/">Thanks For Traveling</NavLogo>
             <MobileIcon onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </MobileIcon>

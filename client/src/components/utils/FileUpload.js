@@ -26,7 +26,6 @@ const FileUpload = ({ updateImage }) => {
   const inputEl = useRef(null);
 
   const handleImageChange = async (e) => {
-    console.dir(e.currentTarget);
     const value = e.target.value.split(/\\/);
     const filename = value[value.length - 1];
     setViewFileNames(filename);
@@ -133,7 +132,6 @@ const FileUpload = ({ updateImage }) => {
           borderRadius: "10px",
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
-          columnGap: "0.6rem",
           rowGap: "0.6rem",
         }}
       >

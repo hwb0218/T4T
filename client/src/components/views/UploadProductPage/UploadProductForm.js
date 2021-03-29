@@ -14,7 +14,7 @@ const UploadProductForm = ({ user, history }) => {
   const { handleSubmit } = methods;
 
   const [images, setImages] = useState([]);
-  console.log(images);
+
   const onSubmit = async (data) => {
     const { title, description, price, category } = data;
 

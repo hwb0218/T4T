@@ -1,21 +1,24 @@
 import React from "react";
-import sliderImages from "./sliderImages";
+import { sliderImages } from "./sliderImages";
 import { Circle } from "./CarouselSlideElements";
 
-const Circles = ({ currentSlide }) => {
+const Circles = ({ currentSlide, clickDot }) => {
   return (
     <div
       style={{
         display: "flex",
         position: "absolute",
         left: "50%",
-        bottom: 0,
+        bottom: -5,
         transform: "translate(-50%, -50%)",
       }}
-      onClick={(e) => console.log(e.target)}
     >
-      {sliderImages.map(({ id }) => (
-        <Circle active={currentSlide === id} key={id}></Circle>
+      {sliderImages.map((x, i) => (
+        <Circle
+          onClick={() => clickDot(i)}
+          active={currentSlide === i}
+          key={i}
+        />
       ))}
     </div>
   );

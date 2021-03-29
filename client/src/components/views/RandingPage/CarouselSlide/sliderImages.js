@@ -4,4 +4,12 @@ import busan from "./images/busan.png";
 import jeonju from "./images/jeonju.png";
 import kangnung from "./images/kangnung.jpg";
 
-export default [jeonju, seoul, jeju, kangnung, busan, jeonju, seoul];
+export const sliderImages = [
+  jeonju,
+  seoul,
+  jeju,
+  kangnung,
+  busan,
+  jeonju,
+  seoul,
+];
