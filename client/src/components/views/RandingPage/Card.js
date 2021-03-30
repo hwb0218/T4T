@@ -5,22 +5,19 @@ const Card = () => {
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(8);
-
+  const [postSize, setPostSize] = useState(0);
+  console.log(postSize);
   useEffect(() => {
-    let data = {
-      skip,
-      limit,
-    };
-    getProducts(data);
+    getProducts();
   }, []);
 
-  const getProducts = async (data) => {
+  const getProducts = async (data = {}) => {
     try {
       const req = await axios.post("/api/product/products", data);
-      console.log(data);
       data.loadMore === true
         ? setProducts([...products, ...req.data.productInfo])
-        : setProducts(req.data.productInfo);
+        : setProducts(req.data.productInfo.slice(0, 8));
+      setPostSize(req.data.postSize);
     } catch (e) {
       console.error(e);
     }
@@ -80,9 +77,11 @@ const Card = () => {
       >
         {renderCards}
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <button onClick={loadMoreHandler}>더보기</button>
-      </div>
+      {postSize > limit && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button onClick={loadMoreHandler}>더보기</button>
+        </div>
+      )}
     </div>
   );
 };
