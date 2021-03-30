@@ -14,7 +14,12 @@ const App = () => {
     <Router>
       <GlobalStyles />
       <Navbar />
-      <div style={{ padding: "25px 0", minHeight: "calc(100vh - 80px)" }}>
+      <div
+        style={{
+          padding: "25px 0",
+          minHeight: "calc(100vh - 80px)",
+        }}
+      >
         <Switch>
           <Route exact path="/" component={Auth(RandingPage, null)} />
           <Route path="/register" component={Auth(RegisterPage, false)} />

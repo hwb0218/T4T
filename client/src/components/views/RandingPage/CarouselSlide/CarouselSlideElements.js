@@ -12,7 +12,7 @@ export const Img = styled.img`
 
 export const Container = styled.div`
   position: relative;
-  width: 100vw;
+  width: 100%;
   overflow: hidden;
 `;
 
@@ -89,7 +89,7 @@ const nextSlide = css`
 
 export const SliderContainer = styled.div`
   display: flex;
-  height: 32vh;
+  height: 30vh;
 
   ${({ direction }) =>
     direction === "left"
