@@ -1,12 +1,12 @@
 import React from "react";
 import CarouselSlide from "./CarouselSlide/CarouselSlide";
-import Card from "./Card";
+import Cards from "./Cards/Cards";
 
 const RandingPage = () => {
   return (
     <>
       <CarouselSlide />
-      <Card />
+      <Cards />
     </>
   );
 };

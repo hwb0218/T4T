@@ -12,8 +12,13 @@ export const Img = styled.img`
 
 export const Container = styled.div`
   position: relative;
-  width: 100%;
+  margin: 0 auto;
+  width: 77%;
   overflow: hidden;
+
+  ${({ theme }) => theme.tablet`
+    width: 100%;
+  `}
 `;
 
 const arrow = css`
@@ -89,7 +94,11 @@ const nextSlide = css`
 
 export const SliderContainer = styled.div`
   display: flex;
-  height: 30vh;
+  height: 50vh;
+
+  ${({ theme }) => theme.tablet`
+    height: 30vh;
+  `}
 
   ${({ direction }) =>
     direction === "left"
@@ -107,14 +116,3 @@ export const SliderContainer = styled.div`
       transition: transform 550ms ease-out;
     `}
 `;
-
-//${({ currentSlide }) =>
-//   currentSlide === (5 || 1)
-//     ? css`
-//         transform: translateX(-${currentSlide}00%);
-//         transition: none;
-//       `
-//     : css`
-//         transform: translateX(-${currentSlide}00%);
-//         transition: transform 500ms ease-in-out;
-//       `}

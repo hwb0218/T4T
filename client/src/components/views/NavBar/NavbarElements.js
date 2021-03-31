@@ -2,16 +2,21 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Container } from "../../../styles/GlobalStyles";
 
+export const Header = styled.header`
+  background-color: #fff;
+`;
+
 export const Nav = styled.nav`
   background-color: #fff;
-  border-bottom: solid 1px #e8e8e8;
-  box-shadow: 0 0 30px #f3f1f1;
-  height: 80px;
+  box-shadow: 0 1px 5px -1px #f3f1f1;
+  height: 65px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
+  font-weight: 600;
   position: sticky;
+  margin-top: 5px;
   top: 0;
   z-index: 10;
 `;
@@ -28,7 +33,7 @@ export const NavbarContainer = styled(Container)`
 export const NavLogo = styled.a`
   color: #5f0080;
   display: flex;
-  justify-self: flex-start;
+  justify-content: center;
   align-items: center;
   font-size: 1.7rem;
   font-weight: bold;
@@ -53,7 +58,7 @@ export const MobileIcon = styled.div`
     top: 0;
     right: 0;
     transform: translate(-100%, 80%);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     cursor: pointer;
     
     &:hover {
@@ -74,7 +79,7 @@ export const NavMenu = styled.ul`
     width: 100%;
     height: 90vh;
     position: absolute;
-    top: 80px;
+    top: 65px;
     left: ${({ click }) => (click ? "0px" : "-100%")};
     opacity: 1;
     transition: all 0.3s ease;
@@ -85,24 +90,25 @@ export const NavMenu = styled.ul`
 export const NavItem = styled.li`
   height: 80px;
 
-  &:hover {
-    opacity: 0.5;
-  }
-
   ${({ theme }) => theme.mobile`
     width: 100%;
   `}
 `;
 
 export const NavLinks = styled(Link)`
-  color: #5f0080;
+  color: #606060;
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;
   height: 100%;
+  font-size: 1rem;
 
   &::selection {
     outline: none;
+  }
+
+  &:hover {
+    color: #5f0080;
   }
 
   ${({ theme }) => theme.mobile`

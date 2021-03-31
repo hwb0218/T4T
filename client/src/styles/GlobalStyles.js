@@ -20,9 +20,8 @@ const GlobalStyles = createGlobalStyle`
 export const Container = styled.div`
   z-index: 1;
   width: 100%;
-  max-width: 1500px;
-  margin-right: auto;
-  margin-left: auto;
+  max-width: 1350px;
+  margin: 0 auto;
   padding: 0 24px;
 `;
 

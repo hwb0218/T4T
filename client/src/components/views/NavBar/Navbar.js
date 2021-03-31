@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import LoggedIn from "./NavItems/LoggedIn";
 import {
+  Header,
   Nav,
   NavbarContainer,
   NavLogo,
@@ -21,9 +22,12 @@ const Navbar = () => {
   return (
     <>
       <IconContext.Provider value={{ color: "#5f0080" }}>
+        <Header>
+          <NavLogo href="/">Thanks For Traveling</NavLogo>
+        </Header>
         <Nav>
           <NavbarContainer>
-            <NavLogo href="/">Thanks For Traveling</NavLogo>
+            <button>상세조건</button>
             <MobileIcon onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </MobileIcon>

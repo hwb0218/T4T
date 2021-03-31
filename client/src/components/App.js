@@ -16,7 +16,7 @@ const App = () => {
       <Navbar />
       <div
         style={{
-          padding: "25px 0",
+          padding: "2.5rem 0",
           minHeight: "calc(100vh - 80px)",
         }}
       >

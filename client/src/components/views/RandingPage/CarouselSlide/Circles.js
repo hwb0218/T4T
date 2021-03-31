@@ -9,8 +9,11 @@ const Circles = ({ currentSlide, clickDot }) => {
         display: "flex",
         position: "absolute",
         left: "50%",
-        bottom: -5,
+        bottom: "-12px",
         transform: "translate(-50%, -50%)",
+        background: "rgba(0, 0, 0, 0.3)",
+        padding: "5px 5px",
+        borderRadius: "25px",
       }}
     >
       {sliderImages.map((x, i) => (
