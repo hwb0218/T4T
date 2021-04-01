@@ -1,15 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { Container } from "../../../styles/GlobalStyles";
-
-export const Header = styled.header`
-  background-color: #fff;
-`;
 
 export const Nav = styled.nav`
   background-color: #fff;
   box-shadow: 0 1px 5px -1px #f3f1f1;
-  height: 65px;
+  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,10 +19,9 @@ export const Nav = styled.nav`
 
 export const NavbarContainer = styled(Container)`
   display: flex;
+  height: 100%;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
-
   ${Container}
 `;
 
@@ -35,27 +30,25 @@ export const NavLogo = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.7rem;
+  font-size: 2.3rem;
   font-weight: bold;
 
   &::selection {
     outline: none;
   }
-
   ${({ theme }) => theme.mobile`
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #5f0080;
   `}
 `;
 
 export const MobileIcon = styled.div`
   display: none;
-
   ${({ theme }) => theme.mobile`
     color: #5f0080;
     display: block;
     position: absolute;
-    top: 0;
+    top: 5px;
     right: 0;
     transform: translate(-100%, 80%);
     font-size: 1.5rem;
@@ -71,7 +64,6 @@ export const NavMenu = styled.ul`
   display: flex;
   align-items: center;
   text-align: center;
-
   ${({ theme }) => theme.mobile`
     background-color: #fff;
     display: block;
@@ -89,7 +81,6 @@ export const NavMenu = styled.ul`
 
 export const NavItem = styled.li`
   height: 80px;
-
   ${({ theme }) => theme.mobile`
     width: 100%;
   `}
@@ -98,10 +89,11 @@ export const NavItem = styled.li`
 export const NavLinks = styled(Link)`
   color: #606060;
   display: flex;
+  justify-content: center;
   align-items: center;
   padding: 0.5rem 1rem;
   height: 100%;
-  font-size: 1rem;
+  font-size: 1.1rem;
 
   &::selection {
     outline: none;
@@ -110,6 +102,12 @@ export const NavLinks = styled(Link)`
   &:hover {
     color: #5f0080;
   }
+
+  ${({ path }) =>
+    path &&
+    css`
+      color: #5f0080;
+    `}
 
   ${({ theme }) => theme.mobile`
     color: #5f0080;
@@ -135,12 +133,10 @@ export const Button = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
-
   &:hover {
     transition: 0.15s all;
     opacity: 0.5;
   }
-
   ${({ theme }) => theme.mobile`
     width: 100%;
     font-size: 20px;

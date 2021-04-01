@@ -5,6 +5,7 @@ const GlobalStyles = createGlobalStyle`
     ${reset}
     * {
         box-sizing: border-box;
+        font-family: 'Noto Sans KR', sans-serif;
     }
     a {
         text-decoration: none;
@@ -13,14 +14,13 @@ const GlobalStyles = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
-        font-family: 'Karla', sans-serif;
     }
 `;
 
 export const Container = styled.div`
   z-index: 1;
   width: 100%;
-  max-width: 1350px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 0 24px;
 `;

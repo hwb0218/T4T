@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 export const CardContainer = styled.ul`
-  margin-top: 30px;
   background: #f2f2f2;
   padding: 30px 30px;
 `;
@@ -96,4 +95,22 @@ export const BtnWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 30px 0 0;
+`;
+
+export const LoadMoreBtn = styled.button`
+  background: #f7f7f7;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 400;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #5f0080;
+    color: white;
+    font-weight: 700;
+    transition: 0.15s all;
+  }
 `;

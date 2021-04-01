@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import {
   CardContainer,
@@ -11,6 +10,7 @@ import {
   ProductTitle,
   ProductDescription,
   BtnWrapper,
+  LoadMoreBtn,
 } from "./CardElements";
 
 const Cards = () => {
@@ -67,7 +67,7 @@ const Cards = () => {
       </CardContainer>
       {postSize > limit && (
         <BtnWrapper>
-          <button onClick={loadMoreHandler}>더보기</button>
+          <LoadMoreBtn onClick={loadMoreHandler}>더보기</LoadMoreBtn>
         </BtnWrapper>
       )}
     </>

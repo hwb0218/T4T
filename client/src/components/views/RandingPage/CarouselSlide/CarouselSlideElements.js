@@ -13,7 +13,7 @@ export const Img = styled.img`
 export const Container = styled.div`
   position: relative;
   margin: 0 auto;
-  width: 77%;
+  width: 100%;
   overflow: hidden;
 
   ${({ theme }) => theme.tablet`
@@ -45,6 +45,7 @@ export const Circle = styled.div`
   height: 18px;
   border: 3px solid white;
   border-radius: 25px;
+  cursor: pointer;
 
   & + & {
     margin-left: 2.5rem;
