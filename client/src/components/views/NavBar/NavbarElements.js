@@ -36,9 +36,13 @@ export const NavLogo = styled.a`
   &::selection {
     outline: none;
   }
+
+  ${({ theme }) => theme.tablet`
+    font-size: 1.9rem;
+  `}
+
   ${({ theme }) => theme.mobile`
     font-size: 1.2rem;
-    color: #5f0080;
   `}
 `;
 

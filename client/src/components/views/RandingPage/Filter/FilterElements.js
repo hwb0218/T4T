@@ -30,13 +30,15 @@ export const CheckBoxes = styled.div`
 `;
 
 export const CheckBox = styled.div`
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
   & + & {
     margin-left: 0.9rem;
   }
-`;
-
-const check = styled(FaCheck)`
-  color: black;
 `;
 
 export const CheckBoxInput = styled.input`
@@ -45,15 +47,49 @@ export const CheckBoxInput = styled.input`
   height: 15px;
   width: 15px;
   background: #e2e2e2;
+  border-radius: 3px;
   margin: 0;
+  cursor: pointer;
 
-  &::after {
-    content: ${check};
+  &:focus {
+    outline: none;
+  }
+
+  &:after {
+    position: relative;
+    bottom: 2px;
+    right: -1px;
+    content: "\f00c";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: white;
+    display: none;
+  }
+
+  &:hover {
+    background: #a5a5a5;
+  }
+
+  &:checked {
+    background: #5f0080;
+    &:after {
+      display: inline-block;
+    }
   }
 `;
 
 export const CheckBoxLabel = styled.label`
+  display: inline-block;
+  color: #4c4c4c;
   font-size: 13px;
-  position: relative;
-  top: -2.5px;
+  cursor: pointer;
+  margin-left: 5px;
+
+  &::before {
+    content: "";
+  }
+
+  &::selection {
+    outline: none;
+  }
 `;

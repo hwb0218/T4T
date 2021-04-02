@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import {
   CardContainer,
@@ -14,6 +15,7 @@ import {
 } from "./CardElements";
 
 const Cards = () => {
+  const filters = useSelector((state) => state.filters);
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(6);
@@ -26,9 +28,11 @@ const Cards = () => {
   const getProducts = async (data = {}) => {
     try {
       const req = await axios.post("/api/product/products", data);
+
       data.loadMore === true
         ? setProducts([...products, ...req.data.productInfo])
         : setProducts(req.data.productInfo.slice(0, 6));
+
       setPostSize(req.data.postSize);
     } catch (e) {
       console.error(e);
@@ -37,13 +41,25 @@ const Cards = () => {
 
   const loadMoreHandler = () => {
     let nextSkip = skip + limit;
+
     let data = {
       skip: nextSkip,
       limit,
       loadMore: true,
     };
+
     getProducts(data);
     setSkip(nextSkip);
+  };
+
+  const showFilteredResults = () => {
+    let data = {
+      skip: 0,
+      limit,
+      filters,
+    };
+    getProducts(data);
+    setSkip(0);
   };
 
   const cardItems = products.map((product, i) => (

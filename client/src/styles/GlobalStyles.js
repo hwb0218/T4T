@@ -6,6 +6,7 @@ const GlobalStyles = createGlobalStyle`
     * {
         box-sizing: border-box;
         font-family: 'Noto Sans KR', sans-serif;
+        word-break: keep-all;
     }
     a {
         text-decoration: none;
