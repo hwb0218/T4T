@@ -83,7 +83,7 @@ export const CheckBoxLabel = styled.label`
   color: #4c4c4c;
   font-size: 13px;
   cursor: pointer;
-  margin-left: 5px;
+  padding-left: 5px;
 
   &::before {
     content: "";
