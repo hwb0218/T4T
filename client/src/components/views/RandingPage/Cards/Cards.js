@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import {
   CardContainer,
   CardList,
@@ -10,57 +9,18 @@ import {
   ProductInfo,
   ProductTitle,
   ProductDescription,
-  BtnWrapper,
-  LoadMoreBtn,
 } from "./CardElements";
 
-const Cards = () => {
+const Cards = ({ products, loading }) => {
   const filters = useSelector((state) => state.filters);
-  const [products, setProducts] = useState([]);
-  const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(6);
-  const [postSize, setPostSize] = useState(0);
-
-  useEffect(() => {
-    const data = {
-      filters,
-    };
-    getProducts(data);
-    setSkip(0);
-  }, [filters]);
-
-  const getProducts = async (data = {}) => {
-    try {
-      const req = await axios.post("/api/product/products", data);
-
-      data.loadMore === true
-        ? setProducts([...products, ...req.data.productInfo])
-        : setProducts(req.data.productInfo.slice(0, 6));
-
-      setPostSize(req.data.postSize);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const loadMoreHandler = () => {
-    let nextSkip = skip + limit;
-
-    let data = {
-      skip: nextSkip,
-      limit,
-      loadMore: true,
-      filters,
-    };
-
-    getProducts(data);
-    setSkip(nextSkip);
-  };
 
   const cardItems = products.map((product, i) => (
     <Card key={i}>
       <ImageWrap destination={product.destination}>
-        <CardImg src={`http://localhost:5000/${product.images[0]}`} alt="a" />
+        <CardImg
+          src={`http://localhost:5000/${product.images[0]}`}
+          alt={product.images[0]}
+        />
       </ImageWrap>
       <ProductInfo>
         <ProductTitle>
@@ -71,16 +31,15 @@ const Cards = () => {
     </Card>
   ));
 
+  if (loading) {
+    return <span>Loading...</span>;
+  }
+
   return (
     <>
       <CardContainer>
         <CardList>{cardItems}</CardList>
       </CardContainer>
-      {postSize > limit && (
-        <BtnWrapper>
-          <LoadMoreBtn onClick={loadMoreHandler}>더보기</LoadMoreBtn>
-        </BtnWrapper>
-      )}
     </>
   );
 };
