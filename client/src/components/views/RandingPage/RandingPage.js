@@ -6,13 +6,12 @@ import Filter from "./Filter/Filter";
 import Cards from "./Cards/Cards";
 import Pagination from "./Pagination/Pagination";
 
-const productsPerPage = 3;
-
 const RandingPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [productsPerPage] = useState(3);
+  //  currentPage, product redux
   const indexOfLastPost = currentPage * productsPerPage;
   const indexOfFirstPost = indexOfLastPost - productsPerPage;
   const currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
@@ -25,6 +24,7 @@ const RandingPage = () => {
   }, []);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const filteredResult = (option) => setProducts(option);
 
   return (
     <>
@@ -32,9 +32,11 @@ const RandingPage = () => {
       <Filter list={destination} />
       <Cards products={currentProducts} loading={loading} />
       <Pagination
+        currentPage={currentPage}
         productsPerPage={productsPerPage}
         totalProducts={products.length}
         paginate={paginate}
+        indexOfLastPost={indexOfLastPost}
       />
     </>
   );
