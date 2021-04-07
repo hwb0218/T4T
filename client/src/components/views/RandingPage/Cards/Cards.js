@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import {
   CardContainer,
   CardList,
@@ -12,8 +11,6 @@ import {
 } from "./CardElements";
 
 const Cards = ({ products, loading }) => {
-  const filters = useSelector((state) => state.filters);
-
   const cardItems = products.map((product, i) => (
     <Card key={i}>
       <ImageWrap destination={product.destination}>

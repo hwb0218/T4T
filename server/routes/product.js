@@ -55,19 +55,22 @@ router.post("/", (req, res) => {
   });
 });
 
-router.get("/products", (req, res) => {
-  // let limit = req.body.limit ? parseInt(req.body.limit) : 7;
-  // let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+router.post("/products", (req, res) => {
+  let findArgs = {};
 
-  // let findArgs = {};
-  // Object.entries(req.body.filters).forEach(([key, value]) => {
-  //   if (value.length > 0) {
-  //     findArgs[key] = value;
-  //   }
-  // });
+  Object.entries(req.body.filters).forEach(([key, value]) => {
+    if (key !== "price" && value.length > 0) {
+      findArgs[key] = value;
+    } else if (key === "price") {
+      findArgs[key] = {
+        $gte: value.length === 0 ? 0 : value[0],
+        $lte: value.length === 0 ? 15000000 : value[1],
+      };
+    }
+  });
 
-  Product.find()
-    .populate("writer")
+  Product.find(findArgs)
+    .populate("seller")
     .exec((err, productInfo) => {
       if (err) {
         return res.status(400).json({ success: false, err });

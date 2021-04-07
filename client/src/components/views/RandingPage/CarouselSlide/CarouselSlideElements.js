@@ -95,7 +95,7 @@ const nextSlide = css`
 
 export const SliderContainer = styled.div`
   display: flex;
-  height: 50vh;
+  height: 40vh;
 
   ${({ theme }) => theme.tablet`
     height: 30vh;

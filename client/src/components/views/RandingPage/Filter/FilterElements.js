@@ -1,17 +1,34 @@
 import styled from "styled-components";
-import { FaCheck } from "react-icons/fa";
 
 export const FilterContainer = styled.div`
   display: flex;
+  width: 100%;
   justify-content: center;
   align-items: center;
   margin: 5px 0;
-  padding: 20px 0;
+  padding: 20px 0 0;
+
+  ${({ theme }) => theme.tablet`
+    display: grid;
+  `}
 `;
 
-export const DestinationWrapper = styled.div`
+export const FilterWrapper = styled.div`
+  width: 28vw;
   border: 1px solid #e2e2e2;
   border-radius: 2px;
+
+  &:nth-child(2) {
+    margin: 0 1.3rem;
+  }
+
+  ${({ theme }) => theme.tablet`
+    width: 85vw;
+    
+    &:nth-child(2) {
+        margin: 0.5rem 0;   
+    }
+  `}
 `;
 
 export const Panel = styled.div`
@@ -24,6 +41,7 @@ export const Panel = styled.div`
 export const CheckBoxes = styled.div`
   display: flex;
   padding: 10px 15px;
+
   & + & {
     margin-left: 0.5rem;
   }
@@ -37,8 +55,14 @@ export const CheckBox = styled.div`
   height: 100%;
 
   & + & {
-    margin-left: 0.9rem;
+    margin-left: 0.6vw;
   }
+
+  ${({ theme }) => theme.mobile`
+        & + & {
+            margin-left: 0.3rem;
+        }
+      `}
 `;
 
 export const CheckBoxInput = styled.input`
@@ -81,9 +105,13 @@ export const CheckBoxInput = styled.input`
 export const CheckBoxLabel = styled.label`
   display: inline-block;
   color: #4c4c4c;
-  font-size: 13px;
+  font-size: 0.9vw;
   cursor: pointer;
   padding-left: 5px;
+
+  ${({ theme }) => theme.tablet`
+    font-size: 15px;
+  `}
 
   &::before {
     content: "";

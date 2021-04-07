@@ -9,9 +9,9 @@ export const CardContainer = styled.ul`
 export const CardList = styled.li`
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(3, 25%);
+  grid-template-columns: repeat(3, 29%);
   row-gap: 1.5rem;
-  column-gap: 1.8rem;
+  column-gap: 1.5rem;
 
   ${({ theme }) => theme.mobile`
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
