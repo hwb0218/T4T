@@ -64,7 +64,7 @@ router.post("/products", (req, res) => {
     } else if (key === "price") {
       findArgs[key] = {
         $gte: value.length === 0 ? 0 : value[0],
-        $lte: value.length === 0 ? 15000000 : value[1],
+        $lte: value.length === 0 ? 1000000000 : value[1],
       };
     }
   });

@@ -7,7 +7,7 @@ export const destination = [
 ];
 
 export const price = [
-  { _id: 0, label: "모두", priceRange: [0, 15000000] },
+  { _id: 0, label: "모두", priceRange: [0, 1000000000] },
   { _id: 1, label: "~20", priceRange: [0, 200000] },
   { _id: 2, label: "20~25", priceRange: [200000, 250000] },
   { _id: 3, label: "25~30", priceRange: [250000, 300000] },

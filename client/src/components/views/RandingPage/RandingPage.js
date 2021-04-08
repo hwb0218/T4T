@@ -21,8 +21,8 @@ const RandingPage = () => {
 
   useEffect(async () => {
     setLoading(true);
-    console.log(filters);
     const res = await axios.post("/api/product/products", { filters });
+    setCurrentPage(1);
     setProducts(res.data.productInfo);
     setLoading(false);
   }, [filters]);

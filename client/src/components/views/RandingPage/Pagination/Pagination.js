@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { PageUl, PageLi, PrevBtn, NextBtn } from "./PaginationElements";
 
 const Pagination = ({
@@ -7,6 +8,8 @@ const Pagination = ({
   totalProducts,
   paginate,
 }) => {
+  const filters = useSelector((state) => state.filters);
+
   const [pageNumberLimit] = useState(3);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(pageNumberLimit);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
@@ -15,6 +18,11 @@ const Pagination = ({
   const pagesNumber = Array(totalPage)
     .fill(0)
     .map((x, i) => i + 1);
+
+  useEffect(() => {
+    setMinPageNumberLimit(0);
+    setMaxPageNumberLimit(pageNumberLimit);
+  }, [filters]);
 
   const handlePrevBtn = () => {
     if (currentPage === 1) return;
