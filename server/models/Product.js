@@ -21,6 +21,12 @@ const productSchema = new Schema(
     destination: {
       type: String,
     },
+    rating: {
+      type: Number,
+      max: 5,
+      min: 0,
+      default: 0,
+    },
     images: {
       type: Array,
       default: [],

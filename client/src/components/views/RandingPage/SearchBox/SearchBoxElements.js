@@ -5,13 +5,16 @@ export const SearchBoxContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 0 0 5px;
-  padding: 0 30px;
+  padding: 0 50px;
+  margin: 0 0 10px;
+
+  ${({ theme }) => theme.tablet`
+    padding: 0 30px;
+  `}
 `;
 
 export const SearchBoxContent = styled.div`
   position: relative;
-  width: 20vw;
   height: 40px;
 `;
 
@@ -26,8 +29,8 @@ export const SearchIcon = styled(FaSearch)`
 export const SearchBoxInput = styled.input`
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
+  width: 250px;
   height: 100%;
   padding: 10px 20px;
   background: #f6f6f6;

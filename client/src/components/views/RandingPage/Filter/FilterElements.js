@@ -5,16 +5,18 @@ export const FilterContainer = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin: 5px 0;
-  padding: 20px 0 0;
+  margin: 10px 0;
+  padding: 20px 50px 0;
 
   ${({ theme }) => theme.tablet`
     display: grid;
+    grid-template-columns: 1fr;
+    padding: 20px 30px 0;
   `}
 `;
 
 export const FilterWrapper = styled.div`
-  width: 28vw;
+  width: 100%;
   border: 1px solid #e2e2e2;
   border-radius: 2px;
 
@@ -23,8 +25,8 @@ export const FilterWrapper = styled.div`
   }
 
   ${({ theme }) => theme.tablet`
-    width: 85vw;
-    
+     width: 100%;
+     
     &:nth-child(2) {
         margin: 0.5rem 0;   
     }

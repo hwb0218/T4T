@@ -47,11 +47,13 @@ const Pagination = ({
       setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
     }
   };
+
   const handleNextGroupBtn = () => {
     paginate(maxPageNumberLimit + 1);
     setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
     setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
   };
+
   const renderPageNumbers = pagesNumber.map((pageNum) => {
     if (pageNum < maxPageNumberLimit + 1 && pageNum > minPageNumberLimit) {
       return (
@@ -66,6 +68,7 @@ const Pagination = ({
       );
     }
   });
+
   return (
     <PageUl>
       {minPageNumberLimit >= 1 ? (

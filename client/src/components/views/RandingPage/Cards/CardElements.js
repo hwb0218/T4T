@@ -9,7 +9,7 @@ export const CardContainer = styled.ul`
 export const CardList = styled.li`
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(3, 29%);
+  grid-template-columns: repeat(3, 31%);
   row-gap: 1.5rem;
   column-gap: 1.5rem;
 

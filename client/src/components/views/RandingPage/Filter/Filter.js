@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { filter } from ".././../../../_actions/filterActions";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { filter } from "../../../../_actions/filterActions";
 import {
   FilterContainer,
   FilterWrapper,
@@ -13,16 +13,15 @@ import {
 
 const Filter = ({ destination, price, rating }) => {
   const dispatch = useDispatch();
-  const [DestinationChecked, setDestinationChecked] = useState([]);
+  const filters = useSelector((state) => state.filters);
 
   const handleToggle = (id) => {
-    let currentIndex = DestinationChecked.indexOf(id);
-    let newChecked =
-      currentIndex === -1
-        ? [...DestinationChecked, id]
-        : DestinationChecked.filter((option) => option !== id);
+    const { destination } = filters;
+    const checked = destination.includes(id);
+    const newChecked = checked
+      ? destination.filter((option) => option !== id)
+      : [...destination, id];
 
-    setDestinationChecked(newChecked);
     dispatch(filter(newChecked, "destination"));
   };
 

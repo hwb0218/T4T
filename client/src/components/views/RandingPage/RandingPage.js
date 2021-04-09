@@ -14,33 +14,46 @@ const RandingPage = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(3);
-  //  currentPage, product redux
+  const [searchedProducts, setSearchedProducts] = useState([]);
+
+  //  currentPage, products redux
   const indexOfLastPost = currentPage * productsPerPage;
   const indexOfFirstPost = indexOfLastPost - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
+  const currentProducts =
+    searchedProducts.length > 0
+      ? searchedProducts.slice(indexOfFirstPost, indexOfLastPost)
+      : products.slice(indexOfFirstPost, indexOfLastPost);
 
-  useEffect(async () => {
-    setLoading(true);
-    const res = await axios.post("/api/product/products", { filters });
-    setCurrentPage(1);
-    setProducts(res.data.productInfo);
-    setLoading(false);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setSearchedProducts([]);
+      setLoading(true);
+      const res = await axios.post("/api/product/products", { filters });
+      setCurrentPage(1);
+      setProducts(res.data.productInfo);
+      setLoading(false);
+    };
+    fetchProducts();
   }, [filters]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const updateProducts = (searchTerm) => setSearchedProducts(searchTerm);
 
   return (
     <>
       <CarouselSlide />
       <Filter destination={destination} price={price} rating={rating} />
-      <SearchBox />
+      <SearchBox products={products} updateProducts={updateProducts} />
       <Cards products={currentProducts} loading={loading} />
       <Pagination
         currentPage={currentPage}
         productsPerPage={productsPerPage}
-        totalProducts={products.length}
+        totalProducts={
+          searchedProducts.length > 0
+            ? searchedProducts.length
+            : products.length
+        }
         paginate={paginate}
-        indexOfLastPost={indexOfLastPost}
       />
     </>
   );

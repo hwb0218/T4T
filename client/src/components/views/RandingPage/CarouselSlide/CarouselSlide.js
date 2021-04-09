@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -11,13 +11,6 @@ import Circles from "./Circles";
 const CarouselSlide = () => {
   const [direction, setDirection] = useState("");
   const [currentSlide, setCurrentSlide] = useState(1);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [currentSlide]);
 
   const debounce = (fn, delay) => {
     let timer;
@@ -41,7 +34,7 @@ const CarouselSlide = () => {
     }, 0);
   };
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setDirection("right");
     setCurrentSlide(currentSlide < 5 ? currentSlide + 1 : 6);
     debounce(() => {
@@ -51,7 +44,14 @@ const CarouselSlide = () => {
         }, 490);
       }
     }, 0);
-  };
+  }, [currentSlide]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [nextSlide]);
 
   const clickDot = (clickDot) => {
     setDirection("");
