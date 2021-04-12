@@ -81,4 +81,17 @@ router.post("/products", (req, res) => {
     });
 });
 
+router.get("/products_by_id", (req, res) => {
+  const { type, id } = req.query;
+
+  Product.find({ _id: id })
+    .populate("seller")
+    .exec((err, product) => {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      return res.status(200).json({ success: true, product });
+    });
+});
+
 module.exports = router;

@@ -18,8 +18,8 @@ const SearchBox = ({ products, updateProducts }) => {
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      const search = products.filter(
-        (product) => product.description.indexOf(searchData) > -1
+      const search = products.filter((product) =>
+        product.description.includes(searchData)
       );
       updateProducts(search);
       dispatch(updateSearchData(""));

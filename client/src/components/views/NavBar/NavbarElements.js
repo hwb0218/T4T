@@ -25,7 +25,7 @@ export const NavbarContainer = styled(Container)`
   ${Container}
 `;
 
-export const NavLogo = styled.a`
+export const NavLogo = styled(Link)`
   color: #5f0080;
   display: flex;
   justify-content: center;

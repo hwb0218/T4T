@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const PageUl = styled.ul`
   display: flex;
@@ -21,12 +22,6 @@ export const PageLi = styled.li`
   border: 1px solid #a5a5a5;
   cursor: pointer;
 
-  ${({ active }) =>
-    active &&
-    css`
-      background: #e2e2e2;
-    `}
-
   &:hover {
     background: #e2e2e2;
   }
@@ -38,6 +33,24 @@ export const PageLi = styled.li`
   & + & {
     border-left: none;
   }
+`;
+
+export const PageLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  &::selection {
+    outline: none;
+  }
+
+  ${({ $active }) =>
+    $active &&
+    css`
+      background: #e2e2e2;
+    `}
 `;
 
 export const PrevBtn = styled(FaChevronLeft)`

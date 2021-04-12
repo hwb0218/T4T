@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { filter } from "../../../../_actions/filterActions";
 import {
   FilterContainer,
@@ -11,7 +12,7 @@ import {
   CheckBox,
 } from "./FilterElements";
 
-const Filter = ({ destination, price, rating }) => {
+const Filter = ({ destination, price, rating, history }) => {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters);
 
@@ -23,10 +24,12 @@ const Filter = ({ destination, price, rating }) => {
       : [...destination, id];
 
     dispatch(filter(newChecked, "destination"));
+    history.push("/");
   };
 
   const handleChange = (priceRange) => {
     dispatch(filter(priceRange, "price"));
+    history.push("/");
   };
 
   return (
@@ -40,6 +43,7 @@ const Filter = ({ destination, price, rating }) => {
                 onChange={() => handleToggle(_id)}
                 type="checkbox"
                 id={_id}
+                checked={filters.destination.includes(_id)}
               />
               <CheckBoxLabel htmlFor={_id}>{` ${city}`}</CheckBoxLabel>
             </CheckBox>
@@ -56,7 +60,12 @@ const Filter = ({ destination, price, rating }) => {
                 type="radio"
                 id={label}
                 name="checkPrice"
-                defaultChecked={_id === 0}
+                // checked={filters.price === priceRange}
+                checked={
+                  filters.price.length < 1
+                    ? _id === 0
+                    : filters.price === priceRange
+                }
               />
               <CheckBoxLabel htmlFor={label}>{` ${label}`}</CheckBoxLabel>
             </CheckBox>
@@ -78,4 +87,4 @@ const Filter = ({ destination, price, rating }) => {
   );
 };
 
-export default Filter;
+export default withRouter(Filter);

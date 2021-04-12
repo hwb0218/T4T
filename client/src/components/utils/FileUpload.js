@@ -11,6 +11,7 @@ import {
   CancelBtn,
   FileName,
   CustomBtn,
+  PreviewImagesWrapper,
 } from "./FileUploadElements";
 import { FaCloudUploadAlt, FaTimes } from "react-icons/fa";
 
@@ -124,19 +125,9 @@ const FileUpload = ({ updateImage }) => {
           추가
         </CustomBtn>
       </div>
-      <div
-        style={{
-          width: "100%",
-          height: "165px",
-          border: "2px dashed #c2cdda",
-          borderRadius: "10px",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          rowGap: "0.6rem",
-        }}
-      >
+      <PreviewImagesWrapper>
         <Images images={images} deleteImage={deleteImage} />
-      </div>
+      </PreviewImagesWrapper>
     </div>
   );
 };

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
+import queryString from "query-string";
 import { useSelector } from "react-redux";
 import { destination, price, rating } from "./Filter/Datas";
 import CarouselSlide from "./CarouselSlide/CarouselSlide";
@@ -8,14 +10,14 @@ import Cards from "./Cards/Cards";
 import Pagination from "./Pagination/Pagination";
 import SearchBox from "./SearchBox/SearchBox";
 
-const RandingPage = () => {
+const RandingPage = ({ location }) => {
+  const query = queryString.parse(location.search);
   const filters = useSelector((state) => state.filters);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(3);
   const [searchedProducts, setSearchedProducts] = useState([]);
-
   //  currentPage, products redux
   const indexOfLastPost = currentPage * productsPerPage;
   const indexOfFirstPost = indexOfLastPost - productsPerPage;
@@ -29,7 +31,7 @@ const RandingPage = () => {
       setSearchedProducts([]);
       setLoading(true);
       const res = await axios.post("/api/product/products", { filters });
-      setCurrentPage(1);
+      setCurrentPage(query.page ? Number(query.page) : 1);
       setProducts(res.data.productInfo);
       setLoading(false);
     };
@@ -59,4 +61,4 @@ const RandingPage = () => {
   );
 };
 
-export default RandingPage;
+export default withRouter(RandingPage);

@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { PageUl, PageLi, PrevBtn, NextBtn } from "./PaginationElements";
+import {
+  PageUl,
+  PageLi,
+  PageLink,
+  PrevBtn,
+  NextBtn,
+} from "./PaginationElements";
+import { withRouter } from "react-router-dom";
 
 const Pagination = ({
   currentPage,
   productsPerPage,
   totalProducts,
   paginate,
+  match,
 }) => {
   const filters = useSelector((state) => state.filters);
 
@@ -53,17 +61,17 @@ const Pagination = ({
     setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
     setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
   };
-
   const renderPageNumbers = pagesNumber.map((pageNum) => {
     if (pageNum < maxPageNumberLimit + 1 && pageNum > minPageNumberLimit) {
       return (
-        <PageLi
-          key={pageNum}
-          id={pageNum}
-          active={pageNum === currentPage}
-          onClick={() => paginate(pageNum)}
-        >
-          {pageNum}
+        <PageLi key={pageNum}>
+          <PageLink
+            to={`${match.url}?page=${pageNum}`}
+            onClick={() => paginate(pageNum)}
+            $active={pageNum === currentPage}
+          >
+            {pageNum}
+          </PageLink>
         </PageLi>
       );
     }
@@ -92,4 +100,4 @@ const Pagination = ({
   );
 };
 
-export default Pagination;
+export default withRouter(Pagination);

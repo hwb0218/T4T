@@ -34,12 +34,13 @@ export const Image = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  min-width: 280px;
 `;
 
 export const Img = styled.img`
   width: 100%;
-  min-width: 280px;
   height: 100%;
+  object-fit: cover;
 `;
 
 export const ContentIcon = styled.div`
@@ -91,4 +92,14 @@ export const CustomBtn = styled.button`
   &:focus {
     outline: none;
   }
+`;
+
+export const PreviewImagesWrapper = styled.div`
+  width: 100%;
+  height: 165px;
+  border: 2px dashed #c2cdda;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 0.6rem;
 `;

@@ -12,7 +12,7 @@ import {
 
 const Cards = ({ products, loading }) => {
   const cardItems = products.map((product, i) => (
-    <Card key={i}>
+    <Card to={`/product/${product._id}`} key={i}>
       <ImageWrap destination={product.destination}>
         <CardImg
           src={`http://localhost:5000/${product.images[0]}`}
@@ -23,7 +23,7 @@ const Cards = ({ products, loading }) => {
         <ProductTitle>
           <span>{product.title}</span>
         </ProductTitle>
-        <ProductDescription>{product.price}</ProductDescription>
+        <ProductDescription>{`${product.price}원`}</ProductDescription>
       </ProductInfo>
     </Card>
   ));

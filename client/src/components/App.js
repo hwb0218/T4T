@@ -7,6 +7,7 @@ import RegisterPage from "./views/RegisterPage/RegisterPage";
 import LoginPage from "./views/LoginPage/LoginPage";
 import Navbar from "./views/NavBar/Navbar";
 import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
+import DetailProductPage from "./views/DetailProductPage/DetailProductPage";
 import GlobalStyles from "../styles/GlobalStyles";
 
 const App = () => {
@@ -28,6 +29,10 @@ const App = () => {
             path="/product/upload"
             component={Auth(UploadProductPage, true)}
           />
+          <Route
+            path="/product/:productId"
+            component={Auth(DetailProductPage, null)}
+          ></Route>
         </Switch>
       </div>
     </Router>
