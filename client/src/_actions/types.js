@@ -3,7 +3,8 @@ const REGISTER_USER = "register_user";
 const AUTH_USER = "auth_user";
 const LOGOUT_USER = "logout_user";
 const FILTER = "filter";
-const SEARCH_DATA = "search_data";
+const SEARCH_TERM = "search_term";
+const COMMENTS = "comments";
 
 export {
   LOGOUT_USER,
@@ -11,5 +12,6 @@ export {
   REGISTER_USER,
   AUTH_USER,
   FILTER,
-  SEARCH_DATA,
+  SEARCH_TERM,
+  COMMENTS,
 };

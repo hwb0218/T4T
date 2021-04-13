@@ -3,10 +3,13 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 import ProductImage from "./ProductImage/ProductImage";
 import ProductInfo from "./ProductInfo/ProductInfo";
+import Comment from "./Comment/Comment";
 import styled from "styled-components";
 
 const DetailProductPageContainer = styled.div`
+  max-width: 1000px;
   width: 100%;
+  margin: 0 auto;
   padding: 0 4rem;
 
   ${({ theme }) => theme.mobile`
@@ -39,6 +42,7 @@ const DetailProductPage = ({ match }) => {
     <DetailProductPageContainer>
       {product && <ProductImage detail={product} />}
       <ProductInfo detail={product} />
+      <Comment />
     </DetailProductPageContainer>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const ProductImageContainer = styled.div`
   display: flex;
@@ -9,6 +9,7 @@ const ProductImageContainer = styled.div`
 
 const OriginalImg = styled.img`
   max-width: 550px;
+  width: 100%;
   margin-right: 1rem;
   object-fit: cover;
 `;
@@ -30,16 +31,15 @@ const Thumbnail = styled.div`
 `;
 
 const ThumbnailImages = styled.img`
-  display: block;
-  max-width: 230px;
+  max-width: 300px;
   width: 100%;
   height: 100%;
   object-fit: cover;
   cursor: pointer;
-  transition: all 0.15s linear;
+  transition: all 0.1s linear;
 
   &:hover {
-    transform: scale(1.08);
+    transform: scale(1.05);
   }
 `;
 

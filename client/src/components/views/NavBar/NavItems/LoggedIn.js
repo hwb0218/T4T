@@ -5,8 +5,8 @@ import { logoutUser } from "../../../../_actions/userActions";
 import { NavItem, NavLinks } from "../NavbarElements";
 
 const navItems = [
-  { 결제내역: "/history" },
   { 업로드: "/product/upload" },
+  { 주문정보: "/history" },
   { 장바구니: "/user/cart" },
   { 로그아웃: "/logout" },
 ];

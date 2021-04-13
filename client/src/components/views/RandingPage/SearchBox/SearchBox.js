@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSearchData } from "../../../../_actions/searchDataActions";
+import { updateSearchTerm } from "../../../../_actions/searchTermActions";
 import {
   SearchBoxContainer,
   SearchBoxContent,
@@ -12,8 +12,8 @@ const SearchBox = ({ products, updateProducts }) => {
   const searchData = useSelector((state) => state.searchData);
   const dispatch = useDispatch();
 
-  const handleSearchData = (e) => {
-    dispatch(updateSearchData(e.target.value));
+  const handleSearchTerm = (e) => {
+    dispatch(updateSearchTerm(e.target.value));
   };
 
   const handleKeyPress = (e) => {
@@ -22,7 +22,7 @@ const SearchBox = ({ products, updateProducts }) => {
         product.description.includes(searchData)
       );
       updateProducts(search);
-      dispatch(updateSearchData(""));
+      dispatch(updateSearchTerm(""));
     }
   };
 
@@ -33,7 +33,7 @@ const SearchBox = ({ products, updateProducts }) => {
         <SearchBoxInput
           type="text"
           value={searchData}
-          onChange={handleSearchData}
+          onChange={handleSearchTerm}
           placeholder="Search"
           onKeyPress={handleKeyPress}
         />
