@@ -10,6 +10,7 @@ export const Form = styled.form`
 `;
 
 export const PTag = styled.p`
+  margin-top: 5px;
   color: #bf1650;
 
   &::before {
@@ -25,7 +26,6 @@ export const Input = styled.input`
   border: none;
   border-bottom: 1px solid #5f0080;
   padding: 10px 15px;
-  margin-bottom: 10px;
   font-size: 14px;
 
   &:focus {
@@ -36,7 +36,7 @@ export const Input = styled.input`
 export const Textarea = styled.textarea`
   display: block;
   width: 100%;
-  height: 50px;
+  height: 100%;
   background-color: white;
   border: 1px solid #5f0080;
   border-radius: 2px;
@@ -54,8 +54,7 @@ export const Label = styled.label`
   line-height: 2;
   text-align: left;
   display: block;
-  margin-bottom: 13px;
-  margin-top: 20px;
+  margin-bottom: 5px;
   font-size: 14px;
   font-weight: 200;
 `;

@@ -46,7 +46,7 @@ export const OptionsContainer = styled.div`
 export const Selected = styled.div`
   background: #5f0080;
   border-radius: 8px;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
   color: #f5f6fa;
   padding: 12px 24px;
   cursor: pointer;

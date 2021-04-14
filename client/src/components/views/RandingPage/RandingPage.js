@@ -12,7 +12,9 @@ import SearchBox from "./SearchBox/SearchBox";
 
 const RandingPage = ({ location }) => {
   const query = queryString.parse(location.search);
+
   const filters = useSelector((state) => state.filters);
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);

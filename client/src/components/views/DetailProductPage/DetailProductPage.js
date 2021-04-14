@@ -22,7 +22,7 @@ const DetailProductPage = ({ match }) => {
 
   const [product, setProduct] = useState("");
 
-  useEffect(async () => {
+  useEffect(() => {
     const getProduct = async () => {
       try {
         const res = await axios.get(
@@ -36,13 +36,13 @@ const DetailProductPage = ({ match }) => {
       }
     };
     getProduct();
-  }, []);
+  }, [productId]);
 
   return (
     <DetailProductPageContainer>
       {product && <ProductImage detail={product} />}
       <ProductInfo detail={product} />
-      <Comment />
+      <Comment productId={productId} />
     </DetailProductPageContainer>
   );
 };

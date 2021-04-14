@@ -26,6 +26,7 @@ const Images = ({ images, deleteImage }) => {
         <ImageWrapper key={id}>
           <img
             src={previewImage}
+            alt={previewImage}
             style={{
               width: "100%",
               height: "100%",
