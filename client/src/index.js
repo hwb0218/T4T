@@ -9,23 +9,24 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import promiseMiddleWare from "redux-promise";
 import ReduxThunk from "redux-thunk";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import { composeWithDevTools } from "redux-devtools-extension/index";
 
-const createStoreWithMiddleware = applyMiddleware(
-  promiseMiddleWare,
-  ReduxThunk
-)(createStore);
+const store = createStore(
+  Reducer,
+  composeWithDevTools(applyMiddleware(promiseMiddleWare, ReduxThunk))
+);
+
+const persistor = persistStore(store);
 
 ReactDOM.render(
-  <Provider
-    store={createStoreWithMiddleware(
-      Reducer,
-      window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
-    )}
-  >
-    <Theme>
-      <App />
-    </Theme>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <Theme>
+        <App />
+      </Theme>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );

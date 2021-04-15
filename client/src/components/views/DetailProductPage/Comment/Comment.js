@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import axios from "axios";
@@ -68,17 +68,29 @@ const Btn = styled.button`
 `;
 
 const Comment = ({ productId }) => {
+  const commentBox = useRef(null);
   const user = useSelector((state) => state.user);
-
   const [commentValue, setCommentValue] = useState("");
+  const [commentLists, setCommentLists] = useState([]);
   const [showBtn, setShowBtn] = useState(false);
 
   const handleComment = (e) => {
     setCommentValue(e.currentTarget.textContent);
   };
 
+  useEffect(() => {
+    const getComments = async () => {
+      const res = await axios.post("/api/comment/getComments", { productId });
+      if (res.data.success) {
+        setCommentLists(res.data.comments);
+      }
+    };
+    getComments();
+  }, []);
+
   const handleKeyPress = async (e) => {
     if (e.key === "Enter") {
+      e.target.textContent = "";
       e.preventDefault();
 
       const variables = {
@@ -89,8 +101,7 @@ const Comment = ({ productId }) => {
 
       const res = await axios.post("/api/comment/saveComment", variables);
       if (res.data.success) {
-        console.log(res.data.result);
-        e.target.textContent = "";
+        setCommentLists(commentLists.concat(res.data.result));
       }
     }
   };
@@ -99,11 +110,16 @@ const Comment = ({ productId }) => {
     handleKeyPress();
   };
 
+  const handleClickCancel = () => {
+    setShowBtn(false);
+    commentBox.current.textContent = "";
+  };
+
   return (
     <CommentContainer>
-      <TotalComment>후기 0개</TotalComment>
+      <TotalComment>후기 {commentLists.length}개</TotalComment>
       <CommentContent>
-        <Writer>{user.userData.name}</Writer>
+        <Writer>{user === {} ? "" : user.userData.name}</Writer>
         <CommentBox
           placeholder="댓글을 입력하세요."
           contentEditable
@@ -112,10 +128,11 @@ const Comment = ({ productId }) => {
           onKeyPress={handleKeyPress}
           showBtn={showBtn}
           spellCheck={false}
+          ref={commentBox}
         />
         {showBtn ? (
           <BtnWrapper>
-            <Btn onClick={() => setShowBtn(false)}>취소</Btn>
+            <Btn onClick={handleClickCancel}>취소</Btn>
             <Btn onClick={handleSubmit}>댓글</Btn>
           </BtnWrapper>
         ) : null}
