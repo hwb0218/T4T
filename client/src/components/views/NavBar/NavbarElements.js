@@ -12,7 +12,6 @@ export const Nav = styled.nav`
   font-size: 1.2rem;
   font-weight: 600;
   position: sticky;
-  margin-top: 5px;
   top: 0;
   z-index: 10;
 `;
@@ -30,7 +29,7 @@ export const NavLogo = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   font-weight: bold;
 
   &::selection {

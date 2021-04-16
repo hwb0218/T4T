@@ -1,5 +1,8 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { addToCart } from "../../../../_actions/userActions";
 import styled from "styled-components";
+import axios from "axios";
 
 const ProductInfoContainer = styled.div`
   max-width: 900px;
@@ -32,18 +35,24 @@ const TitleBox = styled.span`
 `;
 
 const ProductTit = styled.p`
-  font-weight: 600;
   width: 115px;
-  letter-spacing: 1.5px;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  font-weight: bold;
 `;
 
 const ProductContent = styled.p`
   width: 115px;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.5px;
+  font-size: 13px;
+  font-weight: bold;
 `;
 
 const ProductDescription = styled.div`
   min-width: 320px;
+  font-weight: bold;
+  font-size: 13px;
 `;
 
 const BtnWrapper = styled.div`
@@ -79,7 +88,23 @@ const Btn = styled.button`
   }
 `;
 
-const ProductInfo = ({ detail }) => {
+const ProductInfo = ({ detail, productId }) => {
+  // const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  const handleCartBtn = async () => {
+    const data = {
+      user: user.userData._id,
+      productId,
+    };
+    const res = await axios.post("/api/cart/addToCart", data);
+    console.log(res.data);
+    // const res = await dispatch(addToCart(detail._id));
+    // if (res.payload.duplicate) {
+    //   alert("이미 장바구니에 있는 상품입니다.");
+    // }
+  };
+
   return (
     <ProductInfoContainer>
       <TitleBox>Product Info</TitleBox>
@@ -109,7 +134,7 @@ const ProductInfo = ({ detail }) => {
         </ul>
         <ProductDescription>{detail.description}</ProductDescription>
         <BtnWrapper>
-          <Btn>장바구니</Btn>
+          <Btn onClick={handleCartBtn}>장바구니</Btn>
           <Btn>결제하기</Btn>
         </BtnWrapper>
       </ProductInfoWrapper>

@@ -9,6 +9,7 @@ import Navbar from "./views/NavBar/Navbar";
 import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
 import DetailProductPage from "./views/DetailProductPage/DetailProductPage";
 import GlobalStyles from "../styles/GlobalStyles";
+import CartPage from "./views/CartPage/CartPage";
 
 const App = () => {
   return (
@@ -32,7 +33,8 @@ const App = () => {
           <Route
             path="/product/:productId"
             component={Auth(DetailProductPage, null)}
-          ></Route>
+          />
+          <Route path="/user/cart" component={Auth(CartPage, true)} />
         </Switch>
       </div>
     </Router>

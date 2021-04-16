@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import axios from "axios";
+import CommentLists from "../CommentLists/CommentLists";
 
-const CommentContainer = styled.div`
+const CommentWrapper = styled.div`
   margin-top: 1rem;
 `;
 
@@ -47,6 +48,7 @@ const CommentBox = styled.div`
 const BtnWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 1rem;
 `;
 
 const Btn = styled.button`
@@ -68,8 +70,9 @@ const Btn = styled.button`
 `;
 
 const Comment = ({ productId }) => {
-  const commentBox = useRef(null);
   const user = useSelector((state) => state.user);
+  const commentBox = useRef(null);
+
   const [commentValue, setCommentValue] = useState("");
   const [commentLists, setCommentLists] = useState([]);
   const [showBtn, setShowBtn] = useState(false);
@@ -86,10 +89,10 @@ const Comment = ({ productId }) => {
       }
     };
     getComments();
-  }, []);
+  }, [productId]);
 
   const handleKeyPress = async (e) => {
-    if (e.key === "Enter") {
+    if (e.target.textContent != "" && e.key === "Enter") {
       e.target.textContent = "";
       e.preventDefault();
 
@@ -102,6 +105,7 @@ const Comment = ({ productId }) => {
       const res = await axios.post("/api/comment/saveComment", variables);
       if (res.data.success) {
         setCommentLists(commentLists.concat(res.data.result));
+        setCommentValue("");
       }
     }
   };
@@ -116,10 +120,10 @@ const Comment = ({ productId }) => {
   };
 
   return (
-    <CommentContainer>
+    <CommentWrapper>
       <TotalComment>후기 {commentLists.length}개</TotalComment>
       <CommentContent>
-        <Writer>{user === {} ? "" : user.userData.name}</Writer>
+        <Writer>{user.userData.name}</Writer>
         <CommentBox
           placeholder="댓글을 입력하세요."
           contentEditable
@@ -137,8 +141,9 @@ const Comment = ({ productId }) => {
           </BtnWrapper>
         ) : null}
       </CommentContent>
-    </CommentContainer>
+      <CommentLists commentLists={commentLists} />
+    </CommentWrapper>
   );
 };
 
-export default Comment;
+export default React.memo(Comment);

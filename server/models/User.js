@@ -27,6 +27,14 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
+  cart: {
+    type: Array,
+    default: [],
+  },
+  history: {
+    type: Array,
+    default: [],
+  },
   image: String,
   token: {
     type: String,

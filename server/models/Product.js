@@ -25,7 +25,6 @@ const productSchema = new Schema(
       type: Number,
       max: 5,
       min: 0,
-      default: 0,
     },
     images: {
       type: Array,
