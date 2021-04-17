@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { addToCart } from "../../../../_actions/userActions";
+import { withRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 
 const ProductInfoContainer = styled.div`
-  max-width: 900px;
-  margin: 1rem auto 0;
+  max-width: 950px;
+  margin-top: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #e2e2e2;
 `;
@@ -88,21 +88,40 @@ const Btn = styled.button`
   }
 `;
 
-const ProductInfo = ({ detail, productId }) => {
-  // const dispatch = useDispatch();
+const ProductInfo = ({ detail, productId, history }) => {
   const user = useSelector((state) => state.user);
 
-  const handleCartBtn = async () => {
+  const isConfirm = (confirm, path) => {
+    if (confirm) {
+      history.push(path);
+    }
+  };
+
+  const addToCart = async () => {
     const data = {
       user: user.userData._id,
       productId,
     };
     const res = await axios.post("/api/cart/addToCart", data);
-    console.log(res.data);
-    // const res = await dispatch(addToCart(detail._id));
-    // if (res.payload.duplicate) {
-    //   alert("이미 장바구니에 있는 상품입니다.");
-    // }
+    if (res.data.duplicate) {
+      alert("이미 장바구니에 있는 상품입니다.");
+    }
+    if (res.data.success) {
+      const message =
+        "장바구니에 상품이 담겼습니다. 장바구니로 이동하시겠습니까?";
+      const confirm = window.confirm(message);
+      isConfirm(confirm, "/user/cart");
+    }
+  };
+
+  const handleCartBtn = () => {
+    if (user.userData.isAuth) {
+      addToCart();
+    } else {
+      const message = "로그인이 필요한 서비스입니다. 로그인 하시겠습니까?";
+      const confirm = window.confirm(message);
+      isConfirm(confirm, "/login");
+    }
   };
 
   return (
@@ -142,4 +161,4 @@ const ProductInfo = ({ detail, productId }) => {
   );
 };
 
-export default ProductInfo;
+export default withRouter(ProductInfo);

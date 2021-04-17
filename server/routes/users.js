@@ -75,43 +75,43 @@ router.get("/logout", auth, (req, res) => {
   );
 });
 
-router.post("/addToCart", auth, (req, res) => {
-  User.findOne({ _id: req.user._id }, (err, userInfo) => {
-    let duplicate = false;
-    userInfo.cart.forEach((cartItem) => {
-      if (cartItem.id === req.body.productId) {
-        duplicate = true;
-        return res.json({ duplicate });
-      }
-    });
-
-    if (err) {
-      return res.json({
-        addToCartSuccess: false,
-        message: "유저를 찾을 수 없습니다.",
-      });
-    }
-
-    if (!duplicate) {
-      User.findOneAndUpdate(
-        { _id: req.user._id },
-        {
-          $push: {
-            cart: { id: req.body.productId, quantity: 1, date: Date.now() },
-          },
-        },
-        { new: true },
-        (err, result) => {
-          if (err) {
-            return res.status(400).json({ addToCartSuccess: false, err });
-          }
-          return res
-            .status(200)
-            .json({ addToCartSuccess: true, result: result.cart });
-        }
-      );
-    }
-  });
-});
+// router.post("/addToCart", auth, (req, res) => {
+//   User.findOne({ _id: req.user._id }, (err, userInfo) => {
+//     let duplicate = false;
+//     userInfo.cart.forEach((cartItem) => {
+//       if (cartItem.id === req.body.productId) {
+//         duplicate = true;
+//         return res.json({ duplicate });
+//       }
+//     });
+//
+//     if (err) {
+//       return res.json({
+//         addToCartSuccess: false,
+//         message: "유저를 찾을 수 없습니다.",
+//       });
+//     }
+//
+//     if (!duplicate) {
+//       User.findOneAndUpdate(
+//         { _id: req.user._id },
+//         {
+//           $push: {
+//             cart: { id: req.body.productId, quantity: 1, date: Date.now() },
+//           },
+//         },
+//         { new: true },
+//         (err, result) => {
+//           if (err) {
+//             return res.status(400).json({ addToCartSuccess: false, err });
+//           }
+//           return res
+//             .status(200)
+//             .json({ addToCartSuccess: true, result: result.cart });
+//         }
+//       );
+//     }
+//   });
+// });
 
 module.exports = router;

@@ -82,13 +82,9 @@ router.post("/products", (req, res) => {
 });
 
 router.get("/products_by_id", (req, res) => {
-  let { type, id } = req.query;
+  let { id } = req.query;
 
-  if (type === "array") {
-    id = id.split(",");
-  }
-
-  Product.find({ _id: { $in: id } })
+  Product.find({ _id: id })
     .populate("seller")
     .exec((err, product) => {
       if (err) {

@@ -11,7 +11,7 @@ router.post("/addToCart", auth, (req, res) => {
       return res.json({ success: false, err });
     }
     if (item) {
-      return res.json({ success: false, message: "이미 저장되었습니다." });
+      return res.json({ duplicate: true, message: "이미 저장되었습니다." });
     } else {
       const cart = new Cart(req.body);
 
@@ -31,6 +31,17 @@ router.post("/addToCart", auth, (req, res) => {
       });
     }
   });
+});
+
+router.post("/getCartItems", (req, res) => {
+  Cart.find({ user: req.body.userId })
+    .populate("productId")
+    .exec((err, cart) => {
+      if (err) {
+        return res.status(400).json({ success: false, err });
+      }
+      return res.status(200).json({ success: true, cart });
+    });
 });
 
 module.exports = router;
