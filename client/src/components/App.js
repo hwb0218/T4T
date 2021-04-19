@@ -19,7 +19,7 @@ const App = () => {
       <div
         style={{
           padding: "2.5rem 0",
-          minHeight: "calc(100vh - 80px)",
+          minHeight: "100vh",
         }}
       >
         <Switch>

@@ -1,81 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import styled from "styled-components";
+import {
+  CartPageContainer,
+  Table,
+  Thead,
+  TableRow,
+  TableData,
+  ProductWrap,
+  ProductThumb,
+  ProductTitle,
+  RemoveBtn,
+  ThumbImg,
+  OrderCalculator,
+  PaymentButton,
+  TotalPrice,
+} from "./CartPageElements";
 
 const API_URL = process.env["REACT_APP_API_URL"];
-
-const CartPageContainer = styled.main`
-  max-width: 900px;
-  width: 100%;
-  margin: 0 auto;
-
-  ${({ theme }) => theme.tablet`
-    max-width: 700px;
-    width: 100%;
-    padding: 0 25px;
-  `};
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-spacing: 0;
-`;
-
-const Thead = styled.thead`
-  background: #f7f7f7;
-  border-bottom: 1px solid #e2e2e2;
-  line-height: 48px;
-  font-size: 15px;
-  font-weight: bold;
-`;
-
-const TableRow = styled.tr`
-  & + & {
-    border-top: 1px solid #e2e2e2;
-  }
-
-  &:last-child {
-    border-bottom: 2px solid #383d4a;
-  }
-`;
-
-const ProductWrap = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding: 0 55px 0 115px;
-  margin: 5px 0;
-  min-height: 100px;
-`;
-
-const ProductThumb = styled.span`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100px;
-  height: 100px;
-  cursor: pointer;
-`;
-
-const RemoveBtn = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
-
-const ThumbImg = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
-`;
-
-const ProductDescription = styled.div``;
 
 const CartPage = () => {
   const user = useSelector((state) => state.user);
   const { userData } = user;
   const [cartItems, setCartItems] = useState([]);
+  const [checkedItems, setCheckedItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const getCartItems = async () => {
@@ -87,20 +36,18 @@ const CartPage = () => {
     getCartItems();
   }, []);
 
+  const handleToggle = (id) => {
+    console.log(id);
+    const checked = cartItems.filter(({ _id }) => _id === id);
+  };
+
   return (
     <CartPageContainer>
       <Table>
         <Thead>
           <tr>
-            <th align="center">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                }}
-              >
+            <th style={{ textAlign: "center" }}>
+              <div>
                 <input type="checkbox" />
               </div>
             </th>
@@ -111,38 +58,45 @@ const CartPage = () => {
         </Thead>
         <tbody>
           {cartItems.map((item) => (
-            <TableRow>
-              <td style={{ verticalAlign: "middle" }} align="center" width="50">
+            <TableRow key={item._id}>
+              <td style={{ verticalAlign: "middle", textAlign: "center" }}>
                 <div>
-                  <input type="checkbox" />
+                  <input
+                    onChange={() => handleToggle(item._id)}
+                    type="checkbox"
+                  />
                 </div>
               </td>
-              <td width="300">
+              <TableData>
                 <ProductWrap>
-                  <ProductDescription>
-                    <ProductThumb>
-                      <ThumbImg
-                        src={`http://localhost:5000/${item.productId.images[0]}`}
-                        alt={item.productId.title}
-                      />
-                    </ProductThumb>
-                    <span style={{ display: "inline-block" }}>
-                      {item.productId.title}
-                    </span>
-                  </ProductDescription>
+                  <ProductThumb>
+                    <ThumbImg
+                      src={`${API_URL}${item.productId.images[0]}`}
+                      alt={item.productId.title}
+                    />
+                  </ProductThumb>
+                  <ProductTitle>{item.productId.title}</ProductTitle>
                   <RemoveBtn>삭제</RemoveBtn>
                 </ProductWrap>
-              </td>
-              <td align="center">
+              </TableData>
+              <TableData data-th="주문갯수">
                 <span>{item.quantity}</span>
-              </td>
-              <td align="center">
-                <span>{item.productId.price}</span>
-              </td>
+              </TableData>
+              <TableData data-th="상품금액">
+                <span>{item.productId.price}원</span>
+              </TableData>
             </TableRow>
           ))}
         </tbody>
       </Table>
+      <OrderCalculator>
+        <TotalPrice>
+          총 주문금액 <span>{totalPrice}원</span>
+        </TotalPrice>
+        <div>
+          <PaymentButton>결제하기</PaymentButton>
+        </div>
+      </OrderCalculator>
     </CartPageContainer>
   );
 };
