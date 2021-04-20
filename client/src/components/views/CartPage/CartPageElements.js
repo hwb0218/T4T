@@ -154,3 +154,40 @@ export const PaymentButton = styled.button`
     margin: 0;
   `}
 `;
+
+export const CheckBoxInput = styled.input`
+  appearance: none;
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  background: #e2e2e2;
+  border-radius: 3px;
+  margin: 0;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:after {
+    position: relative;
+    bottom: 2px;
+    right: -1px;
+    content: "\f00c";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: white;
+    display: none;
+  }
+
+  &:hover {
+    background: #a5a5a5;
+  }
+
+  &:checked {
+    background: #5f0080;
+    &:after {
+      display: inline-block;
+    }
+  }
+`;

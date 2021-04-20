@@ -5,6 +5,7 @@ import ProductImage from "./ProductImage/ProductImage";
 import ProductInfo from "./ProductInfo/ProductInfo";
 import Comment from "./Comment/Comment";
 import styled from "styled-components";
+import useFullPageLoader from "../../../hooks/useFullPageLoader";
 
 const DetailProductPageContainer = styled.div`
   max-width: 900px;
@@ -14,6 +15,7 @@ const DetailProductPageContainer = styled.div`
 `;
 
 const DetailProductPage = ({ match }) => {
+  const [loader, showLoader, hideLoader] = useFullPageLoader();
   const { productId } = match.params;
 
   const [product, setProduct] = useState("");
@@ -21,9 +23,11 @@ const DetailProductPage = ({ match }) => {
   useEffect(() => {
     const getProduct = async () => {
       try {
+        showLoader();
         const res = await axios.get(
           `/api/product/products_by_id?id=${productId}`
         );
+        hideLoader();
         if (res.data.success) {
           setProduct(res.data.product[0]);
         }
@@ -39,6 +43,7 @@ const DetailProductPage = ({ match }) => {
       {product && <ProductImage detail={product} />}
       <ProductInfo detail={product} productId={productId} />
       <Comment productId={productId} />
+      {loader}
     </DetailProductPageContainer>
   );
 };

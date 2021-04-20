@@ -15,11 +15,14 @@ import {
   OrderCalculator,
   PaymentButton,
   TotalPrice,
+  CheckBoxInput,
 } from "./CartPageElements";
+import useFullPageLoader from "../../../hooks/useFullPageLoader";
 
 const API_URL = process.env["REACT_APP_API_URL"];
 
 const CartPage = () => {
+  const [loader, showLoader, hideLoader] = useFullPageLoader();
   const user = useSelector((state) => state.user);
   const { userData } = user;
 
@@ -29,9 +32,11 @@ const CartPage = () => {
 
   useEffect(() => {
     const getCartItems = async () => {
+      showLoader();
       const res = await axios.post("/api/cart/getCartItems", {
         userId: userData._id,
       });
+      hideLoader();
       setCartItems(res.data.cart);
     };
     getCartItems();
@@ -72,7 +77,7 @@ const CartPage = () => {
           <tr>
             <th style={{ textAlign: "center" }} width="60">
               <div>
-                <input
+                <CheckBoxInput
                   onChange={(e) => handleAllCheck(e.target.checked)}
                   type="checkbox"
                   checked={checkedItems.length === cartItems.length}
@@ -89,7 +94,7 @@ const CartPage = () => {
             <TableRow key={item._id}>
               <td style={{ verticalAlign: "middle", textAlign: "center" }}>
                 <div>
-                  <input
+                  <CheckBoxInput
                     onChange={() => handleToggle(item)}
                     type="checkbox"
                     checked={checkedItems.includes(item)}
@@ -126,6 +131,7 @@ const CartPage = () => {
           <PaymentButton>결제하기</PaymentButton>
         </div>
       </OrderCalculator>
+      {loader}
     </CartPageContainer>
   );
 };

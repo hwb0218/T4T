@@ -9,17 +9,18 @@ import Filter from "./Filter/Filter";
 import Cards from "./Cards/Cards";
 import Pagination from "./Pagination/Pagination";
 import SearchBox from "./SearchBox/SearchBox";
+import useFullPageLoader from "../../../hooks/useFullPageLoader";
 
 const RandingPage = ({ location }) => {
+  const [loader, showLoader, hideLoader] = useFullPageLoader();
   const query = queryString.parse(location.search);
   const filters = useSelector((state) => state.filters);
 
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(3);
   const [searchedProducts, setSearchedProducts] = useState([]);
-  //  currentPage, products redux
+
   const indexOfLastPost = currentPage * productsPerPage;
   const indexOfFirstPost = indexOfLastPost - productsPerPage;
   const currentProducts =
@@ -30,11 +31,11 @@ const RandingPage = ({ location }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       setSearchedProducts([]);
-      setLoading(true);
+      showLoader();
       const res = await axios.post("/api/product/products", { filters });
+      hideLoader();
       setCurrentPage(query.page ? Number(query.page) : 1);
       setProducts(res.data.productInfo);
-      setLoading(false);
     };
     fetchProducts();
   }, [filters]);
@@ -47,7 +48,7 @@ const RandingPage = ({ location }) => {
       <CarouselSlide />
       <Filter destination={destination} price={price} rating={rating} />
       <SearchBox products={products} updateProducts={updateProducts} />
-      <Cards products={currentProducts} loading={loading} />
+      <Cards products={currentProducts} />
       <Pagination
         currentPage={currentPage}
         productsPerPage={productsPerPage}
@@ -58,6 +59,7 @@ const RandingPage = ({ location }) => {
         }
         paginate={paginate}
       />
+      {loader}
     </>
   );
 };

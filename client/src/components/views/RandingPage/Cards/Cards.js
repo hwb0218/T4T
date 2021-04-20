@@ -28,10 +28,6 @@ const Cards = ({ products, loading }) => {
     </Card>
   ));
 
-  if (loading) {
-    return <span>Loading...</span>;
-  }
-
   return (
     <>
       <CardContainer>
