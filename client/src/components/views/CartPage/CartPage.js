@@ -22,6 +22,7 @@ const API_URL = process.env["REACT_APP_API_URL"];
 const CartPage = () => {
   const user = useSelector((state) => state.user);
   const { userData } = user;
+
   const [cartItems, setCartItems] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -36,9 +37,32 @@ const CartPage = () => {
     getCartItems();
   }, []);
 
-  const handleToggle = (id) => {
-    console.log(id);
-    const checked = cartItems.filter(({ _id }) => _id === id);
+  const handleToggle = (item) => {
+    const checked = checkedItems.includes(item);
+
+    const newChecked = checked
+      ? checkedItems.filter((checkedItem) => checkedItem !== item)
+      : [...checkedItems, item];
+    setCheckedItems(newChecked);
+    calculate(newChecked);
+  };
+
+  const handleAllCheck = (checked) => {
+    if (checked) {
+      calculate(cartItems);
+      setCheckedItems(cartItems);
+    } else {
+      calculate([]);
+      setCheckedItems([]);
+    }
+  };
+
+  const calculate = (items) => {
+    let price = 0;
+    items.forEach(({ quantity, productId }) => {
+      price += quantity * productId.price;
+    });
+    setTotalPrice(price);
   };
 
   return (
@@ -46,9 +70,13 @@ const CartPage = () => {
       <Table>
         <Thead>
           <tr>
-            <th style={{ textAlign: "center" }}>
+            <th style={{ textAlign: "center" }} width="60">
               <div>
-                <input type="checkbox" />
+                <input
+                  onChange={(e) => handleAllCheck(e.target.checked)}
+                  type="checkbox"
+                  checked={checkedItems.length === cartItems.length}
+                />
               </div>
             </th>
             <th>상품정보</th>
@@ -62,8 +90,9 @@ const CartPage = () => {
               <td style={{ verticalAlign: "middle", textAlign: "center" }}>
                 <div>
                   <input
-                    onChange={() => handleToggle(item._id)}
+                    onChange={() => handleToggle(item)}
                     type="checkbox"
+                    checked={checkedItems.includes(item)}
                   />
                 </div>
               </td>

@@ -29,7 +29,15 @@ export const Thead = styled.thead`
   font-weight: bold;
 
   ${({ theme }) => theme.mobile`
-    display: none;
+    
+    tr::after {
+      display: inline-block;
+      content: "상품 전체 선택"
+    }
+    
+    th:not(:first-child) {
+      display: none;
+    }
   `}
 `;
 
@@ -119,6 +127,7 @@ export const OrderCalculator = styled.div`
 `;
 
 export const TotalPrice = styled.div`
+  width: 300px;
   font-size: 1.3rem;
   font-weight: bold;
   margin: 10px 0;
@@ -126,13 +135,16 @@ export const TotalPrice = styled.div`
   span {
     color: #5f0080;
   }
+
+  ${({ theme }) => theme.mobile`
+    width: inherit;
+  `}
 `;
 
 export const PaymentButton = styled.button`
   background: #5f0080;
   border: none;
   padding: 1rem 2.5rem;
-  margin-left: 30px;
   border-radius: 2px;
   font-size: 14px;
   font-weight: 600;

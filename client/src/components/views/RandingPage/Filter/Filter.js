@@ -22,7 +22,6 @@ const Filter = ({ destination, price, rating, history }) => {
     const newChecked = checked
       ? destination.filter((option) => option !== id)
       : [...destination, id];
-
     dispatch(filter(newChecked, "destination"));
     history.push("/");
   };
@@ -60,7 +59,6 @@ const Filter = ({ destination, price, rating, history }) => {
                 type="radio"
                 id={label}
                 name="checkPrice"
-                // checked={filters.price === priceRange}
                 checked={
                   filters.price.length < 1
                     ? _id === 0
