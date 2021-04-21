@@ -102,7 +102,8 @@ const ProductInfo = ({ detail, productId, history }) => {
       user: user.userData._id,
       productId,
     };
-    const res = await axios.post("/api/cart/addToCart", data);
+    const res = await axios.post("/api/product/addToCart", data);
+    console.log(res.data);
     if (res.data.duplicate) {
       alert("이미 장바구니에 있는 상품입니다.");
     }

@@ -26,7 +26,7 @@ const CartPage = () => {
   const user = useSelector((state) => state.user);
   const { userData } = user;
 
-  const [cartItems, setCartItems] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -36,8 +36,11 @@ const CartPage = () => {
       const res = await axios.post("/api/cart/getCartItems", {
         userId: userData._id,
       });
-      hideLoader();
-      setCartItems(res.data.cart);
+      console.log(res.data.cart);
+      if (res.data.success) {
+        hideLoader();
+        setCartProducts(res.data.cart);
+      }
     };
     getCartItems();
   }, []);
@@ -54,8 +57,8 @@ const CartPage = () => {
 
   const handleAllCheck = (checked) => {
     if (checked) {
-      calculate(cartItems);
-      setCheckedItems(cartItems);
+      calculate(cartProducts);
+      setCheckedItems(cartProducts);
     } else {
       calculate([]);
       setCheckedItems([]);
@@ -70,6 +73,14 @@ const CartPage = () => {
     setTotalPrice(price);
   };
 
+  const handleRemoveItems = async (id) => {
+    showLoader();
+    const res = await axios.post("/api/cart/removeCartItems", { id });
+    if (res.data.success) {
+      hideLoader();
+    }
+  };
+
   return (
     <CartPageContainer>
       <Table>
@@ -80,7 +91,10 @@ const CartPage = () => {
                 <CheckBoxInput
                   onChange={(e) => handleAllCheck(e.target.checked)}
                   type="checkbox"
-                  checked={checkedItems.length === cartItems.length}
+                  checked={
+                    checkedItems.length === cartProducts.length &&
+                    checkedItems.length > 0
+                  }
                 />
               </div>
             </th>
@@ -90,14 +104,14 @@ const CartPage = () => {
           </tr>
         </Thead>
         <tbody>
-          {cartItems.map((item) => (
-            <TableRow key={item._id}>
+          {cartProducts.map((product) => (
+            <TableRow key={product._id}>
               <td style={{ verticalAlign: "middle", textAlign: "center" }}>
                 <div>
                   <CheckBoxInput
-                    onChange={() => handleToggle(item)}
+                    onChange={() => handleToggle(product)}
                     type="checkbox"
-                    checked={checkedItems.includes(item)}
+                    checked={checkedItems.includes(product)}
                   />
                 </div>
               </td>
@@ -105,19 +119,21 @@ const CartPage = () => {
                 <ProductWrap>
                   <ProductThumb>
                     <ThumbImg
-                      src={`${API_URL}${item.productId.images[0]}`}
-                      alt={item.productId.title}
+                      src={`${API_URL}${product.productDetail.images[0]}`}
+                      alt={product.productDetail.title}
                     />
                   </ProductThumb>
-                  <ProductTitle>{item.productId.title}</ProductTitle>
-                  <RemoveBtn>삭제</RemoveBtn>
+                  <ProductTitle>{product.productDetail.title}</ProductTitle>
+                  <RemoveBtn onClick={() => handleRemoveItems(product._id)}>
+                    삭제
+                  </RemoveBtn>
                 </ProductWrap>
               </TableData>
               <TableData data-th="주문갯수">
-                <span>{item.quantity}</span>
+                <span>{product.quantity}</span>
               </TableData>
               <TableData data-th="상품금액">
-                <span>{item.productId.price}원</span>
+                <span>{product.productDetail.price}원</span>
               </TableData>
             </TableRow>
           ))}
