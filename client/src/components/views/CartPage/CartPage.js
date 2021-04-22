@@ -25,7 +25,6 @@ const CartPage = () => {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const user = useSelector((state) => state.user);
   const { userData } = user;
-
   const [cartProducts, setCartProducts] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -36,8 +35,8 @@ const CartPage = () => {
       const res = await axios.post("/api/cart/getCartItems", {
         userId: userData._id,
       });
-      console.log(res.data.cart);
       if (res.data.success) {
+        console.log(res.data);
         hideLoader();
         setCartProducts(res.data.cart);
       }
@@ -67,16 +66,20 @@ const CartPage = () => {
 
   const calculate = (items) => {
     let price = 0;
-    items.forEach(({ quantity, productId }) => {
-      price += quantity * productId.price;
+    items.forEach(({ quantity, productDetail }) => {
+      price += quantity * productDetail.price;
     });
     setTotalPrice(price);
   };
 
-  const handleRemoveItems = async (id) => {
+  const handleRemoveItems = async (userId, productId) => {
     showLoader();
-    const res = await axios.post("/api/cart/removeCartItems", { id });
+    const res = await axios.post("/api/cart/removeCartItems", {
+      userId: userData._id,
+      productId,
+    });
     if (res.data.success) {
+      setCartProducts(res.data.cart);
       hideLoader();
     }
   };
@@ -98,9 +101,9 @@ const CartPage = () => {
                 />
               </div>
             </th>
-            <th>상품정보</th>
-            <th>주문갯수</th>
-            <th>상품금액</th>
+            <th width="380">상품정보</th>
+            <th width="230">주문갯수</th>
+            <th width="230">상품금액</th>
           </tr>
         </Thead>
         <tbody>
@@ -124,7 +127,9 @@ const CartPage = () => {
                     />
                   </ProductThumb>
                   <ProductTitle>{product.productDetail.title}</ProductTitle>
-                  <RemoveBtn onClick={() => handleRemoveItems(product._id)}>
+                  <RemoveBtn
+                    onClick={() => handleRemoveItems(product.user, product.id)}
+                  >
                     삭제
                   </RemoveBtn>
                 </ProductWrap>

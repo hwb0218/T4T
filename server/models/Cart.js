@@ -9,6 +9,9 @@ const cartSchema = new Schema(
     },
     products: [
       {
+        id: {
+          type: String,
+        },
         productDetail: {
           type: Schema.Types.ObjectId,
           ref: "Product",

@@ -34,10 +34,10 @@ const RandingPage = ({ location }) => {
       showLoader();
       const res = await axios.post("/api/product/products", { filters });
       if (res.data.success) {
+        setCurrentPage(query.page ? Number(query.page) : 1);
+        setProducts(res.data.productInfo);
         hideLoader();
       }
-      setCurrentPage(query.page ? Number(query.page) : 1);
-      setProducts(res.data.productInfo);
     };
     fetchProducts();
   }, [filters]);

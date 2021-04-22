@@ -27,9 +27,9 @@ const DetailProductPage = ({ match }) => {
         const res = await axios.get(
           `/api/product/products_by_id?id=${productId}`
         );
-        hideLoader();
         if (res.data.success) {
           setProduct(res.data.product[0]);
+          hideLoader();
         }
       } catch (e) {
         console.error(e);
