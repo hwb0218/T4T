@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
+import { FaRegGrimace } from "react-icons/fa";
 
 export const CartPageContainer = styled.main`
   max-width: 900px;
@@ -190,4 +191,24 @@ export const CheckBoxInput = styled.input`
       display: inline-block;
     }
   }
+`;
+
+export const EmptyBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  margin-top: 10px;
+`;
+
+export const EmptyProduct = styled(FaRegGrimace)`
+  padding-bottom: 10px;
+  font-size: 5rem;
+  color: #5f5f5f;
+`;
+
+export const Content = styled.p`
+  font-size: 14px;
+  color: #5f5f5f;
 `;

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { Cart } = require("../models/Cart");
-const { auth } = require("../middleware/auth");
 
 router.post("/getCartItems", (req, res) => {
   Cart.find({ user: req.body.userId })

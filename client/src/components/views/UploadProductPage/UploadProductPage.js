@@ -4,7 +4,13 @@ import UploadProductForm from "./UploadProductForm";
 const UploadProductPage = ({ user }) => {
   return (
     <section>
-      <header style={{ textAlign: "center", marginBottom: "2rem" }}>
+      <header
+        style={{
+          textAlign: "center",
+          marginBottom: "2rem",
+          fontWeight: "bold",
+        }}
+      >
         상품을 등록하세요
       </header>
       <article style={{ display: "flex", justifyContent: "center" }}>

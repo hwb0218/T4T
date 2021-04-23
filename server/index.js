@@ -9,7 +9,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const mongoose = require("mongoose");
-const connect = mongoose
+mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -27,6 +27,7 @@ app.use("/api/users", require("./routes/users"));
 app.use("/api/product", require("./routes/product"));
 app.use("/api/comment", require("./routes/comment"));
 app.use("/api/cart", require("./routes/cart"));
+app.use("/api/payment", require("./routes/payment"));
 
 app.use("/uploads", express.static("uploads"));
 

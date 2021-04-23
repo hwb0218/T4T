@@ -21,7 +21,6 @@ router.post("/saveComment", (req, res) => {
 });
 
 router.post("/getComments", (req, res) => {
-  console.log(req.body);
   Comment.find({ productId: req.body.productId })
     .populate("writer")
     .exec((err, comments) => {

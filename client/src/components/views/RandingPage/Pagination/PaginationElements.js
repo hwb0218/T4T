@@ -16,7 +16,7 @@ export const PageLi = styled.li`
   height: 30px;
   width: 30px;
   margin-top: 2rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: #4c4c4c;
   border: 1px solid #a5a5a5;
@@ -54,8 +54,8 @@ export const PageLink = styled(Link)`
 `;
 
 export const PrevBtn = styled(FaChevronLeft)`
-  font-size: 0.6rem;
+  font-size: 0.5rem;
 `;
 export const NextBtn = styled(FaChevronRight)`
-  font-size: 0.6rem;
+  font-size: 0.5rem;
 `;

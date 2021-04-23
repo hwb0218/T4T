@@ -16,8 +16,12 @@ import {
   PaymentButton,
   TotalPrice,
   CheckBoxInput,
+  EmptyBox,
+  EmptyProduct,
+  Content,
 } from "./CartPageElements";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
+import moment from "moment";
 
 const API_URL = process.env["REACT_APP_API_URL"];
 
@@ -27,6 +31,7 @@ const CartPage = () => {
   const { userData } = user;
   const [cartProducts, setCartProducts] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
+  console.log(checkedItems);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -80,8 +85,21 @@ const CartPage = () => {
     });
     if (res.data.success) {
       setCartProducts(res.data.cart);
+      setCheckedItems([]);
+      calculate([]);
       hideLoader();
     }
+  };
+
+  const handlePaymentBtn = async () => {
+    const date = moment().format("YYYY.MM");
+    const data = {
+      user: user.userData._id,
+      products: checkedItems,
+      date,
+    };
+    const res = await axios.post("/api/payment/successBuy?type=array", data);
+    console.log(res.data.payment);
   };
 
   return (
@@ -144,14 +162,21 @@ const CartPage = () => {
           ))}
         </tbody>
       </Table>
-      <OrderCalculator>
-        <TotalPrice>
-          총 주문금액 <span>{totalPrice}원</span>
-        </TotalPrice>
-        <div>
-          <PaymentButton>결제하기</PaymentButton>
-        </div>
-      </OrderCalculator>
+      {cartProducts.length > 0 ? (
+        <OrderCalculator>
+          <TotalPrice>
+            총 주문금액 <span>{totalPrice}원</span>
+          </TotalPrice>
+          <div>
+            <PaymentButton onClick={handlePaymentBtn}>주문하기</PaymentButton>
+          </div>
+        </OrderCalculator>
+      ) : (
+        <EmptyBox>
+          <EmptyProduct />
+          <Content>장바구니가 비었습니다</Content>
+        </EmptyBox>
+      )}
       {loader}
     </CartPageContainer>
   );

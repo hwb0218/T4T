@@ -118,7 +118,7 @@ router.post("/addToCart", async (req, res) => {
         user,
         products: [{ id: productId, productDetail: productId }],
       });
-      return res.status(200).json({ success: true, newCart });
+      return res.status(200).json({ success: true, cart: newCart });
     }
   } catch (err) {
     console.log(err);
