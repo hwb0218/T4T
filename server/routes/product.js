@@ -91,12 +91,14 @@ router.get("/products_by_id", (req, res) => {
       if (err) {
         return res.status(400).send(err);
       }
+      product[0].views++;
+      product[0].save();
       return res.status(200).json({ success: true, product });
     });
 });
 
 router.post("/addToCart", async (req, res) => {
-  const { productId, user } = req.body;
+  const { productId, user, amount } = req.body;
 
   try {
     let cart = await Cart.findOne({ user });
@@ -105,18 +107,23 @@ router.post("/addToCart", async (req, res) => {
       const itemIndex = cart.products.findIndex(
         (product) => product.id === productId
       );
-
       if (itemIndex > -1) {
         return res.json({ duplicate: true, message: "중복 된 상품입니다." });
       } else {
-        cart.products.push({ id: productId, productDetail: productId });
+        cart.products.push({
+          id: productId,
+          productDetail: productId,
+          quantity: amount,
+        });
       }
       cart = await cart.save();
       return res.status(200).json({ success: true, cart });
     } else {
       const newCart = await Cart.create({
         user,
-        products: [{ id: productId, productDetail: productId }],
+        products: [
+          { id: productId, productDetail: productId, quantity: amount },
+        ],
       });
       return res.status(200).json({ success: true, cart: newCart });
     }

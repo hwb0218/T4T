@@ -18,6 +18,10 @@ const paymentSchema = new Schema(
           type: String,
           default: moment().format("YYYY.MM.DD"),
         },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
       },
     ],
     createdDate: {

@@ -31,7 +31,6 @@ const CartPage = () => {
   const { userData } = user;
   const [cartProducts, setCartProducts] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
-  console.log(checkedItems);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -93,12 +92,16 @@ const CartPage = () => {
 
   const handlePaymentBtn = async () => {
     const date = moment().format("YYYY.MM");
+    console.log(checkedItems);
     const data = {
       user: user.userData._id,
       products: checkedItems,
       date,
     };
-    const res = await axios.post("/api/payment/successBuy?type=array", data);
+    const res = await axios.post(
+      "/api/payment/buyProducts?type=buyFromCart",
+      data
+    );
     console.log(res.data.payment);
   };
 

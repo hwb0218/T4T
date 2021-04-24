@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
 export const ProductInfoContainer = styled.div`
   max-width: 950px;
@@ -24,10 +25,6 @@ export const TitleBox = styled.span`
   margin-bottom: 1rem;
   font-size: 1.3rem;
   color: #000;
-
-  & + & {
-    margin-left: 110px;
-  }
 `;
 
 export const ProductTit = styled.p`
@@ -62,7 +59,7 @@ export const Btn = styled.button`
   display: inline-block;
   max-width: 300px;
   width: 100%;
-  height: 100%;
+  height: 50%;
   border: none;
   border-radius: 2px;
   cursor: pointer;
@@ -70,16 +67,50 @@ export const Btn = styled.button`
   font-weight: 600;
   color: white;
   letter-spacing: 1px;
+  background: #5f0080;
+`;
 
-  & + & {
-    margin-top: 0.8rem;
-  }
+export const AmountControl = styled.div`
+  height: 50%;
+  position: relative;
+`;
 
-  &:first-child {
-    background: #565656;
-  }
+export const Amount = styled.span`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
 
-  &:last-child {
-    background: #5f0080;
+  &::selection {
+    outline: none;
   }
+`;
+
+export const CntMinus = styled(FaCaretLeft)`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  font-size: 1.7rem;
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      color: #e2e2e2;
+    `}
+`;
+
+export const CntPlus = styled(FaCaretRight)`
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  font-size: 1.7rem;
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      color: #e2e2e2;
+    `}
 `;
