@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FaTimes } from "react-icons/fa";
 import { FaRegGrimace } from "react-icons/fa";
 
@@ -142,14 +142,19 @@ export const TotalPrice = styled.div`
   `}
 `;
 
-export const PaymentButton = styled.button`
+const button = css`
   background: #5f0080;
   border: none;
-  padding: 1rem 2.5rem;
   border-radius: 2px;
-  font-size: 14px;
   font-weight: 600;
   color: white;
+  cursor: pointer;
+`;
+
+export const PaymentButton = styled.button`
+  ${button};
+  padding: 1rem 2.5rem;
+  font-size: 14px;
 
   ${({ theme }) => theme.mobile`
     margin: 0;
@@ -211,4 +216,17 @@ export const EmptyProduct = styled(FaRegGrimace)`
 export const Content = styled.p`
   font-size: 14px;
   color: #5f5f5f;
+`;
+
+export const QuantityWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const EditBtn = styled.button`
+  ${button};
+  width: 38px;
+  margin-top: 2px;
+  font-size: 13px;
 `;

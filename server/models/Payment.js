@@ -24,7 +24,7 @@ const paymentSchema = new Schema(
         },
       },
     ],
-    createdDate: {
+    createdMonth: {
       type: String,
       default: moment().format("YYYY.MM"),
     },

@@ -93,11 +93,13 @@ export const CntMinus = styled(FaCaretLeft)`
   left: 0;
   transform: translate(0, -50%);
   font-size: 1.7rem;
+  cursor: pointer;
 
   ${({ disabled }) =>
     disabled &&
     css`
       color: #e2e2e2;
+      cursor: inherit;
     `}
 `;
 
@@ -107,10 +109,12 @@ export const CntPlus = styled(FaCaretRight)`
   right: 0;
   transform: translate(0, -50%);
   font-size: 1.7rem;
+  cursor: pointer;
 
   ${({ disabled }) =>
     disabled &&
     css`
       color: #e2e2e2;
+      cursor: inherit;
     `}
 `;

@@ -5,21 +5,29 @@ const { Cart } = require("../models/Cart");
 
 router.post("/buyProducts", async (req, res) => {
   const { user, products, date } = req.body;
+  const productIds = products.map(({ _id }) => _id);
 
   try {
-    let payment = await Payment.findOneAndUpdate(
-      { user, createdDate: date },
+    const payment = await Payment.findOneAndUpdate(
+      { user, createdMonth: date },
       { $push: { products: products } },
       { new: true }
-    ).populate("products.productDetail");
+    );
 
     if (!payment) {
-      payment = await Payment.create({
+      Payment.create({
         user,
         products,
       });
     }
-    return res.status(200).json({ success: true, payment });
+
+    const cart = await Cart.findOneAndUpdate(
+      { user },
+      { $pull: { products: { _id: { $in: productIds } } } },
+      { new: true }
+    );
+
+    return res.status(200).json({ success: true, cart });
   } catch (err) {
     console.log(err);
     res.status(500).send("Something went wrong");

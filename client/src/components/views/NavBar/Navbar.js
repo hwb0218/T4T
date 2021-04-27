@@ -11,18 +11,12 @@ import {
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import NotLogin from "./NavItems/NotLogin";
-import Modal from "./Modal/Modal";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
   const [click, setClick] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   const handleClick = () => setClick(!click);
-
-  const openFilter = () => {
-    setShowModal((prev) => !prev);
-  };
 
   return (
     <IconContext.Provider value={{ color: "#5f0080" }}>
@@ -41,7 +35,6 @@ const Navbar = () => {
           </NavMenu>
         </NavbarContainer>
       </Nav>
-      <Modal showModal={showModal} setShowModal={setShowModal} />
     </IconContext.Provider>
   );
 };
