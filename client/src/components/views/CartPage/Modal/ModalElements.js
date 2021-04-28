@@ -58,14 +58,18 @@ export const ModalContent = styled.div`
     font-size: 13px;
     font-weight: bold;
     cursor: pointer;
+
+    &::selection {
+      outline: none;
+    }
   }
 `;
 
 export const CloseModalButton = styled(FaTimes)`
   cursor: pointer;
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   padding: 0;
   z-index: 10;
   color: #525252;
@@ -73,8 +77,10 @@ export const CloseModalButton = styled(FaTimes)`
 `;
 
 export const AmountControl = styled.div`
+  width: 100%;
+  margin-bottom: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -87,7 +93,7 @@ export const Amount = styled.span`
 `;
 
 export const CntMinus = styled(FaCaretLeft)`
-  font-size: 20px;
+  font-size: 35px;
   cursor: pointer;
 
   ${({ disabled }) =>
@@ -99,7 +105,7 @@ export const CntMinus = styled(FaCaretLeft)`
 `;
 
 export const CntPlus = styled(FaCaretRight)`
-  font-size: 20px;
+  font-size: 35px;
   cursor: pointer;
   ${({ disabled }) =>
     disabled &&

@@ -37,6 +37,8 @@ const CartPage = () => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+  const [productId, setProductId] = useState("");
 
   useEffect(() => {
     const getCartItems = async () => {
@@ -80,7 +82,7 @@ const CartPage = () => {
     setTotalPrice(price);
   };
 
-  const handleRemoveItems = async (userId, productId) => {
+  const handleRemoveItems = async (productId) => {
     showLoader();
     const res = await axios.post("/api/cart/removeCartItems", {
       userId: userData._id,
@@ -108,8 +110,19 @@ const CartPage = () => {
     setCartProducts(res.data.cart.products);
   };
 
-  const openEditBtn = () => {
+  const openEditBtn = (quantity, productId) => {
+    setProductId(productId);
+    setQuantity(quantity);
     setShowModal((prev) => !prev);
+  };
+
+  const handleCntBtn = (direction) => {
+    if (direction === "left") {
+      setQuantity(quantity > 1 ? quantity - 1 : 1);
+    }
+    if (direction === "right") {
+      setQuantity(quantity < 10 ? quantity + 1 : 10);
+    }
   };
 
   return (
@@ -156,11 +169,7 @@ const CartPage = () => {
                       />
                     </ProductThumb>
                     <ProductTitle>{product.productDetail.title}</ProductTitle>
-                    <RemoveBtn
-                      onClick={() =>
-                        handleRemoveItems(product.user, product.id)
-                      }
-                    >
+                    <RemoveBtn onClick={() => handleRemoveItems(product.id)}>
                       삭제
                     </RemoveBtn>
                   </ProductWrap>
@@ -168,7 +177,11 @@ const CartPage = () => {
                 <TableData data-th="주문수량">
                   <QuantityWrap>
                     <span>{product.quantity}</span>
-                    <EditBtn onClick={openEditBtn}>수정</EditBtn>
+                    <EditBtn
+                      onClick={() => openEditBtn(product.quantity, product.id)}
+                    >
+                      수정
+                    </EditBtn>
                   </QuantityWrap>
                 </TableData>
                 <TableData data-th="상품금액">
@@ -195,7 +208,14 @@ const CartPage = () => {
         )}
         {loader}
       </CartPageContainer>
-      <Modal showModal={showModal} setShowModal={setShowModal} />
+      <Modal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        quantity={quantity}
+        handleCntBtn={handleCntBtn}
+        productId={productId}
+        setCartProducts={setCartProducts}
+      />
     </>
   );
 };

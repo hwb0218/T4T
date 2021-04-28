@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const { Cart } = require("../models/Cart");
 
 router.post("/getCartItems", (req, res) => {
@@ -29,6 +30,23 @@ router.post("/removeCartItems", (req, res) => {
       }
       return res.status(200).json({ success: true, cart: cart.products });
     });
+});
+
+router.post("/modifyQuantity", async (req, res) => {
+  try {
+    const cart = await Cart.findOneAndUpdate(
+      { user: req.body.userId, "products.productDetail": req.body.productId },
+      { $set: { "products.$.quantity": req.body.quantity } },
+      { new: true }
+    ).populate("products.productDetail");
+
+    return res
+      .status(200)
+      .json({ success: true, cart: cart ? cart.products : [] });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("Something went wrong");
+  }
 });
 
 module.exports = router;

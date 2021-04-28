@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {
   Background,
   ModalWrapper,
@@ -9,8 +10,29 @@ import {
   CntMinus,
   CntPlus,
 } from "./ModalElements";
+import axios from "axios";
 
-const Modal = ({ showModal, setShowModal }) => {
+const Modal = ({
+  showModal,
+  setShowModal,
+  quantity,
+  handleCntBtn,
+  productId,
+  setCartProducts,
+}) => {
+  const user = useSelector((state) => state.user);
+  const { userData } = user;
+
+  const modifyQuantity = async () => {
+    const data = { userId: userData._id, quantity, productId };
+    const res = await axios.post("/api/cart/modifyQuantity", data);
+
+    if (res.data.success) {
+      setCartProducts(res.data.cart);
+      setShowModal((prev) => !prev);
+    }
+  };
+
   return (
     <>
       {showModal ? (
@@ -19,16 +41,16 @@ const Modal = ({ showModal, setShowModal }) => {
             <ModalContent>
               <AmountControl>
                 <CntMinus
-                // onClick={() => handleCntBtn("left")}
-                // disabled={amount === 1}
+                  onClick={() => handleCntBtn("left")}
+                  disabled={quantity === 1}
                 />
-                <Amount>0</Amount>
+                <Amount>{quantity}</Amount>
                 <CntPlus
-                // onClick={() => handleCntBtn("right")}
-                // disabled={amount === 10}
+                  onClick={() => handleCntBtn("right")}
+                  disabled={quantity === 10}
                 />
               </AmountControl>
-              <button>수정</button>
+              <button onClick={modifyQuantity}>수정</button>
             </ModalContent>
             <CloseModalButton onClick={() => setShowModal((prev) => !prev)} />
           </ModalWrapper>

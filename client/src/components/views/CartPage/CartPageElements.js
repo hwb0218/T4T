@@ -219,14 +219,13 @@ export const Content = styled.p`
 `;
 
 export const QuantityWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: inline-block;
+  line-height: 18px;
 `;
 
 export const EditBtn = styled.button`
   ${button};
   width: 38px;
-  margin-top: 2px;
+  margin-left: 5px;
   font-size: 13px;
 `;
