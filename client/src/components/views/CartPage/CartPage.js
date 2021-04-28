@@ -49,6 +49,8 @@ const CartPage = () => {
       if (res.data.success) {
         hideLoader();
         setCartProducts(res.data.cart);
+        setCheckedItems(res.data.cart);
+        calculate(res.data.cart);
       }
     };
     getCartItems();
@@ -75,6 +77,7 @@ const CartPage = () => {
   };
 
   const calculate = (items) => {
+    console.log(items);
     let price = 0;
     items.forEach(({ quantity, productDetail }) => {
       price += quantity * productDetail.price;
@@ -215,6 +218,8 @@ const CartPage = () => {
         handleCntBtn={handleCntBtn}
         productId={productId}
         setCartProducts={setCartProducts}
+        calculate={calculate}
+        setCheckedItems={setCheckedItems}
       />
     </>
   );

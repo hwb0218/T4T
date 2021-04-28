@@ -19,6 +19,8 @@ const Modal = ({
   handleCntBtn,
   productId,
   setCartProducts,
+  calculate,
+  setCheckedItems,
 }) => {
   const user = useSelector((state) => state.user);
   const { userData } = user;
@@ -29,6 +31,8 @@ const Modal = ({
 
     if (res.data.success) {
       setCartProducts(res.data.cart);
+      setCheckedItems(res.data.cart);
+      calculate(res.data.cart);
       setShowModal((prev) => !prev);
     }
   };
