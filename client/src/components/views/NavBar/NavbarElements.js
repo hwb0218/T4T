@@ -67,6 +67,7 @@ export const NavMenu = styled.ul`
   display: flex;
   align-items: center;
   text-align: center;
+
   ${({ theme }) => theme.mobile`
     background-color: #fff;
     display: block;

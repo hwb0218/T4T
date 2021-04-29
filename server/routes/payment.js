@@ -4,7 +4,7 @@ const { Payment } = require("../models/Payment");
 const { Cart } = require("../models/Cart");
 
 router.post("/buyProducts", async (req, res) => {
-  const { user, products, date } = req.body;
+  const { user, products, date, price } = req.body;
   const productIds = products.map(({ _id }) => _id);
 
   try {
@@ -32,6 +32,13 @@ router.post("/buyProducts", async (req, res) => {
     console.log(err);
     res.status(500).send("Something went wrong");
   }
+});
+
+router.post("/history", async (req, res) => {
+  const history = await Payment.find({ user: req.body.userId }).populate(
+    "products.productDetail"
+  );
+  return res.status(200).json({ success: true, history });
 });
 
 module.exports = router;

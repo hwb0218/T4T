@@ -10,6 +10,7 @@ import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
 import DetailProductPage from "./views/DetailProductPage/DetailProductPage";
 import GlobalStyles from "../styles/GlobalStyles";
 import CartPage from "./views/CartPage/CartPage";
+import HistoryPage from "./views/HistoryPage/HistoryPage";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             component={Auth(DetailProductPage, null)}
           />
           <Route path="/user/cart" component={Auth(CartPage, true)} />
+          <Route path="/history" component={Auth(HistoryPage, true)} />
         </Switch>
       </div>
     </Router>
