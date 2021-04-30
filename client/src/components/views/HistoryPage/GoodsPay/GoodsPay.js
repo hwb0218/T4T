@@ -1,36 +1,55 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import {
+  GoodsPayList,
+  GoodsPayItem,
+  Img,
+  GoodsItem,
+  GoodsInfo,
+  ButtonItem,
+} from "./GoodsPayElements";
+import axios from "axios";
 
 const API_URL = process.env["REACT_APP_API_URL"];
 
-const GoodsPay = ({ products }) => {
-  console.log(products);
+const GoodsPay = ({ products, createdMonth }) => {
+  const user = useSelector((state) => state.user.userData);
+
+  const handleCancelPayment = async (_id) => {
+    const data = {
+      user: user._id,
+      createdMonth,
+      _id,
+    };
+    const res = await axios.post("/api/payment/cancelPayment", data);
+    console.log(res.data.payment);
+  };
   return (
-    <div>
-      <ul>
-        {products.map(({ purchaseDate, productDetail, quantity, _id }) => (
-          <li key={_id}>
-            <div>
-              <img
-                src={`${API_URL}${productDetail.images[0]}`}
-                alt={productDetail.title}
-                width="90"
-                height="90"
-              />
-            </div>
-            <div>
+    <GoodsPayList>
+      {products.map(({ purchaseDate, productDetail, quantity, _id }) => (
+        <GoodsPayItem key={_id}>
+          <GoodsItem>
+            <Img
+              src={`${API_URL}${productDetail.images[0]}`}
+              alt={productDetail.title}
+            />
+            <GoodsInfo>
               <p>{productDetail.title}</p>
               <ul>
-                <li>{productDetail.price * quantity}</li>
-                <li>{purchaseDate}</li>
+                <li>{productDetail.price * quantity}원</li>
+                <li>
+                  <span>{purchaseDate}</span>
+                </li>
               </ul>
-            </div>
-            <div>
-              <button>후기작성</button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+            </GoodsInfo>
+          </GoodsItem>
+          <ButtonItem>
+            <button>후기작성</button>
+            <button onClick={() => handleCancelPayment(_id)}>주문취소</button>
+          </ButtonItem>
+        </GoodsPayItem>
+      ))}
+    </GoodsPayList>
   );
 };
 

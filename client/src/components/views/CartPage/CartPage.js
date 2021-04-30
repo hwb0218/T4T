@@ -77,7 +77,6 @@ const CartPage = () => {
   };
 
   const calculate = (items) => {
-    console.log(items);
     let price = 0;
     items.forEach(({ quantity, productDetail }) => {
       price += quantity * productDetail.price;

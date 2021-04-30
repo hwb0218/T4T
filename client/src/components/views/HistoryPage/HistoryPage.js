@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
 import GoodsPay from "./GoodsPay/GoodsPay";
+import { GoodsPaySection, Month } from "./HistoryPageElements";
 
 const HistoryPage = () => {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
-  const user = useSelector((state) => state.user);
-  const { userData } = user;
+  const user = useSelector((state) => state.user.userData);
 
   const [history, setHistory] = useState([]);
 
@@ -15,7 +15,7 @@ const HistoryPage = () => {
     showLoader();
     const fetchHistory = async () => {
       const res = await axios.post("/api/payment/history", {
-        userId: userData._id,
+        userId: user._id,
       });
 
       const { success, history } = res.data;
@@ -29,15 +29,15 @@ const HistoryPage = () => {
 
   return (
     <>
-      <div>
-        {history.length > 0 &&
-          history.map(({ _id, createdMonth, products }) => (
-            <div key={_id}>
-              <div>{createdMonth}</div>
-              <GoodsPay products={products} />
-            </div>
-          ))}
-      </div>
+      {history.length > 0 &&
+        history.map(({ _id, createdMonth, products }) => (
+          <GoodsPaySection key={_id}>
+            <Month>
+              <span>{createdMonth}</span>
+            </Month>
+            <GoodsPay products={products} createdMonth={createdMonth} />
+          </GoodsPaySection>
+        ))}
       {loader}
     </>
   );

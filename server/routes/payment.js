@@ -4,8 +4,9 @@ const { Payment } = require("../models/Payment");
 const { Cart } = require("../models/Cart");
 
 router.post("/buyProducts", async (req, res) => {
-  const { user, products, date, price } = req.body;
+  const { user, products, date } = req.body;
   const productIds = products.map(({ _id }) => _id);
+  console.log(productIds);
 
   try {
     const payment = await Payment.findOneAndUpdate(
@@ -39,6 +40,18 @@ router.post("/history", async (req, res) => {
     "products.productDetail"
   );
   return res.status(200).json({ success: true, history });
+});
+
+router.post("/cancelPayment", async (req, res) => {
+  const { user, createdMonth, _id } = req.body;
+
+  const payment = await Payment.findOneAndUpdate(
+    { user, createdMonth },
+    { $pull: { products: { _id: _id } } },
+    { new: true }
+  );
+
+  return res.status(200).json({ success: true, payment });
 });
 
 module.exports = router;
