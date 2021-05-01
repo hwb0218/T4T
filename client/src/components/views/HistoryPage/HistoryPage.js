@@ -17,7 +17,6 @@ const HistoryPage = () => {
       const res = await axios.post("/api/payment/history", {
         userId: user._id,
       });
-
       const { success, history } = res.data;
       if (success) {
         setHistory(history);

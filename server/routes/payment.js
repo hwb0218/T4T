@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Types;
 const { Payment } = require("../models/Payment");
 const { Cart } = require("../models/Cart");
 
 router.post("/buyProducts", async (req, res) => {
   const { user, products, date } = req.body;
   const productIds = products.map(({ _id }) => _id);
-  console.log(productIds);
 
   try {
     const payment = await Payment.findOneAndUpdate(
@@ -36,9 +37,33 @@ router.post("/buyProducts", async (req, res) => {
 });
 
 router.post("/history", async (req, res) => {
-  const history = await Payment.find({ user: req.body.userId }).populate(
-    "products.productDetail"
-  );
+  const { userId } = req.body;
+
+  const history = await Payment.aggregate([
+    {
+      $match: { user: ObjectId(userId) },
+    },
+    { $unwind: "$products" },
+    { $sort: { "products.createdAt": -1 } },
+    {
+      $lookup: {
+        from: "products",
+        localField: "products.productDetail",
+        foreignField: "_id",
+        as: "products.productDetail",
+      },
+    },
+    { $unwind: "$products.productDetail" },
+    {
+      $group: {
+        products: { $push: "$products" },
+        _id: "$_id",
+        user: { $first: "$user" },
+        createdMonth: { $first: "$createdMonth" },
+      },
+    },
+  ]).sort({ createdMonth: -1 });
+
   return res.status(200).json({ success: true, history });
 });
 

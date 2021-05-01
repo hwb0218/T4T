@@ -30,8 +30,7 @@ const API_URL = process.env["REACT_APP_API_URL"];
 
 const CartPage = () => {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
-  const user = useSelector((state) => state.user);
-  const { userData } = user;
+  const user = useSelector((state) => state.user.userData);
 
   const [cartProducts, setCartProducts] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
@@ -44,7 +43,7 @@ const CartPage = () => {
     const getCartItems = async () => {
       showLoader();
       const res = await axios.post("/api/cart/getCartItems", {
-        userId: userData._id,
+        userId: user._id,
       });
       if (res.data.success) {
         hideLoader();
@@ -87,7 +86,7 @@ const CartPage = () => {
   const handleRemoveItems = async (productId) => {
     showLoader();
     const res = await axios.post("/api/cart/removeCartItems", {
-      userId: userData._id,
+      userId: user._id,
       productId,
     });
     if (res.data.success) {
@@ -104,7 +103,7 @@ const CartPage = () => {
     }
     const date = moment().format("YYYY.MM");
     const data = {
-      user: user.userData._id,
+      user: user._id,
       products: checkedItems,
       date,
     };

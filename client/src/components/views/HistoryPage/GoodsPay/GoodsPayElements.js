@@ -81,6 +81,7 @@ export const ButtonItem = styled.div`
     color: #424242;
     line-height: 27px;
     font-size: 13px;
+    cursor: pointer;
   }
 
   button + button {
