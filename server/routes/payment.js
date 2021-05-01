@@ -32,14 +32,14 @@ router.post("/buyProducts", async (req, res) => {
     return res.status(200).json({ success: true, cart });
   } catch (err) {
     console.log(err);
-    res.status(500).send("Something went wrong");
+    res.status(500).json({ success: false, err });
   }
 });
 
 router.post("/history", async (req, res) => {
   const { userId } = req.body;
 
-  const history = await Payment.aggregate([
+  const histories = await Payment.aggregate([
     {
       $match: { user: ObjectId(userId) },
     },
@@ -64,16 +64,20 @@ router.post("/history", async (req, res) => {
     },
   ]).sort({ createdMonth: -1 });
 
-  return res.status(200).json({ success: true, history });
+  return res.status(200).json({ success: true, histories });
 });
 
 router.post("/cancelPayment", async (req, res) => {
   const { user, createdMonth, _id } = req.body;
 
-  const payment = await Payment.findOneAndUpdate(
+  await Payment.findOneAndUpdate(
     { user, createdMonth },
-    { $pull: { products: { _id: _id } } },
-    { new: true }
+    { $pull: { products: { _id: _id } } }
+  );
+  await Payment.remove({ products: { $exists: true, $size: 0 } });
+
+  const payment = await Payment.find({ user }).populate(
+    "products.productDetail"
   );
 
   return res.status(200).json({ success: true, payment });

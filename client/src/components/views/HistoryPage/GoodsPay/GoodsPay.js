@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   GoodsPayList,
@@ -12,7 +12,7 @@ import axios from "axios";
 
 const API_URL = process.env["REACT_APP_API_URL"];
 
-const GoodsPay = ({ products, createdMonth }) => {
+const GoodsPay = ({ products, createdMonth, modifyPayment }) => {
   const user = useSelector((state) => state.user.userData);
 
   const handleCancelPayment = async (_id) => {
@@ -22,8 +22,9 @@ const GoodsPay = ({ products, createdMonth }) => {
       _id,
     };
     const res = await axios.post("/api/payment/cancelPayment", data);
-    console.log(res.data.payment);
+    modifyPayment(res.data.payment);
   };
+
   return (
     <GoodsPayList>
       {products.map(({ purchaseDate, productDetail, quantity, _id }) => (

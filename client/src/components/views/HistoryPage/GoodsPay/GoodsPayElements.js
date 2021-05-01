@@ -35,7 +35,7 @@ export const Img = styled.img`
 
 export const GoodsInfo = styled.div`
   padding-left: 1.5rem;
-  min-width: 110px;
+  min-width: 100px;
 
   p {
     display: block;
@@ -60,7 +60,7 @@ export const GoodsInfo = styled.div`
         color: #e2e2e2;
 
         @media screen and (max-width: 379px) {
-          content: "";
+          display: none;
         }
       }
     }

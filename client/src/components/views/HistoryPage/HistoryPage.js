@@ -9,7 +9,8 @@ const HistoryPage = () => {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const user = useSelector((state) => state.user.userData);
 
-  const [history, setHistory] = useState([]);
+  const [histories, setHistories] = useState([]);
+  console.log(histories);
 
   useEffect(() => {
     showLoader();
@@ -17,24 +18,32 @@ const HistoryPage = () => {
       const res = await axios.post("/api/payment/history", {
         userId: user._id,
       });
-      const { success, history } = res.data;
+      const { success, histories } = res.data;
       if (success) {
-        setHistory(history);
+        setHistories(histories);
         hideLoader();
       }
     };
     fetchHistory();
   }, []);
 
+  const modifyPayment = (newHistory) => {
+    setHistories(newHistory);
+  };
+
   return (
     <>
-      {history.length > 0 &&
-        history.map(({ _id, createdMonth, products }) => (
+      {histories.length > 0 &&
+        histories.map(({ _id, createdMonth, products }) => (
           <GoodsPaySection key={_id}>
             <Month>
               <span>{createdMonth}</span>
             </Month>
-            <GoodsPay products={products} createdMonth={createdMonth} />
+            <GoodsPay
+              products={products}
+              createdMonth={createdMonth}
+              modifyPayment={modifyPayment}
+            />
           </GoodsPaySection>
         ))}
       {loader}

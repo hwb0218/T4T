@@ -45,7 +45,7 @@ router.post("/modifyQuantity", async (req, res) => {
       .json({ success: true, cart: cart ? cart.products : [] });
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Something went wrong");
+    return res.status(500).json({ success: false, err });
   }
 });
 
