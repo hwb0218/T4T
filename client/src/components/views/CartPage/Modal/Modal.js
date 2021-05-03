@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import {
   Background,
   ModalWrapper,
-  ModalContent,
   CloseModalButton,
+  ModalContent,
   AmountControl,
   Amount,
   CntMinus,
@@ -41,7 +41,7 @@ const Modal = ({
     <>
       {showModal ? (
         <Background>
-          <ModalWrapper showModal={showModal}>
+          <ModalWrapper showModal={showModal} size="cartPage">
             <ModalContent>
               <AmountControl>
                 <CntMinus

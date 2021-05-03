@@ -4,13 +4,14 @@ import axios from "axios";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
 import GoodsPay from "./GoodsPay/GoodsPay";
 import { GoodsPaySection, Month } from "./HistoryPageElements";
+import Modal from "./Modal/Modal";
 
 const HistoryPage = () => {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const user = useSelector((state) => state.user.userData);
 
   const [histories, setHistories] = useState([]);
-  console.log(histories);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     showLoader();
@@ -18,13 +19,14 @@ const HistoryPage = () => {
       const res = await axios.post("/api/payment/history", {
         userId: user._id,
       });
+      hideLoader();
       const { success, histories } = res.data;
       if (success) {
         setHistories(histories);
-        hideLoader();
       }
     };
     fetchHistory();
+    return () => hideLoader();
   }, []);
 
   const modifyPayment = (newHistory) => {
@@ -43,10 +45,12 @@ const HistoryPage = () => {
               products={products}
               createdMonth={createdMonth}
               modifyPayment={modifyPayment}
+              setShowModal={setShowModal}
             />
           </GoodsPaySection>
         ))}
       {loader}
+      <Modal showModal={showModal} setShowModal={setShowModal} />
     </>
   );
 };

@@ -33,13 +33,14 @@ const RandingPage = ({ location }) => {
       setSearchedProducts([]);
       showLoader();
       const res = await axios.post("/api/product/products", { filters });
+      hideLoader();
       if (res.data.success) {
         setCurrentPage(query.page ? Number(query.page) : 1);
         setProducts(res.data.productInfo);
-        hideLoader();
       }
     };
     fetchProducts();
+    return () => hideLoader();
   }, [filters]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);

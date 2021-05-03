@@ -12,8 +12,12 @@ import axios from "axios";
 
 const API_URL = process.env["REACT_APP_API_URL"];
 
-const GoodsPay = ({ products, createdMonth, modifyPayment }) => {
+const GoodsPay = ({ products, createdMonth, modifyPayment, setShowModal }) => {
   const user = useSelector((state) => state.user.userData);
+
+  const handleReviewBtn = () => {
+    setShowModal((prev) => !prev);
+  };
 
   const handleCancelPayment = async (_id) => {
     const data = {
@@ -21,8 +25,12 @@ const GoodsPay = ({ products, createdMonth, modifyPayment }) => {
       createdMonth,
       _id,
     };
-    const res = await axios.post("/api/payment/cancelPayment", data);
-    modifyPayment(res.data.payment);
+    try {
+      const res = await axios.post("/api/payment/cancelPayment", data);
+      modifyPayment(res.data.payment);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -45,7 +53,7 @@ const GoodsPay = ({ products, createdMonth, modifyPayment }) => {
             </GoodsInfo>
           </GoodsItem>
           <ButtonItem>
-            <button>후기작성</button>
+            <button onClick={handleReviewBtn}>후기작성</button>
             <button onClick={() => handleCancelPayment(_id)}>주문취소</button>
           </ButtonItem>
         </GoodsPayItem>

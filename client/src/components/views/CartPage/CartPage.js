@@ -45,14 +45,15 @@ const CartPage = () => {
       const res = await axios.post("/api/cart/getCartItems", {
         userId: user._id,
       });
+      hideLoader();
       if (res.data.success) {
-        hideLoader();
         setCartProducts(res.data.cart);
         setCheckedItems(res.data.cart);
         calculate(res.data.cart);
       }
     };
     getCartItems();
+    return () => hideLoader();
   }, []);
 
   const handleToggle = (item) => {

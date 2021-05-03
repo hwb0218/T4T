@@ -49,6 +49,10 @@ export const GoodsInfo = styled.div`
       display: inline-block;
       font-size: 0.9rem;
 
+      @media screen and (max-width: 451px) {
+        display: block;
+      }
+
       &:last-child {
         color: #525252;
       }
@@ -59,7 +63,7 @@ export const GoodsInfo = styled.div`
         padding: 0 0.2rem;
         color: #e2e2e2;
 
-        @media screen and (max-width: 379px) {
+        @media screen and (max-width: 451px) {
           display: none;
         }
       }

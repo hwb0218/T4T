@@ -70,17 +70,21 @@ router.post("/history", async (req, res) => {
 router.post("/cancelPayment", async (req, res) => {
   const { user, createdMonth, _id } = req.body;
 
-  await Payment.findOneAndUpdate(
-    { user, createdMonth },
-    { $pull: { products: { _id: _id } } }
-  );
-  await Payment.remove({ products: { $exists: true, $size: 0 } });
+  try {
+    await Payment.findOneAndUpdate(
+      { user, createdMonth },
+      { $pull: { products: { _id: _id } } }
+    );
+    await Payment.remove({ products: { $exists: true, $size: 0 } });
 
-  const payment = await Payment.find({ user }).populate(
-    "products.productDetail"
-  );
-
-  return res.status(200).json({ success: true, payment });
+    const payment = await Payment.find({ user }).populate(
+      "products.productDetail"
+    );
+    return res.status(200).json({ success: true, payment });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, err });
+  }
 });
 
 module.exports = router;
