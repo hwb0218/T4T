@@ -1,24 +1,50 @@
-import React from "react";
-import styled from "styled-components";
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { BsStar, BsStarHalf, BsStarFill } from "react-icons/bs";
+import React, { useState, useMemo } from "react";
+import { BsStarFill } from "react-icons/bs";
+import styled, { css } from "styled-components";
 
-const EmptyStar = styled(BsStar)`
-  color: blueviolet;
+const Star = styled(({ hoverRating, rating, value, ...rest }) => (
+  <BsStarFill {...rest} />
+))`
+  color: ${({ hoverRating, value }) =>
+    hoverRating >= value ? "orange" : "#dcdcdc"};
+
+  color: ${({ hoverRating, rating, value }) =>
+    !hoverRating && rating >= value && "orange"};
+
+  font-size: 2.8rem;
+  cursor: pointer;
+
+  & + & {
+    padding-left: 1px;
+  }
 `;
 
-const Rating = ({ value }) => {
-  const getStar = (value) => {
-    switch (value) {
-      case 0:
-        return <EmptyStar />;
-      case 50:
-        return <BsStarHalf />;
-      case 100:
-        return <BsStarFill />;
-    }
-  };
-  return <div>{getStar(0)}</div>;
+const Rating = ({ count, rating, onRating }) => {
+  const [hoverRating, setHoverRating] = useState(0);
+
+  const starRating = useMemo(() => {
+    return Array(count)
+      .fill(0)
+      .map((_, i) => i + 1)
+      .map((value) => (
+        <Star
+          key={value}
+          value={value}
+          onClick={() => onRating(value)}
+          rating={rating}
+          hoverRating={hoverRating}
+          onMouseEnter={() => setHoverRating(value)}
+          onMouseLeave={() => setHoverRating(0)}
+        />
+      ));
+  }, [count, rating, hoverRating]);
+
+  return <div>{starRating}</div>;
+};
+
+Rating.defaultProps = {
+  count: 5,
+  rating: 0,
 };
 
 export default Rating;

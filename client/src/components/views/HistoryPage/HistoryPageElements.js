@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const GoodsPaySection = styled.div`
+export const GoodsPaySection = styled.main`
   max-width: 600px;
   margin: 0 auto;
   display: flex;
