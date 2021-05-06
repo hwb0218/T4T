@@ -7,6 +7,7 @@ export const Background = styled.div`
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 70px;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,6 +67,8 @@ export const ModalContent = styled.div`
 `;
 
 export const RatingWrapper = styled.div`
+  width: 100%;
+
   div:first-child {
     padding-top: 3rem;
   }
@@ -103,5 +106,9 @@ export const Review = styled.div`
     color: #555;
     vertical-align: top;
     resize: none;
+
+    &:focus {
+      outline: none;
+    }
   }
 `;

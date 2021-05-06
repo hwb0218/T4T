@@ -1,4 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+import {
+  setRating,
+  setReviewContent,
+} from "../../../../_actions/reviewActions";
+import queryString from "query-string";
 import Rating from "../Rating/Rating";
 import {
   Background,
@@ -10,19 +17,42 @@ import {
   Review,
 } from "./ModalElements";
 
-const Modal = ({ showModal, setShowModal }) => {
-  const [rating, setRating] = useState(0);
+const Modal = ({ showModal, setShowModal, match, location }) => {
+  const dispatch = useDispatch();
+  const { rating, review } = useSelector((state) => state.review);
+  const query = queryString.parse(location.search);
+
+  const setLocalStorage = (reviewFormObj) => {
+    window.localStorage.setItem(
+      `reviewForm/${query.product}`,
+      JSON.stringify(reviewFormObj)
+    );
+  };
+
+  const onChange = (e) => {
+    const reviewFormObj = { rating, review: e.target.value };
+    setLocalStorage(reviewFormObj);
+    dispatch(setReviewContent(e.target.value));
+  };
+
+  const onRating = (value) => {
+    const reviewFormObj = { rating: value, review };
+    setLocalStorage(reviewFormObj);
+    dispatch(setRating(value));
+  };
 
   return (
     <>
       {showModal ? (
         <Background>
           <ModalWrapper showModal={showModal}>
-            <CloseModalButton onClick={() => setShowModal((prev) => !prev)} />
+            <Link to={match.url}>
+              <CloseModalButton onClick={() => setShowModal((prev) => !prev)} />
+            </Link>
             <ModalContent>
               <RatingWrapper>
                 <div>평점주기</div>
-                <Rating rating={rating} onRating={(rate) => setRating(rate)} />
+                <Rating onRating={onRating} />
               </RatingWrapper>
               <ReviewWrapper>
                 <div>리뷰작성</div>
@@ -33,7 +63,8 @@ const Modal = ({ showModal, setShowModal }) => {
                     rows="8"
                     placeholder="최소 10자 이상 입력해주세요."
                     maxLength="200"
-                  ></textarea>
+                    onChange={onChange}
+                  />
                 </Review>
               </ReviewWrapper>
               <button>등록</button>
@@ -45,4 +76,4 @@ const Modal = ({ showModal, setShowModal }) => {
   );
 };
 
-export default Modal;
+export default withRouter(Modal);

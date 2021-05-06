@@ -74,7 +74,8 @@ router.post("/cancelPayment", async (req, res) => {
     await Payment.findOneAndUpdate(
       { user, createdMonth },
       { $pull: { products: { _id: _id } } }
-    );
+    ).sort({ createdMonth: -1 });
+
     await Payment.remove({ products: { $exists: true, $size: 0 } });
 
     const payment = await Payment.find({ user }).populate(

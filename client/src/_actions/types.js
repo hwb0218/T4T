@@ -5,6 +5,8 @@ const LOGOUT_USER = "logout_user";
 const FILTER = "filter";
 const SEARCH_TERM = "search_term";
 const COMMENTS = "comments";
+const RATING = "rating";
+const REVIEW = "review";
 
 export {
   LOGOUT_USER,
@@ -14,4 +16,6 @@ export {
   FILTER,
   SEARCH_TERM,
   COMMENTS,
+  RATING,
+  REVIEW,
 };

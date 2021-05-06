@@ -6,6 +6,7 @@ import user from "./userReducer";
 import filters from "./filterReducer";
 import searchData from "./searchTermReducer";
 import comments from "./commentReducer";
+import review from "./reviewReducer";
 
 const persistConfig = {
   key: "root",
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   filters,
   searchData,
   comments,
+  review,
 });
 
 export default persistReducer(persistConfig, rootReducer);

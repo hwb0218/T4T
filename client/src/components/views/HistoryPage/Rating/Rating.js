@@ -1,29 +1,14 @@
 import React, { useState, useMemo } from "react";
-import { BsStarFill } from "react-icons/bs";
-import styled, { css } from "styled-components";
+import { useSelector } from "react-redux";
+import { Star } from "./RatingElements";
 
-const Star = styled(({ hoverRating, rating, value, ...rest }) => (
-  <BsStarFill {...rest} />
-))`
-  color: ${({ hoverRating, value }) =>
-    hoverRating >= value ? "orange" : "#dcdcdc"};
+const Rating = ({ onRating }) => {
+  const { rating } = useSelector((state) => state.review);
 
-  color: ${({ hoverRating, rating, value }) =>
-    !hoverRating && rating >= value && "orange"};
-
-  font-size: 2.8rem;
-  cursor: pointer;
-
-  & + & {
-    padding-left: 1px;
-  }
-`;
-
-const Rating = ({ count, rating, onRating }) => {
   const [hoverRating, setHoverRating] = useState(0);
 
   const starRating = useMemo(() => {
-    return Array(count)
+    return Array(5)
       .fill(0)
       .map((_, i) => i + 1)
       .map((value) => (
@@ -37,14 +22,9 @@ const Rating = ({ count, rating, onRating }) => {
           onMouseLeave={() => setHoverRating(0)}
         />
       ));
-  }, [count, rating, hoverRating]);
+  }, [rating, hoverRating]);
 
   return <div>{starRating}</div>;
-};
-
-Rating.defaultProps = {
-  count: 5,
-  rating: 0,
 };
 
 export default Rating;
