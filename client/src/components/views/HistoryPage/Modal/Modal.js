@@ -41,6 +41,8 @@ const Modal = ({ showModal, setShowModal, match, location }) => {
     dispatch(setRating(value));
   };
 
+  const handleSaveBtn = () => {};
+
   return (
     <>
       {showModal ? (
@@ -64,10 +66,11 @@ const Modal = ({ showModal, setShowModal, match, location }) => {
                     placeholder="최소 10자 이상 입력해주세요."
                     maxLength="200"
                     onChange={onChange}
+                    value={review}
                   />
                 </Review>
               </ReviewWrapper>
-              <button>등록</button>
+              <button onClick={handleSaveBtn}>등록</button>
             </ModalContent>
           </ModalWrapper>
         </Background>

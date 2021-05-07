@@ -26,6 +26,10 @@ const paymentSchema = new Schema(
           type: Date,
           default: Date.now,
         },
+        orderConfirmation: {
+          type: Boolean,
+          default: false,
+        },
       },
     ],
     createdMonth: {

@@ -88,7 +88,7 @@ export const ButtonItem = styled.div`
     cursor: pointer;
   }
 
-  button + button {
-    margin-top: 4px;
+  & > button {
+    margin-top: 5px;
   }
 `;

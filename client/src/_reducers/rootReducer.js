@@ -11,7 +11,7 @@ import review from "./reviewReducer";
 const persistConfig = {
   key: "root",
   storage: storageSession,
-  whitelist: ["user"],
+  whitelist: ["user", "review"],
 };
 
 const rootReducer = combineReducers({

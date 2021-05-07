@@ -4,7 +4,7 @@ import { FaTimes } from "react-icons/fa/index";
 export const Background = styled.div`
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: #a1a1a1ad;
   position: fixed;
   top: 70px;
   left: 0;

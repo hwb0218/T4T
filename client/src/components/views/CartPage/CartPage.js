@@ -54,7 +54,7 @@ const CartPage = () => {
     };
     getCartItems();
     return () => hideLoader();
-  }, []);
+  }, [user]);
 
   const handleToggle = (item) => {
     const checked = checkedItems.includes(item);

@@ -1,5 +1,9 @@
-import React, { useState, Fragment } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useMemo, Fragment } from "react";
+import {
+  setReviewContent,
+  setRating,
+} from "../../../../_actions/reviewActions";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import {
   GoodsPayList,
@@ -10,28 +14,67 @@ import {
   ButtonItem,
 } from "./GoodsPayElements";
 import axios from "axios";
-import Modal from "../Modal/Modal";
 
 const API_URL = process.env["REACT_APP_API_URL"];
 
-const GoodsPay = ({ products, createdMonth, modifyPayment, match }) => {
+const GoodsPay = ({
+  products,
+  createdMonth,
+  modifyPayment,
+  setShowModal,
+  match,
+}) => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userData);
 
-  const [showModal, setShowModal] = useState(false);
+  const buttonItem = (orderConfirmation, _id) =>
+    orderConfirmation ? (
+      <Link to={`${match.url}?product=${_id}`}>
+        <button onClick={() => handleReviewBtn(_id)}>후기작성</button>
+      </Link>
+    ) : (
+      <>
+        <button onClick={() => handleConfirmationBtn(_id)}>구매확정</button>
+        <button onClick={() => handleCancelPaymentBtn(_id)}>주문취소</button>
+      </>
+    );
 
-  const handleReviewBtn = () => {
+  const handleReviewBtn = (id) => {
+    const reviewFormObj = window.localStorage.getItem(`reviewForm/${id}`);
+    if (reviewFormObj !== null) {
+      const { rating, review } = JSON.parse(reviewFormObj);
+      dispatch(setRating(rating));
+      dispatch(setReviewContent(review));
+    } else {
+      dispatch(setRating(0));
+      dispatch(setReviewContent(""));
+    }
     setShowModal((prev) => !prev);
   };
 
-  const handleCancelPayment = async (_id) => {
+  const handleConfirmationBtn = async (id) => {
     try {
       const data = {
         user: user._id,
         createdMonth,
-        _id,
+        productId: id,
+      };
+      const res = await axios.post("/api/payment/orderConfirmation", data);
+      modifyPayment(res.data.histories);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleCancelPaymentBtn = async (id) => {
+    try {
+      const data = {
+        user: user._id,
+        createdMonth,
+        productId: id,
       };
       const res = await axios.post("/api/payment/cancelPayment", data);
-      modifyPayment(res.data.payment);
+      modifyPayment(res.data.histories);
     } catch (err) {
       console.log(err);
     }
@@ -39,9 +82,9 @@ const GoodsPay = ({ products, createdMonth, modifyPayment, match }) => {
 
   return (
     <GoodsPayList>
-      {products.map(({ purchaseDate, productDetail, quantity, _id }) => (
-        <Fragment key={_id}>
-          <GoodsPayItem>
+      {products.map(
+        ({ _id, purchaseDate, productDetail, quantity, orderConfirmation }) => (
+          <GoodsPayItem key={_id}>
             <GoodsItem>
               <Img
                 src={`${API_URL}${productDetail.images[0]}`}
@@ -57,16 +100,10 @@ const GoodsPay = ({ products, createdMonth, modifyPayment, match }) => {
                 </ul>
               </GoodsInfo>
             </GoodsItem>
-            <ButtonItem>
-              <Link to={`${match.url}?product=${_id}`}>
-                <button onClick={() => handleReviewBtn()}>후기작성</button>
-              </Link>
-              <button onClick={() => handleCancelPayment(_id)}>주문취소</button>
-            </ButtonItem>
+            <ButtonItem>{buttonItem(orderConfirmation, _id)}</ButtonItem>
           </GoodsPayItem>
-          <Modal showModal={showModal} setShowModal={setShowModal} id={_id} />
-        </Fragment>
-      ))}
+        )
+      )}
     </GoodsPayList>
   );
 };

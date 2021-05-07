@@ -5,6 +5,35 @@ const { ObjectId } = mongoose.Types;
 const { Payment } = require("../models/Payment");
 const { Cart } = require("../models/Cart");
 
+const descendingOrder = async (userId) => {
+  const histories = await Payment.aggregate([
+    {
+      $match: { user: ObjectId(userId) },
+    },
+    { $unwind: "$products" },
+    { $sort: { "products.createdAt": -1 } },
+    {
+      $lookup: {
+        from: "products",
+        localField: "products.productDetail",
+        foreignField: "_id",
+        as: "products.productDetail",
+      },
+    },
+    { $unwind: "$products.productDetail" },
+    {
+      $group: {
+        products: { $push: "$products" },
+        _id: "$_id",
+        user: { $first: "$user" },
+        createdMonth: { $first: "$createdMonth" },
+      },
+    },
+  ]).sort({ createdMonth: -1 });
+
+  return histories;
+};
+
 router.post("/buyProducts", async (req, res) => {
   const { user, products, date } = req.body;
   const productIds = products.map(({ _id }) => _id);
@@ -39,49 +68,43 @@ router.post("/buyProducts", async (req, res) => {
 router.post("/history", async (req, res) => {
   const { userId } = req.body;
 
-  const histories = await Payment.aggregate([
-    {
-      $match: { user: ObjectId(userId) },
-    },
-    { $unwind: "$products" },
-    { $sort: { "products.createdAt": -1 } },
-    {
-      $lookup: {
-        from: "products",
-        localField: "products.productDetail",
-        foreignField: "_id",
-        as: "products.productDetail",
-      },
-    },
-    { $unwind: "$products.productDetail" },
-    {
-      $group: {
-        products: { $push: "$products" },
-        _id: "$_id",
-        user: { $first: "$user" },
-        createdMonth: { $first: "$createdMonth" },
-      },
-    },
-  ]).sort({ createdMonth: -1 });
+  const histories = await descendingOrder(userId);
 
   return res.status(200).json({ success: true, histories });
 });
 
+router.post("/orderConfirmation", async (req, res) => {
+  const { user, createdMonth, productId } = req.body;
+
+  try {
+    await Payment.findOneAndUpdate(
+      { user, createdMonth, "products._id": productId },
+      { $set: { "products.$.orderConfirmation": true } }
+    );
+
+    const histories = await descendingOrder(user);
+
+    return res.status(200).json({ success: true, histories });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, err });
+  }
+});
+
 router.post("/cancelPayment", async (req, res) => {
-  const { user, createdMonth, _id } = req.body;
+  const { user, createdMonth, productId } = req.body;
 
   try {
     await Payment.findOneAndUpdate(
       { user, createdMonth },
-      { $pull: { products: { _id: _id } } }
-    ).sort({ createdMonth: -1 });
-
-    await Payment.remove({ products: { $exists: true, $size: 0 } });
-
-    const payment = await Payment.find({ user }).populate(
-      "products.productDetail"
+      { $pull: { products: { _id: productId } } }
     );
-    return res.status(200).json({ success: true, payment });
+
+    await Payment.deleteOne({ products: { $exists: true, $size: 0 } });
+
+    const histories = await descendingOrder(user);
+
+    return res.status(200).json({ success: true, histories });
   } catch (err) {
     console.log(err);
     res.status(500).json({ success: false, err });
