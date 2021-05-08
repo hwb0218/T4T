@@ -28,6 +28,7 @@ app.use("/api/product", require("./routes/product"));
 app.use("/api/comment", require("./routes/comment"));
 app.use("/api/cart", require("./routes/cart"));
 app.use("/api/payment", require("./routes/payment"));
+app.use("/api/review", require("./routes/review"));
 
 app.use("/uploads", express.static("uploads"));
 

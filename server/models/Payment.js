@@ -30,6 +30,10 @@ const paymentSchema = new Schema(
           type: Boolean,
           default: false,
         },
+        reviewRegistration: {
+          type: Boolean,
+          default: false,
+        },
       },
     ],
     createdMonth: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
@@ -20,10 +20,7 @@ const HistoryPage = () => {
         userId: user._id,
       });
       hideLoader();
-      const { success, histories } = res.data;
-      if (success) {
-        setHistories(histories);
-      }
+      setHistories(res.data.histories);
     };
     fetchHistory();
     return () => hideLoader();
@@ -37,19 +34,17 @@ const HistoryPage = () => {
     <>
       {histories.length > 0 &&
         histories.map(({ _id, createdMonth, products }) => (
-          <Fragment key={_id}>
-            <GoodsPaySection>
-              <Month>
-                <span>{createdMonth}</span>
-              </Month>
-              <GoodsPay
-                products={products}
-                createdMonth={createdMonth}
-                modifyPayment={modifyPayment}
-                setShowModal={setShowModal}
-              />
-            </GoodsPaySection>
-          </Fragment>
+          <GoodsPaySection key={_id}>
+            <Month>
+              <span>{createdMonth}</span>
+            </Month>
+            <GoodsPay
+              products={products}
+              createdMonth={createdMonth}
+              modifyPayment={modifyPayment}
+              setShowModal={setShowModal}
+            />
+          </GoodsPaySection>
         ))}
       <Modal showModal={showModal} setShowModal={setShowModal} />
       {loader}

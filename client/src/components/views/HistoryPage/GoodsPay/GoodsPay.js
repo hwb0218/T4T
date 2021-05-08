@@ -1,4 +1,4 @@
-import React, { useState, useMemo, Fragment } from "react";
+import React from "react";
 import {
   setReviewContent,
   setRating,
@@ -14,7 +14,6 @@ import {
   ButtonItem,
 } from "./GoodsPayElements";
 import axios from "axios";
-
 const API_URL = process.env["REACT_APP_API_URL"];
 
 const GoodsPay = ({
@@ -83,7 +82,14 @@ const GoodsPay = ({
   return (
     <GoodsPayList>
       {products.map(
-        ({ _id, purchaseDate, productDetail, quantity, orderConfirmation }) => (
+        ({
+          _id,
+          purchaseDate,
+          productDetail,
+          quantity,
+          orderConfirmation,
+          reviewRegistration,
+        }) => (
           <GoodsPayItem key={_id}>
             <GoodsItem>
               <Img
@@ -100,7 +106,13 @@ const GoodsPay = ({
                 </ul>
               </GoodsInfo>
             </GoodsItem>
-            <ButtonItem>{buttonItem(orderConfirmation, _id)}</ButtonItem>
+            <ButtonItem>
+              {reviewRegistration ? (
+                <div>후기등록완료</div>
+              ) : (
+                buttonItem(orderConfirmation, _id)
+              )}
+            </ButtonItem>
           </GoodsPayItem>
         )
       )}

@@ -16,10 +16,12 @@ import {
   ReviewWrapper,
   Review,
 } from "./ModalElements";
+import axios from "axios";
 
 const Modal = ({ showModal, setShowModal, match, location }) => {
   const dispatch = useDispatch();
   const { rating, review } = useSelector((state) => state.review);
+  const user = useSelector((state) => state.user.userData);
   const query = queryString.parse(location.search);
 
   const setLocalStorage = (reviewFormObj) => {
@@ -41,7 +43,18 @@ const Modal = ({ showModal, setShowModal, match, location }) => {
     dispatch(setRating(value));
   };
 
-  const handleSaveBtn = () => {};
+  const handleSaveBtn = async () => {
+    try {
+      const variables = { user, rating, review, product: query.product };
+      const res = await axios.post("/api/review/saveReview", variables);
+      if (res.data.success) {
+        window.localStorage.removeItem(`reviewForm/${query.product}`);
+        setShowModal((prev) => !prev);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -70,7 +83,9 @@ const Modal = ({ showModal, setShowModal, match, location }) => {
                   />
                 </Review>
               </ReviewWrapper>
-              <button onClick={handleSaveBtn}>등록</button>
+              <Link to={match.url}>
+                <button onClick={handleSaveBtn}>등록</button>
+              </Link>
             </ModalContent>
           </ModalWrapper>
         </Background>

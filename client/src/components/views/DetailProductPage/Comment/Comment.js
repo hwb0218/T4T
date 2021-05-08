@@ -12,8 +12,6 @@ const TotalComment = styled.p`
   margin-bottom: 1rem;
 `;
 
-const CommentContent = styled.div``;
-
 const Writer = styled.span`
   display: inline-block;
   margin-bottom: 1rem;
@@ -70,6 +68,7 @@ const Btn = styled.button`
 `;
 
 const Comment = ({ productId }) => {
+  console.log(productId);
   const user = useSelector((state) => state.user);
   const commentBox = useRef(null);
 
@@ -92,20 +91,24 @@ const Comment = ({ productId }) => {
   }, [productId]);
 
   const handleKeyPress = async (e) => {
-    if (e.target.textContent != "" && e.key === "Enter") {
+    if (e.target.textContent !== "" && e.key === "Enter") {
       e.target.textContent = "";
       e.preventDefault();
 
-      const variables = {
-        content: commentValue,
-        writer: user.userData._id,
-        productId,
-      };
+      try {
+        const variables = {
+          content: commentValue,
+          writer: user.userData._id,
+          productId,
+        };
 
-      const res = await axios.post("/api/comment/saveComment", variables);
-      if (res.data.success) {
-        setCommentLists(commentLists.concat(res.data.result));
-        setCommentValue("");
+        const res = await axios.post("/api/comment/saveComment", variables);
+        if (res.data.success) {
+          setCommentLists(commentLists.concat(res.data.result));
+          setCommentValue("");
+        }
+      } catch (err) {
+        console.log(err);
       }
     }
   };
@@ -122,7 +125,7 @@ const Comment = ({ productId }) => {
   return (
     <CommentWrapper>
       <TotalComment>후기 {commentLists.length}개</TotalComment>
-      <CommentContent>
+      <div>
         <Writer>{user.userData.name}</Writer>
         <CommentBox
           placeholder="댓글을 입력하세요."
@@ -140,7 +143,7 @@ const Comment = ({ productId }) => {
             <Btn onClick={handleSubmit}>댓글</Btn>
           </BtnWrapper>
         ) : null}
-      </CommentContent>
+      </div>
       <CommentLists commentLists={commentLists} />
     </CommentWrapper>
   );

@@ -46,11 +46,9 @@ const CartPage = () => {
         userId: user._id,
       });
       hideLoader();
-      if (res.data.success) {
-        setCartProducts(res.data.cart);
-        setCheckedItems(res.data.cart);
-        calculate(res.data.cart);
-      }
+      setCartProducts(res.data.cart);
+      setCheckedItems(res.data.cart);
+      calculate(res.data.cart);
     };
     getCartItems();
     return () => hideLoader();
