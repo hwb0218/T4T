@@ -12,7 +12,6 @@ const HistoryPage = () => {
 
   const [histories, setHistories] = useState([]);
   const [showModal, setShowModal] = useState(false);
-
   useEffect(() => {
     showLoader();
     const fetchHistory = async () => {
@@ -46,7 +45,11 @@ const HistoryPage = () => {
             />
           </GoodsPaySection>
         ))}
-      <Modal showModal={showModal} setShowModal={setShowModal} />
+      <Modal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        setHistories={setHistories}
+      />
       {loader}
     </>
   );

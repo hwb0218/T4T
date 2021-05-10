@@ -21,7 +21,9 @@ const SearchBox = ({ products, updateProducts }) => {
       const search = products.filter((product) =>
         product.title.includes(searchData)
       );
-      console.log(search);
+      if (search.length === 0) {
+        return;
+      }
       updateProducts(search);
       dispatch(updateSearchTerm(""));
     }

@@ -6,6 +6,7 @@ import ProductInfo from "./ProductInfo/ProductInfo";
 import Comment from "./Comment/Comment";
 import styled from "styled-components";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
+import Review from "./Review/Review";
 
 const DetailProductPageContainer = styled.div`
   max-width: 900px;
@@ -31,8 +32,8 @@ const DetailProductPage = ({ match }) => {
         if (res.data.success) {
           setProduct(res.data.product[0]);
         }
-      } catch (e) {
-        console.error(e);
+      } catch (err) {
+        console.error(err);
       }
     };
     getProduct();
@@ -43,6 +44,7 @@ const DetailProductPage = ({ match }) => {
     <DetailProductPageContainer>
       {product && <ProductImage detail={product} />}
       <ProductInfo detail={product} productId={productId} />
+      <Review />
       <Comment productId={productId} />
       {loader}
     </DetailProductPageContainer>

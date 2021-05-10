@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import axios from "axios";
@@ -12,13 +12,34 @@ const TotalComment = styled.p`
   margin-bottom: 1rem;
 `;
 
+const QnABtn = styled.button`
+  margin-bottom: 0.5rem;
+  padding: 0 15px;
+  height: 34px;
+  border: none;
+  background: #565656;
+  font-size: 12px;
+  color: white;
+
+  ${({ clickQnABtn }) =>
+    clickQnABtn &&
+    css`
+      display: none;
+    `}
+`;
+
+const CommentContent = styled.div`
+  padding: 0.5rem 0.5rem;
+`;
+
 const Writer = styled.span`
   display: inline-block;
   margin-bottom: 1rem;
-  padding: 2px 4px;
+  padding: 2px 6px;
   border-radius: 2px;
   background: #565656;
   color: white;
+  font-size: 15px;
 `;
 
 const CommentBox = styled.div`
@@ -34,6 +55,10 @@ const CommentBox = styled.div`
     content: attr(placeholder);
     color: grey;
     display: inline-block;
+  }
+
+  &:focus {
+    border-color: #565656;
   }
 
   ${({ showBtn }) =>
@@ -68,82 +93,87 @@ const Btn = styled.button`
 `;
 
 const Comment = ({ productId }) => {
-  console.log(productId);
   const user = useSelector((state) => state.user);
-  const commentBox = useRef(null);
 
   const [commentValue, setCommentValue] = useState("");
   const [commentLists, setCommentLists] = useState([]);
+  const [clickQnABtn, setClickQnABtn] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
+
+  useEffect(() => {
+    const getComments = async () => {
+      const res = await axios.post("/api/comment/getComments", { productId });
+      setCommentLists(res.data.comments);
+    };
+
+    getComments();
+  }, [productId]);
 
   const handleComment = (e) => {
     setCommentValue(e.currentTarget.textContent);
   };
 
-  useEffect(() => {
-    const getComments = async () => {
-      const res = await axios.post("/api/comment/getComments", { productId });
-      if (res.data.success) {
-        setCommentLists(res.data.comments);
-      }
-    };
-    getComments();
-  }, [productId]);
+  const elRef = useCallback((node) => {
+    if (node !== null) {
+      node.focus();
+      node.textContent = "";
+    }
+  }, []);
 
-  const handleKeyPress = async (e) => {
-    if (e.target.textContent !== "" && e.key === "Enter") {
-      e.target.textContent = "";
-      e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      try {
-        const variables = {
-          content: commentValue,
-          writer: user.userData._id,
-          productId,
-        };
+    if (commentValue === "") {
+      alert("내용을 입력하세요.");
+      return;
+    }
 
-        const res = await axios.post("/api/comment/saveComment", variables);
-        if (res.data.success) {
-          setCommentLists(commentLists.concat(res.data.result));
-          setCommentValue("");
-        }
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      const variables = {
+        content: commentValue,
+        writer: user.userData._id,
+        productId,
+      };
+
+      const res = await axios.post("/api/comment/saveComment", variables);
+      setCommentLists(commentLists.concat(res.data.result));
+      setCommentValue("");
+      setClickQnABtn(false);
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const handleSubmit = () => {
-    handleKeyPress();
-  };
-
   const handleClickCancel = () => {
+    setClickQnABtn(false);
     setShowBtn(false);
-    commentBox.current.textContent = "";
   };
 
   return (
     <CommentWrapper>
-      <TotalComment>후기 {commentLists.length}개</TotalComment>
-      <div>
-        <Writer>{user.userData.name}</Writer>
-        <CommentBox
-          placeholder="댓글을 입력하세요."
-          contentEditable
-          onInput={handleComment}
-          onClick={() => setShowBtn(true)}
-          onKeyPress={handleKeyPress}
-          showBtn={showBtn}
-          spellCheck={false}
-          ref={commentBox}
-        />
-        {showBtn ? (
+      <TotalComment>Q&A {commentLists.length}개</TotalComment>
+      <QnABtn clickQnABtn={clickQnABtn} onClick={() => setClickQnABtn(true)}>
+        Q&A 작성하기
+      </QnABtn>
+      {clickQnABtn && (
+        <CommentContent>
+          <Writer>{user.userData.name}</Writer>
+          <CommentBox
+            placeholder="댓글을 입력하세요."
+            contentEditable
+            autoFocus
+            onInput={handleComment}
+            onClick={() => setShowBtn(true)}
+            showBtn={showBtn}
+            spellCheck={false}
+            ref={elRef}
+          />
           <BtnWrapper>
             <Btn onClick={handleClickCancel}>취소</Btn>
             <Btn onClick={handleSubmit}>댓글</Btn>
           </BtnWrapper>
-        ) : null}
-      </div>
+        </CommentContent>
+      )}
       <CommentLists commentLists={commentLists} />
     </CommentWrapper>
   );

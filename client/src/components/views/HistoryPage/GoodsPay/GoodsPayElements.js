@@ -42,9 +42,12 @@ export const GoodsInfo = styled.div`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: 0.9rem;
   }
 
   ul {
+    margin: 2px 0;
+
     li {
       display: inline-block;
       font-size: 0.9rem;

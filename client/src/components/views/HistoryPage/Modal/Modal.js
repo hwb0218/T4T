@@ -18,7 +18,7 @@ import {
 } from "./ModalElements";
 import axios from "axios";
 
-const Modal = ({ showModal, setShowModal, match, location }) => {
+const Modal = ({ showModal, setShowModal, setHistories, match, location }) => {
   const dispatch = useDispatch();
   const { rating, review } = useSelector((state) => state.review);
   const user = useSelector((state) => state.user.userData);
@@ -45,12 +45,17 @@ const Modal = ({ showModal, setShowModal, match, location }) => {
 
   const handleSaveBtn = async () => {
     try {
-      const variables = { user, rating, review, product: query.product };
+      const variables = {
+        user: user._id,
+        rating,
+        review,
+        product: query.product,
+      };
       const res = await axios.post("/api/review/saveReview", variables);
-      if (res.data.success) {
-        window.localStorage.removeItem(`reviewForm/${query.product}`);
-        setShowModal((prev) => !prev);
-      }
+
+      setHistories(res.data.histories);
+      window.localStorage.removeItem(`reviewForm/${query.product}`);
+      setShowModal((prev) => !prev);
     } catch (err) {
       console.log(err);
     }

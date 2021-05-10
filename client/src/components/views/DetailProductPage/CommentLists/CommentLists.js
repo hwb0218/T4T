@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { FaRegCommentDots } from "react-icons/fa";
 
-const CommentListsWrapper = styled.div`
+const CommentListsWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   background: #f2f2f2;
   padding: 0.5rem 0.5rem;
 `;
 
-const SingleComment = styled.div`
+const SingleComment = styled.li`
   & + & {
     padding-top: 0.5rem;
     margin-top: 1rem;
@@ -21,7 +21,7 @@ const Writer = styled.span`
   display: inline-block;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
-  padding: 2px 8px;
+  padding: 2px 6px;
   border-radius: 2px;
   background: #565656;
   color: white;

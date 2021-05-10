@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Types;
 const { Payment } = require("../models/Payment");
+const { Product } = require("../models/Product");
 const { Cart } = require("../models/Cart");
 
 const descendingOrder = async (userId) => {
@@ -71,15 +72,21 @@ router.post("/history", async (req, res) => {
   const histories = await descendingOrder(userId);
 
   return res.status(200).json({ success: true, histories });
+  1;
 });
 
 router.post("/orderConfirmation", async (req, res) => {
-  const { user, createdMonth, productId } = req.body;
+  const { user, createdMonth, productId, productDetailId, quantity } = req.body;
 
   try {
     await Payment.findOneAndUpdate(
       { user, createdMonth, "products._id": productId },
       { $set: { "products.$.orderConfirmation": true } }
+    );
+
+    await Product.findOneAndUpdate(
+      { _id: productDetailId },
+      { $inc: { sold: quantity } }
     );
 
     const histories = await descendingOrder(user);

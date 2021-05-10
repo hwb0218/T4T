@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   setReviewContent,
   setRating,
@@ -26,14 +26,20 @@ const GoodsPay = ({
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userData);
 
-  const buttonItem = (orderConfirmation, _id) =>
+  useEffect(() => {}, [products]);
+
+  const buttonItem = (orderConfirmation, _id, productDetail, quantity) =>
     orderConfirmation ? (
       <Link to={`${match.url}?product=${_id}`}>
         <button onClick={() => handleReviewBtn(_id)}>후기작성</button>
       </Link>
     ) : (
       <>
-        <button onClick={() => handleConfirmationBtn(_id)}>구매확정</button>
+        <button
+          onClick={() => handleConfirmationBtn(_id, productDetail, quantity)}
+        >
+          구매확정
+        </button>
         <button onClick={() => handleCancelPaymentBtn(_id)}>주문취소</button>
       </>
     );
@@ -51,12 +57,14 @@ const GoodsPay = ({
     setShowModal((prev) => !prev);
   };
 
-  const handleConfirmationBtn = async (id) => {
+  const handleConfirmationBtn = async (id, productDetail, quantity) => {
     try {
       const data = {
         user: user._id,
         createdMonth,
         productId: id,
+        productDetailId: productDetail._id,
+        quantity,
       };
       const res = await axios.post("/api/payment/orderConfirmation", data);
       modifyPayment(res.data.histories);
@@ -104,13 +112,14 @@ const GoodsPay = ({
                     <span>{purchaseDate}</span>
                   </li>
                 </ul>
+                <p>{quantity}개</p>
               </GoodsInfo>
             </GoodsItem>
             <ButtonItem>
               {reviewRegistration ? (
-                <div>후기등록완료</div>
+                <div>후기작성완료</div>
               ) : (
-                buttonItem(orderConfirmation, _id)
+                buttonItem(orderConfirmation, _id, productDetail, quantity)
               )}
             </ButtonItem>
           </GoodsPayItem>
