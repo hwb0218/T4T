@@ -15,6 +15,7 @@ router.post("/saveComment", (req, res) => {
         if (err) {
           return res.status(400).json({ success: false, err });
         }
+        console.log(result);
         return res.status(200).json({ success: true, result });
       });
   });
@@ -23,6 +24,7 @@ router.post("/saveComment", (req, res) => {
 router.post("/getComments", (req, res) => {
   Comment.find({ productId: req.body.productId })
     .populate("writer")
+    .sort({ createdAt: -1 })
     .exec((err, comments) => {
       if (err) {
         return res.status(400).send(err);

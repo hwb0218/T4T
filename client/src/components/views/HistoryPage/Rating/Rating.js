@@ -22,7 +22,7 @@ const Rating = ({ onRating }) => {
           onMouseLeave={() => setHoverRating(0)}
         />
       ));
-  }, [rating, hoverRating]);
+  }, [rating, hoverRating, onRating]);
 
   return <div>{starRating}</div>;
 };

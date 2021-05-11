@@ -120,9 +120,14 @@ const Comment = ({ productId }) => {
     }
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
 
+  const handleSubmit = async () => {
     if (commentValue === "") {
       alert("내용을 입력하세요.");
       return;
@@ -136,7 +141,7 @@ const Comment = ({ productId }) => {
       };
 
       const res = await axios.post("/api/comment/saveComment", variables);
-      setCommentLists(commentLists.concat(res.data.result));
+      setCommentLists(res.data.result.concat(commentLists));
       setCommentValue("");
       setClickQnABtn(false);
     } catch (err) {
@@ -163,6 +168,7 @@ const Comment = ({ productId }) => {
             contentEditable
             autoFocus
             onInput={handleComment}
+            onKeyPress={handleKeyPress}
             onClick={() => setShowBtn(true)}
             showBtn={showBtn}
             spellCheck={false}

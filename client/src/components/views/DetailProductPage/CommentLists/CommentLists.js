@@ -55,10 +55,10 @@ const CommentLists = ({ commentLists }) => {
   return (
     <CommentListsWrapper>
       {commentLists.length > 0 ? (
-        commentLists.map(({ content, _id, writer, createdAt }) => (
+        commentLists.map(({ content, _id, writer, createdDate }) => (
           <SingleComment key={_id}>
             <Writer>{writer.name}</Writer>
-            <CreatedAt>{createdAt}</CreatedAt>
+            <CreatedAt>{createdDate}</CreatedAt>
             <Content>{content}</Content>
           </SingleComment>
         ))
