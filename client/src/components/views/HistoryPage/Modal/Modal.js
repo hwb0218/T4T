@@ -20,7 +20,9 @@ import axios from "axios";
 
 const Modal = ({ showModal, setShowModal, setHistories, match, location }) => {
   const dispatch = useDispatch();
-  const { rating, review } = useSelector((state) => state.review);
+  const { rating, review, productDetail } = useSelector(
+    (state) => state.review
+  );
   const user = useSelector((state) => state.user.userData);
   const query = queryString.parse(location.search);
 
@@ -50,6 +52,7 @@ const Modal = ({ showModal, setShowModal, setHistories, match, location }) => {
         rating,
         review,
         product: query.product,
+        productDetail,
       };
       const res = await axios.post("/api/review/saveReview", variables);
 

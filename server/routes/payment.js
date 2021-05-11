@@ -86,7 +86,8 @@ router.post("/orderConfirmation", async (req, res) => {
 
     await Product.findOneAndUpdate(
       { _id: productDetailId },
-      { $inc: { sold: quantity } }
+      { $inc: { sold: quantity } },
+      { new: true }
     );
 
     const histories = await descendingOrder(user);

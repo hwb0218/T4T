@@ -12,6 +12,7 @@ const HistoryPage = () => {
 
   const [histories, setHistories] = useState([]);
   const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     showLoader();
     const fetchHistory = async () => {

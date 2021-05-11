@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-
+import Rating from "../../Rating/Rating";
 import {
   ProductInfoContainer,
   ProductInfoWrapper,
@@ -78,7 +78,10 @@ const ProductInfo = ({ detail, productId, history }) => {
             </ProductInfoList>
             <ProductInfoList>
               <ProductTit>평점</ProductTit>
-              <ProductContent>⭐</ProductContent>
+              <ProductContent>
+                <Rating value={detail.rating} />
+                <span>({detail.rating})</span>
+              </ProductContent>
             </ProductInfoList>
             <ProductInfoList>
               <ProductTit>가격</ProductTit>

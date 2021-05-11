@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   setReviewContent,
   setRating,
+  setProductDetail,
 } from "../../../../_actions/reviewActions";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
@@ -26,12 +27,12 @@ const GoodsPay = ({
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userData);
 
-  useEffect(() => {}, [products]);
-
   const buttonItem = (orderConfirmation, _id, productDetail, quantity) =>
     orderConfirmation ? (
       <Link to={`${match.url}?product=${_id}`}>
-        <button onClick={() => handleReviewBtn(_id)}>후기작성</button>
+        <button onClick={() => handleReviewBtn(_id, productDetail)}>
+          후기작성
+        </button>
       </Link>
     ) : (
       <>
@@ -44,7 +45,8 @@ const GoodsPay = ({
       </>
     );
 
-  const handleReviewBtn = (id) => {
+  const handleReviewBtn = (id, productDetail) => {
+    dispatch(setProductDetail(productDetail._id));
     const reviewFormObj = window.localStorage.getItem(`reviewForm/${id}`);
     if (reviewFormObj !== null) {
       const { rating, review } = JSON.parse(reviewFormObj);

@@ -1,8 +1,9 @@
-import { RATING, REVIEW } from "../_actions/types";
+import { RATING, REVIEW, PRODUCT_DETAIL } from "../_actions/types";
 
 const initialState = {
   rating: 0,
   review: "",
+  PRODUCT_DETAIL: {},
 };
 
 const reviewReducer = (state = initialState, action) => {
@@ -11,6 +12,8 @@ const reviewReducer = (state = initialState, action) => {
       return { ...state, rating: action.payload };
     case REVIEW:
       return { ...state, review: action.payload };
+    case PRODUCT_DETAIL:
+      return { ...state, productDetail: action.payload };
     default:
       return state;
   }

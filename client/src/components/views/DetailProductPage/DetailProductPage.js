@@ -44,7 +44,7 @@ const DetailProductPage = ({ match }) => {
     <DetailProductPageContainer>
       {product && <ProductImage detail={product} />}
       <ProductInfo detail={product} productId={productId} />
-      <Review />
+      <Review productId={productId} />
       <Comment productId={productId} />
       {loader}
     </DetailProductPageContainer>

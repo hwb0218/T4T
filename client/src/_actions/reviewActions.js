@@ -1,4 +1,4 @@
-import { RATING, REVIEW } from "./types";
+import { RATING, REVIEW, PRODUCT_DETAIL } from "./types";
 
 export const setRating = (rating) => {
   return {
@@ -11,5 +11,12 @@ export const setReviewContent = (text) => {
   return {
     type: REVIEW,
     payload: text,
+  };
+};
+
+export const setProductDetail = (productDetailId) => {
+  return {
+    type: PRODUCT_DETAIL,
+    payload: productDetailId,
   };
 };

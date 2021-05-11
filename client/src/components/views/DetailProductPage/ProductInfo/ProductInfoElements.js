@@ -40,6 +40,11 @@ export const ProductContent = styled.p`
   letter-spacing: 0.5px;
   font-size: 13px;
   font-weight: bold;
+
+  span {
+    vertical-align: top;
+    padding-left: 2px;
+  }
 `;
 
 export const ProductDescription = styled.div`

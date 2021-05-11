@@ -7,6 +7,7 @@ const SEARCH_TERM = "search_term";
 const COMMENTS = "comments";
 const RATING = "rating";
 const REVIEW = "review";
+const PRODUCT_DETAIL = "product_detail";
 
 export {
   LOGOUT_USER,
@@ -18,4 +19,5 @@ export {
   COMMENTS,
   RATING,
   REVIEW,
+  PRODUCT_DETAIL,
 };
