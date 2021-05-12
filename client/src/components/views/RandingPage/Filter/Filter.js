@@ -15,8 +15,9 @@ import {
 const Filter = ({ destination, price, rating, history }) => {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters);
+  console.log(filters.rating);
 
-  const handleToggle = (id) => {
+  const handleToggleDestination = (id) => {
     const { destination } = filters;
     const checked = destination.includes(id);
     const newChecked = checked
@@ -26,8 +27,18 @@ const Filter = ({ destination, price, rating, history }) => {
     history.push("/");
   };
 
-  const handleChange = (priceRange) => {
+  const handleChangePrice = (priceRange) => {
     dispatch(filter(priceRange, "price"));
+    history.push("/");
+  };
+
+  const handleToggleRating = (id) => {
+    const { rating } = filters;
+    const checked = rating.includes(id);
+    const newChecked = checked
+      ? rating.filter((option) => option !== id)
+      : [...rating, id];
+    dispatch(filter(newChecked, "rating"));
     history.push("/");
   };
 
@@ -39,8 +50,9 @@ const Filter = ({ destination, price, rating, history }) => {
           {destination.map(({ _id, city }) => (
             <CheckBox key={_id}>
               <CheckBoxInput
-                onChange={() => handleToggle(_id)}
+                onChange={() => handleToggleDestination(_id)}
                 type="checkbox"
+                name="destination"
                 id={_id}
                 checked={filters.destination.includes(_id)}
               />
@@ -55,10 +67,9 @@ const Filter = ({ destination, price, rating, history }) => {
           {price.map(({ _id, label, priceRange }) => (
             <CheckBox key={_id}>
               <CheckBoxInput
-                onChange={() => handleChange(priceRange)}
+                onChange={() => handleChangePrice(priceRange)}
                 type="radio"
                 id={label}
-                name="checkPrice"
                 checked={
                   filters.price.length < 1
                     ? _id === 0
@@ -75,7 +86,11 @@ const Filter = ({ destination, price, rating, history }) => {
         <CheckBoxes>
           {rating.map(({ _id, rate }) => (
             <CheckBox key={_id}>
-              <CheckBoxInput type="radio" name="checkRating" id={rate} />
+              <CheckBoxInput
+                onChange={() => handleToggleRating(_id)}
+                type="checkbox"
+                id={rate}
+              />
               <CheckBoxLabel htmlFor={rate}>{` ${rate}`}</CheckBoxLabel>
             </CheckBox>
           ))}

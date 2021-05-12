@@ -60,16 +60,22 @@ router.post("/products", (req, res) => {
   let findArgs = {};
 
   Object.entries(req.body.filters).forEach(([key, value]) => {
-    if (key !== "price" && value.length > 0) {
+    if (key === "destination" && value.length > 0) {
       findArgs[key] = value;
     } else if (key === "price") {
       findArgs[key] = {
         $gte: value.length === 0 ? 0 : value[0],
         $lte: value.length === 0 ? 1000000000 : value[1],
       };
+    } else if (key === "rating" && value.length > 0) {
+      findArgs[key] = {
+        $gte: value[0],
+        $lte: value[value.length - 1] + 1,
+      };
     }
   });
 
+  console.log(findArgs);
   Product.find(findArgs)
     .populate("seller")
     .exec((err, productInfo) => {

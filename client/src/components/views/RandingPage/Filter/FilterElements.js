@@ -112,7 +112,7 @@ export const CheckBoxLabel = styled.label`
   padding-left: 5px;
 
   ${({ theme }) => theme.tablet`
-    font-size: 15px;
+    font-size: 0.9rem;
   `}
 
   &::before {

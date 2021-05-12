@@ -9,12 +9,12 @@ export const CardContainer = styled.ul`
 export const CardList = styled.li`
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(3, 31%);
+  grid-template-columns: repeat(4, 23%);
   row-gap: 1.5rem;
   column-gap: 1.5rem;
 
-  ${({ theme }) => theme.mobile`
-    grid-template-columns: repeat(auto-fill, minmax(345px, 1fr));
+  ${({ theme }) => theme.tablet`
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   `}
 `;
 

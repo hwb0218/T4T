@@ -16,9 +16,9 @@ export const price = [
 ];
 
 export const rating = [
-  { _id: 0, rate: "⭐ X 1" },
-  { _id: 1, rate: "⭐ X 2" },
-  { _id: 2, rate: "⭐ X 3" },
-  { _id: 3, rate: "⭐ X 4" },
-  { _id: 4, rate: "⭐ X 5" },
+  { _id: 1, rate: "⭐ X 1" },
+  { _id: 2, rate: "⭐ X 2" },
+  { _id: 3, rate: "⭐ X 3" },
+  { _id: 4, rate: "⭐ X 4" },
+  { _id: 5, rate: "⭐ X 5" },
 ];

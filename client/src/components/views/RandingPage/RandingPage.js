@@ -18,7 +18,7 @@ const RandingPage = ({ location }) => {
 
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(3);
+  const [productsPerPage] = useState(4);
   const [searchedProducts, setSearchedProducts] = useState([]);
 
   const indexOfLastPost = currentPage * productsPerPage;
