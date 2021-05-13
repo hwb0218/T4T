@@ -7,11 +7,12 @@ import filters from "./filterReducer";
 import searchData from "./searchTermReducer";
 import comments from "./commentReducer";
 import review from "./reviewReducer";
+import pagination from "./paginationReducer";
 
 const persistConfig = {
   key: "root",
   storage: storageSession,
-  whitelist: ["user", "review"],
+  whitelist: ["user", "review", "pagination", "searchData"],
 };
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   searchData,
   comments,
   review,
+  pagination,
 });
 
 export default persistReducer(persistConfig, rootReducer);

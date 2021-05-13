@@ -50,7 +50,11 @@ const RandingPage = ({ location }) => {
     <>
       <CarouselSlide />
       <Filter destination={destination} price={price} rating={rating} />
-      <SearchBox products={products} updateProducts={updateProducts} />
+      <SearchBox
+        products={products}
+        updateProducts={updateProducts}
+        paginate={paginate}
+      />
       <Cards products={currentProducts} />
       <Pagination
         currentPage={currentPage}

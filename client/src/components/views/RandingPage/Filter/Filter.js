@@ -15,7 +15,6 @@ import {
 const Filter = ({ destination, price, rating, history }) => {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters);
-  console.log(filters.rating);
 
   const handleToggleDestination = (id) => {
     const { destination } = filters;

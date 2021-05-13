@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { updateSearchTerm } from "../../../../_actions/searchTermActions";
+import { minMaxPageNumberLimit } from "../../../../_actions/paginationActions";
 import {
   SearchBoxContainer,
   SearchBoxContent,
@@ -8,31 +10,46 @@ import {
   SearchBoxInput,
 } from "./SearchBoxElements";
 
-const SearchBox = ({ products, updateProducts }) => {
-  const searchData = useSelector((state) => state.searchData);
+const SearchBox = ({ products, updateProducts, paginate, history }) => {
   const dispatch = useDispatch();
+  const searchData = useSelector((state) => state.searchData);
 
   const handleSearchTerm = (e) => {
     dispatch(updateSearchTerm(e.target.value));
   };
 
+  const onClickSearchIcon = () => {
+    if (searchData === "" || searchData === " ") {
+      alert("텍스트를 입력하세요.");
+      return;
+    }
+
+    const search = products.filter((product) =>
+      product.title.includes(searchData)
+    );
+
+    if (search.length === 0) {
+      alert("검색 결과가 없습니다.");
+      return;
+    }
+    updateProducts(search);
+    paginate(1);
+    dispatch(minMaxPageNumberLimit("minPageNumberLimit", 0));
+    dispatch(minMaxPageNumberLimit("maxPageNumberLimit", 3));
+    dispatch(updateSearchTerm(""));
+    history.push("/");
+  };
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      const search = products.filter((product) =>
-        product.title.includes(searchData)
-      );
-      if (search.length === 0) {
-        return;
-      }
-      updateProducts(search);
-      dispatch(updateSearchTerm(""));
+      onClickSearchIcon();
     }
   };
 
   return (
     <SearchBoxContainer>
       <SearchBoxContent>
-        <SearchIcon />
+        <SearchIcon onClick={onClickSearchIcon} />
         <SearchBoxInput
           type="text"
           value={searchData}
@@ -45,4 +62,4 @@ const SearchBox = ({ products, updateProducts }) => {
   );
 };
 
-export default SearchBox;
+export default withRouter(SearchBox);

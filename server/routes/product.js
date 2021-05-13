@@ -70,12 +70,11 @@ router.post("/products", (req, res) => {
     } else if (key === "rating" && value.length > 0) {
       findArgs[key] = {
         $gte: value[0],
-        $lte: value[value.length - 1] + 1,
+        $lt: value[value.length - 1] + 1,
       };
     }
   });
 
-  console.log(findArgs);
   Product.find(findArgs)
     .populate("seller")
     .exec((err, productInfo) => {

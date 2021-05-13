@@ -24,6 +24,7 @@ export const SearchIcon = styled(FaSearch)`
   right: 0;
   transform: translate(-50%, -50%);
   z-index: 1;
+  cursor: pointer;
 `;
 
 export const SearchBoxInput = styled.input`

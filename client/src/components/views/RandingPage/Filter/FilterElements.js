@@ -38,6 +38,10 @@ export const Panel = styled.div`
   padding: 10px 15px;
   background: #f6f6f6;
   border-bottom: 1px solid #e2e2e2;
+
+  ${({ theme }) => theme.mobile`
+      padding: 10px 10px;
+    `}
 `;
 
 export const CheckBoxes = styled.div`
@@ -47,6 +51,9 @@ export const CheckBoxes = styled.div`
   & + & {
     margin-left: 0.5rem;
   }
+  ${({ theme }) => theme.mobile`
+      padding: 10px 10px;
+    `}
 `;
 
 export const CheckBox = styled.div`
@@ -107,13 +114,9 @@ export const CheckBoxInput = styled.input`
 export const CheckBoxLabel = styled.label`
   display: inline-block;
   color: #4c4c4c;
-  font-size: 0.9vw;
+  font-size: 0.9rem;
   cursor: pointer;
   padding-left: 5px;
-
-  ${({ theme }) => theme.tablet`
-    font-size: 0.9rem;
-  `}
 
   &::before {
     content: "";
@@ -122,4 +125,8 @@ export const CheckBoxLabel = styled.label`
   &::selection {
     outline: none;
   }
+
+  ${({ theme }) => theme.mobile`
+    font-size: 0.6rem;
+      `}
 `;
