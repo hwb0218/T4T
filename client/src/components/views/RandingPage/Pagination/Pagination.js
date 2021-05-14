@@ -9,7 +9,6 @@ import {
 } from "./PaginationElements";
 import { withRouter } from "react-router-dom";
 import { minMaxPageNumberLimit } from "../../../../_actions/paginationActions";
-import queryString from "query-string";
 
 const Pagination = ({
   currentPage,

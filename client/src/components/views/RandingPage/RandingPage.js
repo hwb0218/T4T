@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { destination, price, rating } from "./Filter/Datas";
 import CarouselSlide from "./CarouselSlide/CarouselSlide";
 import Filter from "./Filter/Filter";
@@ -10,8 +10,10 @@ import Cards from "./Cards/Cards";
 import Pagination from "./Pagination/Pagination";
 import SearchBox from "./SearchBox/SearchBox";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
+import { minMaxPageNumberLimit } from "../../../_actions/paginationActions";
 
 const RandingPage = ({ location }) => {
+  const dispatch = useDispatch();
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const query = queryString.parse(location.search);
   const filters = useSelector((state) => state.filters);
@@ -30,13 +32,15 @@ const RandingPage = ({ location }) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setSearchedProducts([]);
-      showLoader();
-      const res = await axios.post("/api/product/products", { filters });
-      hideLoader();
-      if (res.data.success) {
+      try {
+        setSearchedProducts([]);
+        showLoader();
+        const res = await axios.post("/api/product/products", { filters });
+        hideLoader();
         setCurrentPage(query.page ? Number(query.page) : 1);
         setProducts(res.data.productInfo);
+      } catch (err) {
+        console.error(err);
       }
     };
     fetchProducts();

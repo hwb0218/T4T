@@ -17,13 +17,15 @@ const ProductImage = ({ detail }) => {
 
   return (
     <ProductImageContainer>
-      <OriginalImg
-        src={
-          originalImage
-            ? originalImage
-            : `http://localhost:5000/${detail.images[0]}`
-        }
-      />
+      <div>
+        <OriginalImg
+          src={
+            originalImage
+              ? originalImage
+              : `http://localhost:5000/${detail.images[0]}`
+          }
+        />
+      </div>
       <ThumbnailImagesWrapper>
         {images.map((image, i) => (
           <Thumbnail key={i}>

@@ -11,6 +11,14 @@ export const ProductInfoContainer = styled.div`
 export const ProductInfoWrapper = styled.div`
   display: flex;
   width: 100%;
+
+  ${({ theme }) => theme.mobile`
+    flex-direction: column;
+    
+    & > div {
+    margin-top: 1rem;
+  }   
+  `}
 `;
 
 export const ProductInfoList = styled.li`
@@ -20,8 +28,9 @@ export const ProductInfoList = styled.li`
   }
 `;
 
-export const TitleBox = styled.span`
+export const TitleBox = styled.div`
   display: inline-block;
+  flex-wrap: nowrap;
   margin-bottom: 1rem;
   font-size: 1.3rem;
   color: #000;
@@ -33,6 +42,11 @@ export const ProductTit = styled.p`
   line-height: 16px;
   letter-spacing: 0.5px;
   font-weight: bold;
+
+  ${({ theme }) => theme.mobile`
+    max-width: 100%;
+    width: 100%
+  `}
 `;
 
 export const ProductContent = styled.p`
@@ -45,10 +59,16 @@ export const ProductContent = styled.p`
     vertical-align: top;
     padding-left: 2px;
   }
+
+  ${({ theme }) => theme.mobile`
+    max-width: 100%;
+    width: 100%
+  `}
 `;
 
 export const ProductDescription = styled.div`
-  min-width: 320px;
+  min-width: 300px;
+  margin-right: 1rem;
   font-weight: bold;
   font-size: 13px;
 `;
@@ -56,8 +76,13 @@ export const ProductDescription = styled.div`
 export const BtnWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
   width: 300px;
+
+  ${({ theme }) => theme.mobile`
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+  `}
 `;
 
 export const Btn = styled.button`
@@ -73,10 +98,16 @@ export const Btn = styled.button`
   color: white;
   letter-spacing: 1px;
   background: #5f0080;
+
+  ${({ theme }) => theme.mobile`
+    max-width: initial;
+    height: 50px;
+  `}
 `;
 
 export const AmountControl = styled.div`
   height: 50%;
+  width: 100%;
   position: relative;
 `;
 

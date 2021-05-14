@@ -69,34 +69,32 @@ const ProductInfo = ({ detail, productId, history }) => {
   return (
     <ProductInfoContainer>
       <ProductInfoWrapper>
-        <div>
-          <ul>
-            <TitleBox>Product Info</TitleBox>
-            <ProductInfoList>
-              <ProductTit>상품명</ProductTit>
-              <ProductContent>{detail.title}</ProductContent>
-            </ProductInfoList>
-            <ProductInfoList>
-              <ProductTit>평점</ProductTit>
-              <ProductContent>
-                <Rating value={detail.rating} />
-                <span>({detail.rating})</span>
-              </ProductContent>
-            </ProductInfoList>
-            <ProductInfoList>
-              <ProductTit>가격</ProductTit>
-              <ProductContent>{detail.price}원</ProductContent>
-            </ProductInfoList>
-            <ProductInfoList>
-              <ProductTit>누적판매</ProductTit>
-              <ProductContent>{detail.sold}</ProductContent>
-            </ProductInfoList>
-            <ProductInfoList>
-              <ProductTit>조회수</ProductTit>
-              <ProductContent>{detail.views}</ProductContent>
-            </ProductInfoList>
-          </ul>
-        </div>
+        <ul>
+          <TitleBox>Product Info</TitleBox>
+          <ProductInfoList>
+            <ProductTit>상품명</ProductTit>
+            <ProductContent>{detail.title}</ProductContent>
+          </ProductInfoList>
+          <ProductInfoList>
+            <ProductTit>평점</ProductTit>
+            <ProductContent>
+              <Rating value={detail.rating} />
+              <span>({detail.rating})</span>
+            </ProductContent>
+          </ProductInfoList>
+          <ProductInfoList>
+            <ProductTit>가격</ProductTit>
+            <ProductContent>{detail.price}원</ProductContent>
+          </ProductInfoList>
+          <ProductInfoList>
+            <ProductTit>누적판매</ProductTit>
+            <ProductContent>{detail.sold}</ProductContent>
+          </ProductInfoList>
+          <ProductInfoList>
+            <ProductTit>조회수</ProductTit>
+            <ProductContent>{detail.views}</ProductContent>
+          </ProductInfoList>
+        </ul>
         <div>
           <TitleBox>Description</TitleBox>
           <ProductDescription>{detail.description}</ProductDescription>
