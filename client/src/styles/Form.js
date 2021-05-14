@@ -9,6 +9,26 @@ export const Form = styled.form`
   min-width: 500px;
 `;
 
+export const UploadForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  height: 100%;
+  min-width: 280px;
+  width: 600px;
+`;
+
+export const LoginForm = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  flex-direction: column;
+  max-width: 280px;
+`;
+
 export const PTag = styled.p`
   margin-top: 5px;
   color: #bf1650;
@@ -24,7 +44,8 @@ export const Input = styled.input`
   width: 100%;
   background-color: white;
   border: none;
-  border-bottom: 1px solid #5f0080;
+  border-bottom: 1px solid #cbcbcb;
+  margin-bottom: 10px;
   padding: 10px 15px;
   font-size: 14px;
 
@@ -36,10 +57,9 @@ export const Input = styled.input`
 export const Textarea = styled.textarea`
   display: block;
   width: 100%;
-  height: 100%;
+  height: 150px;
   background-color: white;
-  border: 1px solid #5f0080;
-  border-radius: 2px;
+  border: 1px solid #cbcbcb;
   padding: 10px 15px;
   margin-bottom: 10px;
   font-size: 14px;

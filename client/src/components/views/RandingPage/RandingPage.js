@@ -10,7 +10,6 @@ import Cards from "./Cards/Cards";
 import Pagination from "./Pagination/Pagination";
 import SearchBox from "./SearchBox/SearchBox";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
-import { minMaxPageNumberLimit } from "../../../_actions/paginationActions";
 
 const RandingPage = ({ location }) => {
   const dispatch = useDispatch();

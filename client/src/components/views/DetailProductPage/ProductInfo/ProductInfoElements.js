@@ -102,6 +102,7 @@ export const Btn = styled.button`
   ${({ theme }) => theme.mobile`
     max-width: initial;
     height: 50px;
+    margin-left: 0.5rem;
   `}
 `;
 

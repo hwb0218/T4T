@@ -1,5 +1,10 @@
 import styled, { css } from "styled-components";
 
+export const FileUploadContainer = styled.div`
+  width: 100%;
+  margin-bottom: 1rem;
+`;
+
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -13,18 +18,17 @@ export const Wrapper = styled.div`
   overflow: hidden;
 
   ${({ select }) =>
-    select
-      ? css`
-          &:hover {
-            ${CancelBtn} {
-              display: block;
-            }
-            ${FileName} {
-              display: block;
-            }
-          }
-        `
-      : "none"}
+    select &&
+    css`
+      &:hover {
+        ${CancelBtn} {
+          display: block;
+        }
+        ${FileName} {
+          display: block;
+        }
+      }
+    `}
 `;
 
 export const Image = styled.div`
@@ -34,7 +38,6 @@ export const Image = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  min-width: 280px;
 `;
 
 export const Img = styled.img`
@@ -75,11 +78,17 @@ export const FileName = styled.div`
   display: none;
 `;
 
+export const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 1rem 0;
+`;
+
 export const CustomBtn = styled.button`
   display: block;
-  width: 40%;
+  width: 45%;
   height: 40px;
-  margin: 0 auto;
   border: 1.2px solid #5f0080;
   color: #5f0080;
   border-radius: 5px;

@@ -15,10 +15,6 @@ export const Container = styled.div`
   margin: 0 auto;
   width: 100%;
   overflow: hidden;
-
-  ${({ theme }) => theme.tablet`
-    width: 100%;
-  `}
 `;
 
 const arrow = css`
@@ -96,6 +92,7 @@ const nextSlide = css`
 export const SliderContainer = styled.div`
   display: flex;
   height: 40vh;
+  width: 100%;
 
   ${({ theme }) => theme.tablet`
     height: 30vh;

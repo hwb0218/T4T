@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { withRouter } from "react-router-dom";
-import FileUpload from "../../utils/FileUpload";
-import { Form, InputSubmit } from "../../../styles/Form";
 import axios from "axios";
-import SelectBoxContainer from "./SelectBoxContainer";
-import FormList from "./FormList";
+import FileUpload from "../../../utils/FileUpload";
+import { UploadForm } from "../../../../styles/Form";
+import FormList from "../FormList/FormList";
 
 const UploadProductForm = ({ user, history }) => {
   const methods = useForm({
@@ -55,22 +54,10 @@ const UploadProductForm = ({ user, history }) => {
 
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <div
-          style={{
-            width: "100%",
-            marginRight: "50px",
-            height: "100%",
-          }}
-        >
-          <FileUpload updateImage={updateImage} />
-        </div>
-        <div style={{ width: "100%", height: "100%", display: "grid" }}>
-          <FormList />
-          <SelectBoxContainer />
-          <InputSubmit type="submit" value="등록" />
-        </div>
-      </Form>
+      <UploadForm onSubmit={handleSubmit(onSubmit)}>
+        <FileUpload updateImage={updateImage} />
+        <FormList />
+      </UploadForm>
     </FormProvider>
   );
 };

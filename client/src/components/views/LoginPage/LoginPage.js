@@ -2,7 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { loginUser } from "../../../_actions/userActions";
-import { Form, PTag, Input, Label, InputSubmit } from "../../../styles/Form";
+import {
+  LoginForm,
+  PTag,
+  Input,
+  Label,
+  InputSubmit,
+} from "../../../styles/Form";
 
 const LoginPage = ({ history }) => {
   const dispatch = useDispatch();
@@ -23,7 +29,7 @@ const LoginPage = ({ history }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <LoginForm onSubmit={handleSubmit(onSubmit)}>
       <Label>Email</Label>
       <Input
         name="email"
@@ -46,7 +52,7 @@ const LoginPage = ({ history }) => {
       )}
 
       <InputSubmit type="submit" value="로그인" />
-    </Form>
+    </LoginForm>
   );
 };
 

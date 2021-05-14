@@ -27,11 +27,10 @@ import moment from "moment";
 import Modal from "./Modal/Modal";
 
 const API_URL = process.env["REACT_APP_API_URL"];
+const userId = window.localStorage.getItem("userId");
 
 const CartPage = () => {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
-  const user = useSelector((state) => state.user.userData);
-
   const [cartProducts, setCartProducts] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -42,9 +41,7 @@ const CartPage = () => {
   useEffect(() => {
     const getCartItems = async () => {
       showLoader();
-      const res = await axios.post("/api/cart/getCartItems", {
-        userId: user._id,
-      });
+      const res = await axios.post("/api/cart/getCartItems", { userId });
       hideLoader();
       setCartProducts(res.data.cart);
       setCheckedItems(res.data.cart);
@@ -52,7 +49,7 @@ const CartPage = () => {
     };
     getCartItems();
     return () => hideLoader();
-  }, [user]);
+  }, []);
 
   const handleToggle = (item) => {
     const checked = checkedItems.includes(item);
@@ -85,7 +82,7 @@ const CartPage = () => {
   const handleRemoveItems = async (productId) => {
     showLoader();
     const res = await axios.post("/api/cart/removeCartItems", {
-      userId: user._id,
+      userId,
       productId,
     });
     if (res.data.success) {
@@ -102,7 +99,7 @@ const CartPage = () => {
     }
     const date = moment().format("YYYY.MM");
     const data = {
-      user: user._id,
+      user: userId,
       products: checkedItems,
       date,
     };

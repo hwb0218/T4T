@@ -3,6 +3,7 @@ import { useFormContext } from "react-hook-form";
 import imageCompression from "browser-image-compression";
 import Images from "./Images";
 import {
+  FileUploadContainer,
   Wrapper,
   Image,
   Img,
@@ -10,6 +11,7 @@ import {
   ContentText,
   CancelBtn,
   FileName,
+  BtnWrapper,
   CustomBtn,
   PreviewImagesWrapper,
 } from "./FileUploadElements";
@@ -81,14 +83,7 @@ const FileUpload = ({ updateImage }) => {
   };
 
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "grid",
-        textAlign: "center",
-        placeItems: "center",
-      }}
-    >
+    <FileUploadContainer>
       <Wrapper select={selectedFiles}>
         <Image>{previewURL ? <Img src={previewURL} /> : ""}</Image>
         <div>
@@ -106,7 +101,7 @@ const FileUpload = ({ updateImage }) => {
         </CancelBtn>
         <FileName>{viewFileNames}</FileName>
       </Wrapper>
-      <div style={{ display: "flex", width: "100%", margin: "1rem 0" }}>
+      <BtnWrapper>
         <input
           type="file"
           name="uploadFile"
@@ -124,11 +119,11 @@ const FileUpload = ({ updateImage }) => {
         <CustomBtn type="button" onClick={addImage}>
           추가
         </CustomBtn>
-      </div>
+      </BtnWrapper>
       <PreviewImagesWrapper>
         <Images images={images} deleteImage={deleteImage} />
       </PreviewImagesWrapper>
-    </div>
+    </FileUploadContainer>
   );
 };
 

@@ -9,8 +9,8 @@ import {
   Selected,
   SelectInput,
   UpBtn,
-} from "./UploadProductElements";
-import { PTag } from "../../../styles/Form";
+} from "./SelectBoxContainerElements";
+import { PTag } from "../../../../styles/Form";
 
 const cities = [
   { key: 0, city: "jeju", text: "제주" },

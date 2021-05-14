@@ -11,6 +11,7 @@ import DetailProductPage from "./views/DetailProductPage/DetailProductPage";
 import GlobalStyles from "../styles/GlobalStyles";
 import CartPage from "./views/CartPage/CartPage";
 import HistoryPage from "./views/HistoryPage/HistoryPage";
+import Footer from "./views/Footer/Footer";
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/history" component={Auth(HistoryPage, true)} />
         </Switch>
       </div>
+      <Footer />
     </Router>
   );
 };

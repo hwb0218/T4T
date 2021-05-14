@@ -13,6 +13,10 @@ export const FilterContainer = styled.div`
     grid-template-columns: 1fr;
     padding: 20px 30px 0;
   `}
+
+  ${({ theme }) => theme.mobile`
+    padding: 20px 5px 0;       
+  `}
 `;
 
 export const FilterWrapper = styled.div`
@@ -114,7 +118,7 @@ export const CheckBoxInput = styled.input`
 export const CheckBoxLabel = styled.label`
   display: inline-block;
   color: #4c4c4c;
-  font-size: 0.9rem;
+  font-size: 1vw;
   cursor: pointer;
   padding-left: 5px;
 
@@ -127,6 +131,6 @@ export const CheckBoxLabel = styled.label`
   }
 
   ${({ theme }) => theme.mobile`
-    font-size: 0.6rem;
-      `}
+    font-size: 0.7rem;
+  `}
 `;

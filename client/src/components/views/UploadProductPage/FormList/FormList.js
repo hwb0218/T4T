@@ -1,17 +1,24 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import SelectBoxContainer from "../SelectBoxContainer/SelectBoxContainer";
 import {
   Input,
   InputNumber,
+  InputSubmit,
   Label,
   PTag,
   Textarea,
-} from "../../../styles/Form";
+} from "../../../../styles/Form";
+import styled from "styled-components";
+
+const FormListWrapper = styled.div`
+  width: 100%;
+`;
 
 const FormList = () => {
   const { register, errors } = useFormContext();
   return (
-    <>
+    <FormListWrapper>
       <Label>상품명</Label>
       <Input
         name="title"
@@ -40,7 +47,9 @@ const FormList = () => {
         ref={register({ required: true })}
       />
       {errors?.price?.types?.required && <PTag>가격을 입력하세요</PTag>}
-    </>
+      <SelectBoxContainer />
+      <InputSubmit type="submit" value="등록" />
+    </FormListWrapper>
   );
 };
 

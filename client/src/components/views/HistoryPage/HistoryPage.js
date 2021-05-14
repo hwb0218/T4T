@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
 import GoodsPay from "./GoodsPay/GoodsPay";
@@ -8,23 +7,27 @@ import Modal from "./Modal/Modal";
 
 const HistoryPage = () => {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
-  const user = useSelector((state) => state.user.userData);
 
   const [histories, setHistories] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    showLoader();
-    const fetchHistory = async () => {
-      const res = await axios.post("/api/payment/history", {
-        userId: user._id,
-      });
-      hideLoader();
-      setHistories(res.data.histories);
-    };
-    fetchHistory();
+    try {
+      showLoader();
+      const userId = window.localStorage.getItem("userId");
+      const fetchHistory = async () => {
+        const res = await axios.post("/api/payment/history", {
+          userId,
+        });
+        hideLoader();
+        setHistories(res.data.histories);
+      };
+      fetchHistory();
+    } catch (err) {
+      console.error(err);
+    }
     return () => hideLoader();
-  }, [user]);
+  }, []);
 
   const modifyPayment = (newHistory) => {
     setHistories(newHistory);
