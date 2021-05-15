@@ -18,6 +18,11 @@ export const UploadForm = styled.form`
   height: 100%;
   min-width: 280px;
   width: 600px;
+
+  ${({ theme }) => theme.mobile`
+    width: 100%;
+    padding: 0 1rem;
+  `}
 `;
 
 export const LoginForm = styled.form`

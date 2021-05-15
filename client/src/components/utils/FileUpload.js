@@ -75,17 +75,17 @@ const FileUpload = ({ updateImage }) => {
     setPreviewURL("");
     inputEl.current.value = "";
   };
-
   const deleteImage = (selectedImage) => {
     const newImages = images.filter(({ id }) => id !== selectedImage);
     setImages(newImages);
     updateImage(newImages);
+    inputEl.current.value = "";
   };
 
   return (
     <FileUploadContainer>
       <Wrapper select={selectedFiles}>
-        <Image>{previewURL ? <Img src={previewURL} /> : ""}</Image>
+        <Image>{previewURL ? <Img src={previewURL} /> : null}</Image>
         <div>
           <ContentIcon>
             <FaCloudUploadAlt />

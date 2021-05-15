@@ -69,6 +69,7 @@ export const CancelBtn = styled.div`
 
 export const FileName = styled.div`
   position: absolute;
+  text-align: center;
   bottom: 0;
   width: 100%;
   color: #fff;
@@ -111,4 +112,8 @@ export const PreviewImagesWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   row-gap: 0.6rem;
+
+  @media screen and (max-width: 451px) {
+    height: 15vh;
+  }
 `;
