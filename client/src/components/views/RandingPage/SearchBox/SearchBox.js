@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { updateSearchTerm } from "../../../../_actions/searchTermActions";
@@ -35,8 +35,6 @@ const SearchBox = ({ products, updateProducts, paginate, history }) => {
     }
     updateProducts(search);
     paginate(1);
-    dispatch(minMaxPageNumberLimit("minPageNumberLimit", 0));
-    dispatch(minMaxPageNumberLimit("maxPageNumberLimit", 3));
     dispatch(updateSearchTerm(""));
     history.push("/");
   };

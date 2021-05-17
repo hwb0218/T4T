@@ -53,4 +53,5 @@ export const ClearSearchBtn = styled.button`
   font-weight: bold;
   color: white;
   background: #6f00cc;
+  cursor: pointer;
 `;

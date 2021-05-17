@@ -13,7 +13,7 @@ import useFullPageLoader from "../../../hooks/useFullPageLoader";
 
 const RandingPage = ({ location }) => {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
-  const query = queryString.parse(location.search);
+  const queryPage = Number(queryString.parse(location.search).page);
   const filters = useSelector((state) => state.filters);
 
   const [products, setProducts] = useState([]);
@@ -35,7 +35,7 @@ const RandingPage = ({ location }) => {
         showLoader();
         const res = await axios.post("/api/product/products", { filters });
         hideLoader();
-        setCurrentPage(query.page ? Number(query.page) : 1);
+        setCurrentPage(queryPage ? queryPage : 1);
         setProducts(res.data.productInfo);
       } catch (err) {
         console.error(err);
@@ -67,6 +67,7 @@ const RandingPage = ({ location }) => {
             : products.length
         }
         paginate={paginate}
+        queryPage={queryPage ? queryPage : 1}
       />
       {loader}
     </>
