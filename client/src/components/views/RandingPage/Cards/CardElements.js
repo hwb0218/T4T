@@ -80,8 +80,6 @@ export const ProductInfo = styled.div`
 `;
 
 export const ProductTitle = styled.div`
-  top: 3px;
-  left: 3px;
   border-radius: 2px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -89,8 +87,10 @@ export const ProductTitle = styled.div`
 `;
 
 export const ProductDescription = styled.div`
-  bottom: 6px;
-  left: 3px;
   font-weight: bold;
   letter-spacing: 1px;
+
+  span {
+    padding-right: 15px;
+  }
 `;

@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { updateSearchTerm } from "../../../../_actions/searchTermActions";
-import { minMaxPageNumberLimit } from "../../../../_actions/paginationActions";
 import {
   SearchBoxContainer,
   SearchBoxContent,

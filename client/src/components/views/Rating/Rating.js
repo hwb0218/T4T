@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Stars, Full, Empty } from "./RatingElements";
 
 const getStarts = (value) => {
@@ -14,11 +14,11 @@ const getStarts = (value) => {
   return stars;
 };
 
-const Rating = ({ value }) => {
+const Rating = ({ value, card }) => {
   return (
-    <Stars>
-      {getStarts(value).map((value) => (
-        <>{value}</>
+    <Stars card={card}>
+      {getStarts(value).map((value, i) => (
+        <Fragment key={i}>{value}</Fragment>
       ))}
     </Stars>
   );

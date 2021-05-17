@@ -18,7 +18,13 @@ import {
 } from "./ModalElements";
 import axios from "axios";
 
-const Modal = ({ showModal, setShowModal, setHistories, match, location }) => {
+const Modal = ({
+  showModal,
+  setShowModal,
+  setHistories,
+  history,
+  location,
+}) => {
   const dispatch = useDispatch();
   const { rating, review, productDetail } = useSelector(
     (state) => state.review
@@ -47,6 +53,11 @@ const Modal = ({ showModal, setShowModal, setHistories, match, location }) => {
 
   const handleSaveBtn = async () => {
     try {
+      if (review.length < 10) {
+        alert("10자 이상 입력해주세요.");
+        return handleSaveBtn;
+      }
+
       const variables = {
         user: user._id,
         rating,
@@ -54,10 +65,11 @@ const Modal = ({ showModal, setShowModal, setHistories, match, location }) => {
         product: query.product,
         productDetail,
       };
-      const res = await axios.post("/api/review/saveReview", variables);
 
+      const res = await axios.post("/api/review/saveReview", variables);
       setHistories(res.data.histories);
       window.localStorage.removeItem(`reviewForm/${query.product}`);
+      history.push("/history");
       setShowModal((prev) => !prev);
     } catch (err) {
       console.log(err);
@@ -69,7 +81,7 @@ const Modal = ({ showModal, setShowModal, setHistories, match, location }) => {
       {showModal ? (
         <Background>
           <ModalWrapper showModal={showModal}>
-            <Link to={match.url}>
+            <Link to="/history">
               <CloseModalButton onClick={() => setShowModal((prev) => !prev)} />
             </Link>
             <ModalContent>
@@ -91,9 +103,7 @@ const Modal = ({ showModal, setShowModal, setHistories, match, location }) => {
                   />
                 </Review>
               </ReviewWrapper>
-              <Link to={match.url}>
-                <button onClick={handleSaveBtn}>등록</button>
-              </Link>
+              <button onClick={handleSaveBtn}>등록</button>
             </ModalContent>
           </ModalWrapper>
         </Background>

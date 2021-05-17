@@ -57,7 +57,7 @@ router.post("/buyProducts", async (req, res) => {
       { user },
       { $pull: { products: { _id: { $in: productIds } } } },
       { new: true }
-    );
+    ).populate("products.productDetail");
 
     return res.status(200).json({ success: true, cart });
   } catch (err) {

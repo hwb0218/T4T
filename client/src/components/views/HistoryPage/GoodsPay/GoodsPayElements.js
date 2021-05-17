@@ -99,6 +99,6 @@ export const ButtonItem = styled.div`
     font-size: 13px;
     text-align: center;
     font-weight: bold;
-    color: #5f0080;
+    color: #6f00cc;
   }
 `;

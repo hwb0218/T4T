@@ -1,4 +1,5 @@
 import React from "react";
+import Rating from "../../Rating/Rating";
 import {
   CardContainer,
   CardList,
@@ -10,7 +11,7 @@ import {
   ProductDescription,
 } from "./CardElements";
 
-const Cards = ({ products, loading }) => {
+const Cards = ({ products }) => {
   const cardItems = products.map((product, i) => (
     <Card to={`/product/${product._id}`} key={i}>
       <ImageWrap destination={product.destination}>
@@ -20,10 +21,11 @@ const Cards = ({ products, loading }) => {
         />
       </ImageWrap>
       <ProductInfo>
-        <ProductTitle>
-          <span>{product.title}</span>
-        </ProductTitle>
-        <ProductDescription>{`${product.price}원`}</ProductDescription>
+        <ProductTitle>{product.title}</ProductTitle>
+        <ProductDescription>
+          <span>{`${product.price}원`}</span>
+          <Rating value={product.rating} card={true} size="medium" />
+        </ProductDescription>
       </ProductInfo>
     </Card>
   ));

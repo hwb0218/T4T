@@ -134,7 +134,7 @@ export const TotalPrice = styled.div`
   margin: 10px 0;
 
   span {
-    color: #5f0080;
+    color: #6f00cc;
   }
 
   ${({ theme }) => theme.mobile`

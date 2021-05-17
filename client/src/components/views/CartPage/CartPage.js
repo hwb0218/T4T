@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import {
   CartPageContainer,
@@ -80,29 +79,27 @@ const CartPage = () => {
   };
 
   const handleRemoveItems = async (productId) => {
-    showLoader();
     const res = await axios.post("/api/cart/removeCartItems", {
       userId,
       productId,
     });
-    if (res.data.success) {
-      setCartProducts(res.data.cart);
-      setCheckedItems([]);
-      calculate([]);
-      hideLoader();
-    }
+    setCartProducts(res.data.cart);
+    setCheckedItems([]);
+    calculate([]);
   };
 
   const handlePaymentBtn = async () => {
     if (checkedItems.length === 0) {
       return alert("주문하실 상품을 선택하세요.");
     }
+
     const date = moment().format("YYYY.MM");
     const data = {
       user: userId,
       products: checkedItems,
       date,
     };
+
     const res = await axios.post("/api/payment/buyProducts", data);
     setCartProducts(res.data.cart.products);
   };
