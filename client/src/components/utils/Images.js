@@ -22,11 +22,11 @@ const ImageWrapper = styled.div`
 const Images = ({ images, deleteImage }) => {
   return (
     <>
-      {images.map(({ id, previewImage }) => (
+      {images.map(({ id, previewImage, selectedFiles }) => (
         <ImageWrapper key={id}>
           <img
             src={previewImage}
-            alt={previewImage}
+            alt={selectedFiles.name}
             style={{
               width: "100%",
               height: "100%",

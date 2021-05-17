@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { destination, price, rating } from "./Filter/Datas";
 import CarouselSlide from "./CarouselSlide/CarouselSlide";
 import Filter from "./Filter/Filter";
@@ -12,7 +12,6 @@ import SearchBox from "./SearchBox/SearchBox";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
 
 const RandingPage = ({ location }) => {
-  const dispatch = useDispatch();
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const query = queryString.parse(location.search);
   const filters = useSelector((state) => state.filters);

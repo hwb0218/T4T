@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { updateSearchTerm } from "../../../../_actions/searchTermActions";
@@ -8,6 +8,7 @@ import {
   SearchBoxContent,
   SearchIcon,
   SearchBoxInput,
+  ClearSearchBtn,
 } from "./SearchBoxElements";
 
 const SearchBox = ({ products, updateProducts, paginate, history }) => {
@@ -46,9 +47,16 @@ const SearchBox = ({ products, updateProducts, paginate, history }) => {
     }
   };
 
+  const handleClearSearchBtn = () => {
+    updateProducts(products);
+  };
+
   return (
     <SearchBoxContainer>
       <SearchBoxContent>
+        <ClearSearchBtn onClick={handleClearSearchBtn}>
+          검색 초기화
+        </ClearSearchBtn>
         <SearchIcon onClick={onClickSearchIcon} />
         <SearchBoxInput
           type="text"

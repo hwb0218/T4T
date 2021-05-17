@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 export const CardContainer = styled.ul`
   background: #f2f2f2;
   padding: 30px 30px;
+
+  ${({ theme }) => theme.mobile`
+    padding: 30px 10px;
+  `}
 `;
 
 export const CardList = styled.li`
@@ -46,7 +50,8 @@ export const ImageWrap = styled.figure`
         font-size: 12px;
         font-weight: 700;
         color: #fff;
-        background-color: #9658fe;
+        text-transform: uppercase;
+        background-color: #6f00cc;
         box-sizing: border-box;
       `}
   }
