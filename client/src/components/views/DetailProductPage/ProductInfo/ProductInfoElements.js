@@ -36,7 +36,7 @@ export const TitleBox = styled.div`
   color: #000;
 `;
 
-export const ProductTit = styled.p`
+export const ProductTit = styled.div`
   width: 115px;
   font-size: 13px;
   line-height: 16px;
@@ -49,7 +49,7 @@ export const ProductTit = styled.p`
   `}
 `;
 
-export const ProductContent = styled.p`
+export const ProductContent = styled.div`
   width: 115px;
   letter-spacing: 0.5px;
   font-size: 13px;

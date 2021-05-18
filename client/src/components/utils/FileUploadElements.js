@@ -107,11 +107,11 @@ export const CustomBtn = styled.button`
 export const PreviewImagesWrapper = styled.div`
   width: 100%;
   height: 165px;
-  border: 2px dashed #c2cdda;
+  border: 2px solid #c2cdda;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  row-gap: 0.6rem;
+  overflow: hidden;
 
   @media screen and (max-width: 451px) {
     height: 15vh;

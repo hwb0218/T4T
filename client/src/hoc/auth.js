@@ -13,7 +13,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
             props.history.push("/login");
           }
         } else {
-          if (adminRoute && !response.payload.isAdmin) {
+          if (adminRoute && !response.payload.isSeller) {
             props.history.push("/");
           } else {
             if (option === false) {

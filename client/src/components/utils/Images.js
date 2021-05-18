@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FaTimes } from "react-icons/fa/index";
 import { CancelBtn } from "./FileUploadElements";
 
@@ -8,7 +8,6 @@ const ImageWrapper = styled.div`
   height: 100%;
   position: relative;
   user-select: none;
-  overflow-y: hidden;
 
   &:hover {
     ${CancelBtn} {
@@ -19,19 +18,27 @@ const ImageWrapper = styled.div`
   }
 `;
 
+const Img = styled.div`
+  width: 100%;
+  height: 100%;
+
+  ${({ url }) =>
+    url &&
+    css`
+      background-image: url("${url}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    `}
+`;
+
 const Images = ({ images, deleteImage }) => {
   return (
     <>
       {images.map(({ id, previewImage, selectedFiles }) => (
         <ImageWrapper key={id}>
-          <img
-            src={previewImage}
-            alt={selectedFiles.name}
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
-          />
+          {/*<Img src={previewImage} alt={selectedFiles.name} />*/}
+          <Img url={previewImage} />
           <CancelBtn onClick={() => deleteImage(id)}>
             <FaTimes />
           </CancelBtn>

@@ -12,6 +12,7 @@ import GlobalStyles from "../styles/GlobalStyles";
 import CartPage from "./views/CartPage/CartPage";
 import HistoryPage from "./views/HistoryPage/HistoryPage";
 import Footer from "./views/Footer/Footer";
+import NotFoundScene from "./views/NotFoundScene/NotFoundScene";
 
 const App = () => {
   return (
@@ -30,7 +31,7 @@ const App = () => {
           <Route path="/login" component={Auth(LoginPage, false)} />
           <Route
             path="/product/upload"
-            component={Auth(UploadProductPage, true)}
+            component={Auth(UploadProductPage, true, true)}
           />
           <Route
             path="/product/:productId"
@@ -38,6 +39,7 @@ const App = () => {
           />
           <Route path="/user/cart" component={Auth(CartPage, true)} />
           <Route path="/history" component={Auth(HistoryPage, true)} />
+          <Route path="*" component={Auth(NotFoundScene, null)} />
         </Switch>
       </div>
       <Footer />

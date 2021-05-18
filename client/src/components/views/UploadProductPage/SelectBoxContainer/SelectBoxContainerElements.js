@@ -17,8 +17,8 @@ export const OptionsContainer = styled.div`
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  background: #5f0080;
-  color: #f5f6fa;
+  background: #fff;
+  color: #000;
   transition: all 0.2s ease-in-out;
 
   ${({ toggle }) =>
@@ -38,7 +38,7 @@ export const OptionsContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #9658fe;
+    background: #5f0080;
     overflow: hidden;
   }
 `;
@@ -72,7 +72,8 @@ export const Option = styled.div`
   cursor: pointer;
 
   &:hover {
-    background: #7303c0;
+    background: #5f0080;
+    color: #fff;
   }
 `;
 

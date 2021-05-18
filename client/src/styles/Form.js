@@ -1,14 +1,5 @@
 import styled from "styled-components";
 
-export const Form = styled.form`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  width: 70%;
-  min-width: 500px;
-`;
-
 export const UploadForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -26,11 +17,12 @@ export const UploadForm = styled.form`
 `;
 
 export const LoginForm = styled.form`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin: 0 auto;
-  flex-direction: column;
+  max-width: 280px;
+`;
+
+export const RegisterForm = styled.form`
+  margin: 0 auto;
   max-width: 280px;
 `;
 
@@ -80,8 +72,9 @@ export const Label = styled.label`
   text-align: left;
   display: block;
   margin-bottom: 5px;
-  font-size: 14px;
-  font-weight: 200;
+  font-size: 13px;
+  font-weight: bold;
+  color: #525252;
 `;
 
 export const InputNumber = styled(Input).attrs({

@@ -1,8 +1,17 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { registerUser } from "../../../_actions/userActions";
-import { Form, PTag, Input, Label, InputSubmit } from "../../../styles/Form";
+import {
+  RegisterForm,
+  PTag,
+  Input,
+  Label,
+  InputSubmit,
+  CheckBox,
+  CheckBoxInput,
+  CheckBoxLabel,
+} from "../../../styles/Form";
 
 const RegisterPage = ({ history }) => {
   const dispatch = useDispatch();
@@ -11,12 +20,14 @@ const RegisterPage = ({ history }) => {
   password.current = watch("password");
 
   const onSubmit = (data) => {
-    const { email, name, password, passwordConfirm } = data;
+    console.log(data);
+    const { email, name, password, passwordConfirm, role } = data;
     const dataToSubmit = {
       email,
       name,
       password,
       passwordConfirm,
+      role: Number(role),
     };
 
     dispatch(registerUser(dataToSubmit)).then((response) => {
@@ -28,18 +39,30 @@ const RegisterPage = ({ history }) => {
     });
   };
 
+  const handleCheckbox = (e) => {
+    if (e.target.checked) {
+      e.target.value = 1;
+    } else {
+      e.target.value = 0;
+    }
+  };
+
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <RegisterForm onSubmit={handleSubmit(onSubmit)}>
       <Label>Email</Label>
       <Input
         name="email"
         type="email"
         ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+        autoComplete="off"
       />
       {errors.email && <PTag>이메일이 필요합니다.</PTag>}
-
       <Label>Name</Label>
-      <Input name="name" ref={register({ required: true, maxLength: 10 })} />
+      <Input
+        name="name"
+        ref={register({ required: true, maxLength: 10 })}
+        autoComplete="off"
+      />
       {errors.name && errors.name.type === "required" && (
         <PTag>이름이 필요합니다.</PTag>
       )}
@@ -52,6 +75,7 @@ const RegisterPage = ({ history }) => {
         name="password"
         type="password"
         ref={register({ required: true, minLength: 6 })}
+        autoComplete="off"
       />
       {errors.password && errors.password.type === "required" && (
         <PTag>비밀번호가 필요합니다.</PTag>
@@ -68,6 +92,7 @@ const RegisterPage = ({ history }) => {
           required: true,
           validate: (value) => value === password.current,
         })}
+        autoComplete="off"
       />
       {errors.passwordConfirm && errors.passwordConfirm.type === "required" && (
         <PTag>비밀번호가 필요합니다.</PTag>
@@ -76,7 +101,7 @@ const RegisterPage = ({ history }) => {
         <PTag>비밀번호가 맞지 않습니다.</PTag>
       )}
       <InputSubmit type="submit" value="가입하기" />
-    </Form>
+    </RegisterForm>
   );
 };
 

@@ -5,15 +5,14 @@ import { logoutUser } from "../../../../_actions/userActions";
 import { NavItem, NavLinks } from "../NavbarElements";
 
 const navItems = [
-  { 업로드: "/product/upload" },
   { 주문정보: "/history" },
   { 장바구니: "/user/cart" },
   { 로그아웃: "/logout" },
 ];
 
-const LoggedIn = ({ history }) => {
+const LoggedIn = ({ history, user }) => {
+  console.log(user);
   const dispatch = useDispatch();
-
   const logoutHandler = () => {
     dispatch(logoutUser()).then((response) => {
       if (response.payload.logoutSuccess) {
@@ -25,6 +24,16 @@ const LoggedIn = ({ history }) => {
   };
   return (
     <>
+      {user.userData.isSeller && (
+        <NavItem>
+          <NavLinks
+            to="/product/upload"
+            path={"/product/upload" === window.location.pathname ? 1 : 0}
+          >
+            업로드
+          </NavLinks>
+        </NavItem>
+      )}
       {navItems.map((navItem) =>
         Object.entries(navItem).map(([key, value]) => (
           <NavItem key={key}>

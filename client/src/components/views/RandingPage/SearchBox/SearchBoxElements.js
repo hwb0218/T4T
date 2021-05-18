@@ -47,6 +47,7 @@ export const ClearSearchBtn = styled.button`
   right: 255px;
   width: 55px;
   height: 100%;
+  padding: 2.5px 2.5px;
   border: none;
   border-radius: 2px;
   font-size: 0.8vw;

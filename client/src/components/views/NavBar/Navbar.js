@@ -35,7 +35,7 @@ const Navbar = () => {
             {user.userData && !user.userData.isAuth ? (
               <NotLogin />
             ) : (
-              <LoggedIn />
+              <LoggedIn user={user} />
             )}
           </NavMenu>
         </NavbarContainer>
