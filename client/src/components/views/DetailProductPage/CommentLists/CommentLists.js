@@ -1,32 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import ReplyCommentBox from "../ReplyCommentBox/ReplyCommentBox";
 import {
-  CommentListsWrapper,
   SingleComment,
   Writer,
   CreatedAt,
   Content,
-  EmptyBox,
-  EmptyComment,
+  ReplyBtn,
 } from "./CommentListsElements";
 
-const CommentLists = ({ commentLists }) => {
+const CommentLists = ({ comment, user }) => {
+  const { writer, content, createdDate } = comment;
+
+  const [openReply, setOpenReply] = useState(false);
+
+  const onClickReplyOpen = () => {
+    setOpenReply(!openReply);
+  };
+
   return (
-    <CommentListsWrapper>
-      {commentLists.length > 0 ? (
-        commentLists.map(({ content, _id, writer, createdDate }) => (
-          <SingleComment key={_id}>
-            <Writer>{writer.name}</Writer>
-            <CreatedAt>{createdDate}</CreatedAt>
-            <Content>{content}</Content>
-          </SingleComment>
-        ))
-      ) : (
-        <EmptyBox>
-          <EmptyComment />
-          <Content>작성된 Q&A가 없습니다.</Content>
-        </EmptyBox>
-      )}
-    </CommentListsWrapper>
+    <>
+      <SingleComment>
+        <Writer>{writer.name}</Writer>
+        <CreatedAt>{createdDate}</CreatedAt>
+        {user.userData && user.userData.isSeller && (
+          <ReplyBtn onClick={onClickReplyOpen}>답글달기</ReplyBtn>
+        )}
+        <Content>{content}</Content>
+        {openReply && <ReplyCommentBox />}
+      </SingleComment>
+    </>
   );
 };
 

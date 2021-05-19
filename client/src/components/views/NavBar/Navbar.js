@@ -32,10 +32,10 @@ const Navbar = () => {
             {click ? <FaTimes /> : <FaBars />}
           </MobileIcon>
           <NavMenu onClick={closeNavbar} click={click}>
-            {user.userData && !user.userData.isAuth ? (
-              <NotLogin />
-            ) : (
+            {user.userData && user.userData.isAuth ? (
               <LoggedIn user={user} />
+            ) : (
+              <NotLogin />
             )}
           </NavMenu>
         </NavbarContainer>

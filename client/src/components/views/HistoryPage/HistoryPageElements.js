@@ -32,3 +32,5 @@ export const Month = styled.div`
     font-weight: bold;
   }
 `;
+
+export const EmptyPayment = styled.div``;

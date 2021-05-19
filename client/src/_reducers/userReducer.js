@@ -14,7 +14,7 @@ const userReducer = (state = {}, action) => {
     case AUTH_USER:
       return { ...state, userData: action.payload };
     case LOGOUT_USER:
-      return { ...state, logoutSuccess: action.payload };
+      return { logoutSuccess: action.payload };
     default:
       return state;
   }

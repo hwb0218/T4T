@@ -68,7 +68,7 @@ router.get("/logout", auth, (req, res) => {
       if (err) {
         return res.json({ success: false, err });
       }
-      return res.status(200).send({
+      res.status(200).send({
         logoutSuccess: true,
       });
     }

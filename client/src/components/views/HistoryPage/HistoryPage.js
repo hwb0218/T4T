@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useFullPageLoader from "../../../hooks/useFullPageLoader";
 import GoodsPay from "./GoodsPay/GoodsPay";
-import { GoodsPaySection, Month } from "./HistoryPageElements";
+import { GoodsPaySection, Month, EmptyPayment } from "./HistoryPageElements";
 import Modal from "./Modal/Modal";
 
 const HistoryPage = () => {
@@ -35,7 +35,7 @@ const HistoryPage = () => {
 
   return (
     <>
-      {histories.length > 0 &&
+      {histories.length > 0 ? (
         histories.map(({ _id, createdMonth, products }) => (
           <GoodsPaySection key={_id}>
             <Month>
@@ -48,7 +48,10 @@ const HistoryPage = () => {
               setShowModal={setShowModal}
             />
           </GoodsPaySection>
-        ))}
+        ))
+      ) : (
+        <EmptyPayment>주문 정보가 없습니다.</EmptyPayment>
+      )}
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}

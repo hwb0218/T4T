@@ -84,9 +84,12 @@ export const NavMenu = styled.ul`
 `;
 
 export const NavItem = styled.li`
-  height: 80px;
+  &:last-child {
+    padding: 8px 16px;
+  }
   ${({ theme }) => theme.mobile`
     width: 100%;
+    height: 80px;
   `}
 `;
 
@@ -156,9 +159,9 @@ export const NavBtnLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px 16px;
   height: 100%;
   width: 100%;
   border: none;
   outline: none;
+  padding: 8px 16px;
 `;

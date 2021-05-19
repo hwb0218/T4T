@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { registerUser } from "../../../_actions/userActions";
 import {
   RegisterForm,
@@ -8,9 +8,6 @@ import {
   Input,
   Label,
   InputSubmit,
-  CheckBox,
-  CheckBoxInput,
-  CheckBoxLabel,
 } from "../../../styles/Form";
 
 const RegisterPage = ({ history }) => {
@@ -37,14 +34,6 @@ const RegisterPage = ({ history }) => {
         alert(response.payload.err);
       }
     });
-  };
-
-  const handleCheckbox = (e) => {
-    if (e.target.checked) {
-      e.target.value = 1;
-    } else {
-      e.target.value = 0;
-    }
   };
 
   return (
