@@ -8,8 +8,8 @@ import {
   ReplyBtn,
 } from "./CommentListsElements";
 
-const CommentLists = ({ comment, user }) => {
-  const { writer, content, createdDate } = comment;
+const CommentLists = ({ comment, user, productId }) => {
+  const { writer, content, createdDate, _id } = comment;
 
   const [openReply, setOpenReply] = useState(false);
 
@@ -26,7 +26,14 @@ const CommentLists = ({ comment, user }) => {
           <ReplyBtn onClick={onClickReplyOpen}>답글달기</ReplyBtn>
         )}
         <Content>{content}</Content>
-        {openReply && <ReplyCommentBox />}
+        {openReply && (
+          <ReplyCommentBox
+            setOpenReply={setOpenReply}
+            user={user}
+            productId={productId}
+            responseTo={_id}
+          />
+        )}
       </SingleComment>
     </>
   );

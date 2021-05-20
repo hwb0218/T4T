@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import CommentBox from "../CommentBox/CommentBox";
@@ -11,6 +11,7 @@ import {
   Content,
   CommentListsWrapper,
 } from "./CommentElements";
+import ReplyComment from "./ReplyComment";
 
 const Comment = ({ productId }) => {
   const user = useSelector((state) => state.user);
@@ -36,7 +37,14 @@ const Comment = ({ productId }) => {
       <CommentListsWrapper>
         {commentLists.length > 0 ? (
           commentLists.map((comment) => (
-            <CommentLists user={user} comment={comment} key={comment._id} />
+            <Fragment key={comment._id}>
+              <CommentLists
+                user={user}
+                comment={comment}
+                productId={productId}
+              />
+              <ReplyComment />
+            </Fragment>
           ))
         ) : (
           <EmptyBox>

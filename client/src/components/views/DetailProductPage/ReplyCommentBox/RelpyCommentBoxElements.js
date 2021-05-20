@@ -24,7 +24,7 @@ export const StyledCommentBox = styled.div`
 export const BtnWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 1rem;
+  padding-top: 0.5rem;
 `;
 
 export const Btn = styled.button`
