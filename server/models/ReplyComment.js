@@ -13,7 +13,7 @@ const replyCommentSchema = new Schema(
     },
     responseTo: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Comment",
     },
     content: {
       type: String,

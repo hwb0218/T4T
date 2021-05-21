@@ -9,7 +9,7 @@ import {
 } from "./CommentBoxElements";
 import axios from "axios";
 
-const CommentBox = ({ user, productId, saveComment }) => {
+const CommentBox = ({ user, productId, updateComment }) => {
   const [commentValue, setCommentValue] = useState("");
   const [clickQnABtn, setClickQnABtn] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
@@ -34,7 +34,7 @@ const CommentBox = ({ user, productId, saveComment }) => {
       };
 
       const res = await axios.post("/api/comment/saveComment", variables);
-      saveComment(res.data.result);
+      updateComment(res.data.result);
       setCommentValue("");
       setClickQnABtn(false);
     } catch (err) {

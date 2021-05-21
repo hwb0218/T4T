@@ -15,6 +15,10 @@ const commentSchema = new Schema(
     content: {
       type: String,
     },
+    answerCompleted: {
+      type: Boolean,
+      default: false,
+    },
     createdDate: {
       type: String,
       default: moment().format("YYYY.MM.DD"),

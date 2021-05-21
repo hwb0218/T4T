@@ -7,7 +7,13 @@ import {
 } from "./RelpyCommentBoxElements";
 import axios from "axios";
 
-const ReplyCommentBox = ({ setOpenReply, productId, user, responseTo }) => {
+const ReplyCommentBox = ({
+  setOpenReply,
+  productId,
+  user,
+  responseTo,
+  updateReplyComment,
+}) => {
   const [commentValue, setCommentValue] = useState("");
 
   const elRef = useCallback((node) => {
@@ -31,7 +37,7 @@ const ReplyCommentBox = ({ setOpenReply, productId, user, responseTo }) => {
       };
 
       const res = await axios.post("/api/comment/saveReplyComment", variables);
-      console.log(res.data.result);
+      updateReplyComment(res.data.result);
       setOpenReply(false);
     } catch (err) {
       console.error(err);

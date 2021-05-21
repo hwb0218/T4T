@@ -3,53 +3,61 @@ const router = express.Router();
 const { Comment } = require("../models/Comment");
 const { ReplyComment } = require("../models/ReplyComment");
 
-router.post("/saveComment", (req, res) => {
-  const comment = new Comment(req.body);
+router.post("/saveComment", async (req, res) => {
+  try {
+    let comment = new Comment(req.body);
+    comment = await comment.save();
 
-  comment.save((err, comment) => {
-    if (err) {
-      return res.json({ success: false, err });
-    }
-    Comment.find({ _id: comment._id })
-      .populate("writer")
-      .exec((err, result) => {
-        if (err) {
-          return res.status(400).json({ success: false, err });
-        }
-        console.log(result);
-        return res.status(200).json({ success: true, result });
-      });
-  });
+    const result = await Comment.find({ _id: comment._id }).populate("writer");
+
+    return res.status(200).json({ success: true, result });
+  } catch (err) {
+    return res.status(400).json({ success: false, err });
+  }
 });
 
-router.post("/getComments", (req, res) => {
-  Comment.find({ productId: req.body.productId })
-    .populate("writer")
-    .sort({ createdAt: -1 })
-    .exec((err, comments) => {
-      if (err) {
-        return res.status(400).send(err);
-      }
-      return res.status(200).json({ success: true, comments });
-    });
+router.post("/getComments", async (req, res) => {
+  try {
+    const comments = await Comment.find({ productId: req.body.productId })
+      .populate("writer")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json({ success: true, comments });
+  } catch (err) {
+    return res.status(400).json({ success: false, err });
+  }
 });
 
-router.post("/saveReplyComment", (req, res) => {
-  const replyComment = new ReplyComment(req.body);
+router.post("/saveReplyComment", async (req, res) => {
+  try {
+    let replyComment = new ReplyComment(req.body);
+    replyComment = await replyComment.save();
 
-  replyComment.save((err, replyComment) => {
-    if (err) {
-      return res.json({ success: false, err });
-    }
-    ReplyComment.find({ _id: replyComment._id })
-      .populate("writer")
-      .exec((err, result) => {
-        if (err) {
-          return res.json({ success: false, err });
-        }
-        return res.status(200).json({ success: true, result });
-      });
-  });
+    await Comment.findOneAndUpdate(
+      { _id: replyComment.responseTo },
+      { answerCompleted: true }
+    );
+
+    const result = await ReplyComment.find({ _id: replyComment._id }).populate(
+      "writer"
+    );
+
+    return res.status(200).json({ success: true, result });
+  } catch (err) {
+    return res.status(400).json({ success: false, err });
+  }
+});
+
+router.post("/getReplyComments", async (req, res) => {
+  try {
+    const replyComments = await ReplyComment.find({
+      productId: req.body.productId,
+    }).populate("writer");
+
+    return res.status(200).json({ success: true, replyComments });
+  } catch (err) {
+    return res.status(400).json({ success: false, err });
+  }
 });
 
 module.exports = router;

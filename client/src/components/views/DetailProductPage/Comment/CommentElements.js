@@ -12,7 +12,7 @@ export const TotalComment = styled.p`
 
 export const CommentListsWrapper = styled.ul`
   background: #f2f2f2;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem;
 `;
 
 export const Content = styled.p`

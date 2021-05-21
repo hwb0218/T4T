@@ -1,8 +1,8 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import CommentBox from "../CommentBox/CommentBox";
-import CommentLists from "../CommentLists/CommentLists";
+import SingleComment from "../SingleComment/SingleComment";
 import {
   CommentContainer,
   TotalComment,
@@ -11,7 +11,6 @@ import {
   Content,
   CommentListsWrapper,
 } from "./CommentElements";
-import ReplyComment from "./ReplyComment";
 
 const Comment = ({ productId }) => {
   const user = useSelector((state) => state.user);
@@ -19,33 +18,38 @@ const Comment = ({ productId }) => {
   const [commentLists, setCommentLists] = useState([]);
 
   useEffect(() => {
-    const getComments = async () => {
-      const res = await axios.post("/api/comment/getComments", { productId });
-      setCommentLists(res.data.comments);
+    const fetchComments = async () => {
+      try {
+        const res = await axios.post("/api/comment/getComments", {
+          productId,
+        });
+        setCommentLists(res.data.comments);
+      } catch (err) {
+        console.error(err);
+      }
     };
-    getComments();
+    fetchComments();
   }, [productId]);
 
-  const saveComment = (prevComment) => {
-    setCommentLists(prevComment.concat(commentLists));
+  const updateComment = (newComment) => {
+    setCommentLists(newComment.concat(commentLists));
   };
 
   return (
     <CommentContainer>
       <TotalComment>Q&A {commentLists.length}건</TotalComment>
-      <CommentBox user={user} productId={productId} saveComment={saveComment} />
+      <CommentBox
+        user={user}
+        productId={productId}
+        updateComment={updateComment}
+      />
       <CommentListsWrapper>
         {commentLists.length > 0 ? (
-          commentLists.map((comment) => (
-            <Fragment key={comment._id}>
-              <CommentLists
-                user={user}
-                comment={comment}
-                productId={productId}
-              />
-              <ReplyComment />
-            </Fragment>
-          ))
+          <SingleComment
+            commentLists={commentLists}
+            productId={productId}
+            user={user}
+          />
         ) : (
           <EmptyBox>
             <EmptyComment />
