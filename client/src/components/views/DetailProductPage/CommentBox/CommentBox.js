@@ -1,4 +1,6 @@
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateComment } from "../../../../_actions/commentActions";
 import {
   Btn,
   BtnWrapper,
@@ -9,7 +11,9 @@ import {
 } from "./CommentBoxElements";
 import axios from "axios";
 
-const CommentBox = ({ user, productId, updateComment }) => {
+const CommentBox = ({ user, productId }) => {
+  const dispatch = useDispatch();
+
   const [commentValue, setCommentValue] = useState("");
   const [clickQnABtn, setClickQnABtn] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
@@ -34,7 +38,7 @@ const CommentBox = ({ user, productId, updateComment }) => {
       };
 
       const res = await axios.post("/api/comment/saveComment", variables);
-      updateComment(res.data.result);
+      dispatch(updateComment(res.data.result));
       setCommentValue("");
       setClickQnABtn(false);
     } catch (err) {
@@ -87,4 +91,4 @@ const CommentBox = ({ user, productId, updateComment }) => {
   );
 };
 
-export default CommentBox;
+export default React.memo(CommentBox);

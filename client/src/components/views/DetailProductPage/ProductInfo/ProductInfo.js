@@ -118,4 +118,4 @@ const ProductInfo = ({ detail, productId, history }) => {
   );
 };
 
-export default withRouter(ProductInfo);
+export default React.memo(withRouter(ProductInfo));

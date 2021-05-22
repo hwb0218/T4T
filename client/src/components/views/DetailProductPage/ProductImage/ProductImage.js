@@ -40,4 +40,4 @@ const ProductImage = ({ detail }) => {
   );
 };
 
-export default ProductImage;
+export default React.memo(ProductImage);

@@ -8,7 +8,8 @@ const COMMENTS = "comments";
 const RATING = "rating";
 const REVIEW = "review";
 const PRODUCT_DETAIL = "product_detail";
-const PAGE_NUMBER_LIMIT = "page_number_limit";
+const UPDATE_COMMENT = "update_comment";
+const UPDATE_REPLY_COMMENT = "reply_comment";
 
 export {
   LOGOUT_USER,
@@ -21,5 +22,6 @@ export {
   RATING,
   REVIEW,
   PRODUCT_DETAIL,
-  PAGE_NUMBER_LIMIT,
+  UPDATE_REPLY_COMMENT,
+  UPDATE_COMMENT,
 };

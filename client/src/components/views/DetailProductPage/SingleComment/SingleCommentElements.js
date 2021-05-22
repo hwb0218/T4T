@@ -13,7 +13,7 @@ export const Writer = styled.span`
   margin-right: 0.5rem;
   padding: 4px 6px;
   border-radius: 2px;
-  background: #565656;
+  background: #5f0080;
   color: white;
   font-size: 14px;
   font-weight: bold;
@@ -29,13 +29,4 @@ export const Content = styled.p`
   margin: 0.6rem 0;
   font-size: 15px;
   color: #5f5f5f;
-`;
-
-export const ReplyBtn = styled.span`
-  margin-left: 10px;
-  font-size: 11px;
-  color: #5f5f5f;
-  font-weight: bold;
-  cursor: pointer;
-  user-select: none;
 `;

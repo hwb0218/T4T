@@ -1,4 +1,6 @@
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateReplyComment } from "../../../../_actions/commentActions";
 import {
   CommentContent,
   StyledCommentBox,
@@ -7,15 +9,9 @@ import {
 } from "./RelpyCommentBoxElements";
 import axios from "axios";
 
-const ReplyCommentBox = ({
-  setOpenReply,
-  productId,
-  user,
-  responseTo,
-  updateReplyComment,
-}) => {
+const ReplyCommentBox = ({ setOpenReply, parentCommentId }) => {
+  const dispatch = useDispatch();
   const [commentValue, setCommentValue] = useState("");
-
   const elRef = useCallback((node) => {
     if (node !== null) {
       node.focus();
@@ -30,14 +26,12 @@ const ReplyCommentBox = ({
 
     try {
       const variables = {
-        content: commentValue,
-        writer: user.userData._id,
-        productId,
-        responseTo,
+        replyComment: commentValue,
+        parentCommentId,
       };
 
       const res = await axios.post("/api/comment/saveReplyComment", variables);
-      updateReplyComment(res.data.result);
+      dispatch(updateReplyComment(res.data.comments, parentCommentId));
       setOpenReply(false);
     } catch (err) {
       console.error(err);
@@ -71,4 +65,4 @@ const ReplyCommentBox = ({
   );
 };
 
-export default ReplyCommentBox;
+export default React.memo(ReplyCommentBox);

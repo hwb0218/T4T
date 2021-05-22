@@ -7,12 +7,19 @@ import {
   Content,
 } from "./SingleCommentElements";
 
-const SingleComment = ({ commentLists, user, productId }) => {
+const SingleComment = ({ commentLists, user }) => {
   return (
     <>
       {commentLists.map(
-        ({ writer, createdDate, content, _id, answerCompleted }) => (
-          <CommentList>
+        ({
+          writer,
+          createdDate,
+          content,
+          _id,
+          answerCompleted,
+          replyComment,
+        }) => (
+          <CommentList key={_id}>
             <div>
               <Writer>{writer.name}</Writer>
               <CreatedAt>{createdDate}</CreatedAt>
@@ -21,7 +28,7 @@ const SingleComment = ({ commentLists, user, productId }) => {
             <ReplyComment
               answerCompleted={answerCompleted}
               parentCommentId={_id}
-              productId={productId}
+              replyComment={replyComment}
               user={user}
             />
           </CommentList>

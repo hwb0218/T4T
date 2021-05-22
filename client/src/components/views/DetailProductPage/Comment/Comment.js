@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import CommentBox from "../CommentBox/CommentBox";
 import SingleComment from "../SingleComment/SingleComment";
@@ -11,11 +11,12 @@ import {
   Content,
   CommentListsWrapper,
 } from "./CommentElements";
+import { setComments } from "../../../../_actions/commentActions";
 
 const Comment = ({ productId }) => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-
-  const [commentLists, setCommentLists] = useState([]);
+  const comments = useSelector((state) => state.comments);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -23,7 +24,7 @@ const Comment = ({ productId }) => {
         const res = await axios.post("/api/comment/getComments", {
           productId,
         });
-        setCommentLists(res.data.comments);
+        dispatch(setComments(res.data.comments));
       } catch (err) {
         console.error(err);
       }
@@ -31,22 +32,14 @@ const Comment = ({ productId }) => {
     fetchComments();
   }, [productId]);
 
-  const updateComment = (newComment) => {
-    setCommentLists(newComment.concat(commentLists));
-  };
-
   return (
     <CommentContainer>
-      <TotalComment>Q&A {commentLists.length}건</TotalComment>
-      <CommentBox
-        user={user}
-        productId={productId}
-        updateComment={updateComment}
-      />
+      <TotalComment>Q&A {comments.length}건</TotalComment>
+      <CommentBox user={user} productId={productId} />
       <CommentListsWrapper>
-        {commentLists.length > 0 ? (
+        {comments.length > 0 ? (
           <SingleComment
-            commentLists={commentLists}
+            commentLists={comments}
             productId={productId}
             user={user}
           />

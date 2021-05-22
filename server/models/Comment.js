@@ -19,6 +19,9 @@ const commentSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    replyComment: {
+      type: String,
+    },
     createdDate: {
       type: String,
       default: moment().format("YYYY.MM.DD"),
