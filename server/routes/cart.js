@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 const { Cart } = require("../models/Cart");
 
 router.post("/getCartItems", (req, res) => {

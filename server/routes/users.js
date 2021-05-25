@@ -35,11 +35,9 @@ router.post("/login", (req, res) => {
         if (err) {
           return res.status(400).send(err);
         }
-        res.cookie("w_authExp", user.tokenExp);
-        res
-          .cookie("w_auth", user.token)
-          .status(200)
-          .json({ loginSuccess: true, userId: user._id });
+        req.session.w_authExp = user.tokenExp;
+        req.session.w_auth = user.token;
+        res.status(200).json({ loginSuccess: true, userId: user._id });
       });
     });
   });
@@ -68,6 +66,7 @@ router.get("/logout", auth, (req, res) => {
       if (err) {
         return res.json({ success: false, err });
       }
+      req.session.destroy();
       res.status(200).send({
         logoutSuccess: true,
       });

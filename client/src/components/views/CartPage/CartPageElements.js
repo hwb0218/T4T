@@ -213,7 +213,7 @@ export const EmptyProduct = styled(FaRegGrimace)`
   color: #5f5f5f;
 `;
 
-export const Content = styled.p`
+export const EmptyMessage = styled.p`
   font-size: 14px;
   color: #5f5f5f;
 `;

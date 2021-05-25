@@ -51,4 +51,4 @@ const DetailProductPage = ({ match }) => {
   );
 };
 
-export default React.memo(withRouter(DetailProductPage));
+export default withRouter(DetailProductPage);

@@ -9,13 +9,16 @@ import {
 } from "./RelpyCommentBoxElements";
 import axios from "axios";
 
-const ReplyCommentBox = ({ setOpenReply, parentCommentId }) => {
+const ReplyCommentBox = ({ replyComment, setOpenReply, parentCommentId }) => {
   const dispatch = useDispatch();
+
   const [commentValue, setCommentValue] = useState("");
+
   const elRef = useCallback((node) => {
     if (node !== null) {
       node.focus();
-      node.textContent = "";
+      node.textContent = replyComment;
+      setCommentValue(replyComment);
     }
   }, []);
 
@@ -32,6 +35,7 @@ const ReplyCommentBox = ({ setOpenReply, parentCommentId }) => {
 
       const res = await axios.post("/api/comment/saveReplyComment", variables);
       dispatch(updateReplyComment(res.data.comments, parentCommentId));
+      setCommentValue("");
       setOpenReply(false);
     } catch (err) {
       console.error(err);
@@ -53,6 +57,7 @@ const ReplyCommentBox = ({ setOpenReply, parentCommentId }) => {
     <CommentContent>
       <StyledCommentBox
         contentEditable
+        placeholder="댓글을 입력하세요"
         onInput={handleComment}
         onKeyPress={handleKeyPress}
         ref={elRef}

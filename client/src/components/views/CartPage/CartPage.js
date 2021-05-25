@@ -17,7 +17,7 @@ import {
   CheckBoxInput,
   EmptyBox,
   EmptyProduct,
-  Content,
+  EmptyMessage,
   QuantityWrap,
   EditBtn,
 } from "./CartPageElements";
@@ -26,9 +26,8 @@ import moment from "moment";
 import Modal from "./Modal/Modal";
 
 const API_URL = process.env["REACT_APP_API_URL"];
-const userId = window.localStorage.getItem("userId");
 
-const CartPage = () => {
+const CartPage = ({ user }) => {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const [cartProducts, setCartProducts] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
@@ -37,10 +36,12 @@ const CartPage = () => {
   const [quantity, setQuantity] = useState(0);
   const [productId, setProductId] = useState("");
 
+  const { _id } = user.userData;
+
   useEffect(() => {
     const getCartItems = async () => {
       showLoader();
-      const res = await axios.post("/api/cart/getCartItems", { userId });
+      const res = await axios.post("/api/cart/getCartItems", { userId: _id });
       hideLoader();
       setCartProducts(res.data.cart);
       setCheckedItems(res.data.cart);
@@ -48,7 +49,7 @@ const CartPage = () => {
     };
     getCartItems();
     return () => hideLoader();
-  }, []);
+  }, [_id]);
 
   const handleToggle = (item) => {
     const checked = checkedItems.includes(item);
@@ -80,7 +81,7 @@ const CartPage = () => {
 
   const handleRemoveItems = async (productId) => {
     const res = await axios.post("/api/cart/removeCartItems", {
-      userId,
+      userId: _id,
       productId,
     });
     setCartProducts(res.data.cart);
@@ -95,7 +96,7 @@ const CartPage = () => {
 
     const date = moment().format("YYYY.MM");
     const data = {
-      user: userId,
+      user: _id,
       products: checkedItems,
       date,
     };
@@ -197,7 +198,7 @@ const CartPage = () => {
         ) : (
           <EmptyBox>
             <EmptyProduct />
-            <Content>장바구니가 비었습니다</Content>
+            <EmptyMessage>장바구니가 비었습니다</EmptyMessage>
           </EmptyBox>
         )}
         {loader}

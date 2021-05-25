@@ -64,7 +64,7 @@ const CommentBox = ({ user, productId }) => {
 
   return (
     <>
-      {user.userData && !user.userData.isSeller && (
+      {user.userData.isAuth && !user.userData.isSeller && (
         <QnABtn clickQnABtn={clickQnABtn} onClick={() => setClickQnABtn(true)}>
           Q&A 작성하기
         </QnABtn>

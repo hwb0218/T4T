@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FaRegGrimace } from "react-icons/fa/index";
 
 export const GoodsPaySection = styled.div`
   max-width: 600px;
@@ -33,4 +34,20 @@ export const Month = styled.div`
   }
 `;
 
-export const EmptyPayment = styled.div``;
+export const EmptyBox = styled.div`
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+`;
+
+export const EmptyPayment = styled(FaRegGrimace)`
+  padding-bottom: 10px;
+  font-size: 5rem;
+  color: #5f5f5f;
+`;
+
+export const EmptyMessage = styled.p`
+  font-size: 14px;
+  color: #5f5f5f;
+`;

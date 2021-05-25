@@ -11,7 +11,7 @@ export const Arrow = styled(BsArrowReturnRight)`
 
 export const ReplyBtn = styled.span`
   display: inline-block;
-  padding: 2px;
+  padding: 5px;
   border: 1px solid #5f5f5f;
   border-radius: 2px;
   font-size: 11px;
@@ -32,7 +32,32 @@ export const AnswerIcon = styled.span`
   font-weight: bold;
 `;
 
-export const Content = styled.span`
-  font-size: 15px;
+export const ModifyReply = styled.span`
+  position: relative;
+  top: -2px;
+  font-size: 11px;
+  color: #b4b4b4;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+`;
+
+export const DeleteReply = styled.span`
+  position: relative;
+  top: -2px;
+  left: 4px;
+  font-size: 11px;
+  color: #b4b4b4;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+`;
+
+export const Content = styled.div`
+  position: relative;
+  margin-top: 0.6rem;
+  left: 20px;
+  line-height: 1rem;
+  font-size: 14px;
   color: #5f5f5f;
 `;

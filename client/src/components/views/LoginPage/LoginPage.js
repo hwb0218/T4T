@@ -20,7 +20,6 @@ const LoginPage = ({ history }) => {
 
     dispatch(loginUser(dataToSubmit)).then((response) => {
       if (response.payload.loginSuccess) {
-        window.localStorage.setItem("userId", response.payload.userId);
         history.goBack(2);
       } else {
         alert("아이디나 비밀번호를 확인하세요.");

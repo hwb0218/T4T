@@ -4,7 +4,7 @@ import {
   CommentList,
   Writer,
   CreatedAt,
-  Content,
+  Comment,
 } from "./SingleCommentElements";
 
 const SingleComment = ({ commentLists, user }) => {
@@ -23,7 +23,7 @@ const SingleComment = ({ commentLists, user }) => {
             <div>
               <Writer>{writer.name}</Writer>
               <CreatedAt>{createdDate}</CreatedAt>
-              <Content>{content}</Content>
+              <Comment>{content}</Comment>
             </div>
             <ReplyComment
               answerCompleted={answerCompleted}

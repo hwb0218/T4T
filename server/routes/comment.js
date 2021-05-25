@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { Comment } = require("../models/Comment");
-const { ReplyComment } = require("../models/ReplyComment");
 
 router.post("/saveComment", async (req, res) => {
   try {
@@ -38,7 +37,23 @@ router.post("/saveReplyComment", async (req, res) => {
       { new: true }
     ).populate("writer");
 
-    return res.status(200).json({ success: false, comments });
+    return res.status(200).json({ success: true, comments });
+  } catch (err) {
+    res.status(400).json({ success: false, err });
+  }
+});
+
+router.post("/removeReplyComment", async (req, res) => {
+  try {
+    const { parentCommentId } = req.body;
+
+    const comments = await Comment.findOneAndUpdate(
+      { _id: parentCommentId },
+      { replyComment: "", answerCompleted: false },
+      { new: true }
+    ).populate("writer");
+
+    return res.status(200).json({ success: true, comments });
   } catch (err) {
     res.status(400).json({ success: false, err });
   }

@@ -20,13 +20,17 @@ export const Writer = styled.span`
 `;
 
 export const CreatedAt = styled.span`
+  position: relative;
+  top: -2px;
   font-size: 11px;
   color: #b4b4b4;
   font-weight: bold;
 `;
 
-export const Content = styled.p`
+export const Comment = styled.p`
+  position: relative;
+  left: 2px;
   margin: 0.6rem 0;
-  font-size: 15px;
+  font-size: 14px;
   color: #5f5f5f;
 `;

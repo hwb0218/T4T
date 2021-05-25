@@ -104,7 +104,8 @@ router.get("/products_by_id", (req, res) => {
 
 router.post("/addToCart", async (req, res) => {
   const { productId, user, amount } = req.body;
-
+  console.log(req.session);
+  console.log(req.session.w_auth);
   try {
     let cart = await Cart.findOne({ user });
 
