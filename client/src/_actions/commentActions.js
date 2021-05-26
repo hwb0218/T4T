@@ -1,6 +1,7 @@
 import {
   COMMENTS,
-  UPDATE_COMMENT,
+  SAVE_COMMENT,
+  MODIFY_COMMENT,
   DELETE_COMMENT,
   UPDATE_REPLY_COMMENT,
 } from "./types";
@@ -12,10 +13,17 @@ export const setComments = (comments) => {
   };
 };
 
-export const updateComment = (newComment) => {
+export const saveComment = (comment) => {
   return {
-    type: UPDATE_COMMENT,
-    payload: newComment,
+    type: SAVE_COMMENT,
+    payload: comment,
+  };
+};
+
+export const modifyComment = (comment, commentId) => {
+  return {
+    type: MODIFY_COMMENT,
+    payload: { comment, commentId },
   };
 };
 

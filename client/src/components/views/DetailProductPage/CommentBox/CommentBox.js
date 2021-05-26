@@ -1,46 +1,65 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateComment } from "../../../../_actions/commentActions";
+import {
+  saveComment,
+  modifyComment,
+} from "../../../../_actions/commentActions";
 import {
   Btn,
   BtnWrapper,
   CommentContent,
-  QnABtn,
   StyledCommentBox,
-  Writer,
 } from "./CommentBoxElements";
 import axios from "axios";
 
-const CommentBox = ({ user, productId }) => {
+const CommentBox = ({
+  user,
+  productId,
+  setClickCommentBtn,
+  clickCommentBtn,
+  type,
+  comment,
+  commentId,
+}) => {
   const dispatch = useDispatch();
 
   const [commentValue, setCommentValue] = useState("");
-  const [clickQnABtn, setClickQnABtn] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
 
   const elRef = useCallback((node) => {
     if (node !== null) {
       node.focus();
-      node.textContent = "";
+      node.textContent = comment;
+      setCommentValue(comment);
     }
   }, []);
 
-  const handleSubmit = async () => {
-    if (commentValue === "") {
-      return alert("내용을 입력하세요.");
-    }
-
+  const handleSubmit = async (type) => {
     try {
-      const variables = {
-        content: commentValue,
-        writer: user.userData._id,
-        productId,
-      };
+      if (commentValue === undefined || commentValue === "") {
+        return alert("내용을 입력하세요.");
+      }
+      if (type === "save") {
+        const variables = {
+          content: commentValue,
+          writer: user.userData._id,
+          productId,
+        };
 
-      const res = await axios.post("/api/comment/saveComment", variables);
-      dispatch(updateComment(res.data.result));
+        const res = await axios.post("/api/comment/saveComment", variables);
+        dispatch(saveComment(res.data.result));
+      }
+      if (type === "modify") {
+        const variables = {
+          content: commentValue,
+          commentId,
+        };
+
+        const res = await axios.post("/api/comment/modifyComment", variables);
+        dispatch(modifyComment(res.data.comment, commentId));
+      }
       setCommentValue("");
-      setClickQnABtn(false);
+      setClickCommentBtn(false);
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +68,7 @@ const CommentBox = ({ user, productId }) => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      handleSubmit();
+      handleSubmit(type);
     }
   };
 
@@ -58,20 +77,14 @@ const CommentBox = ({ user, productId }) => {
   };
 
   const handleClickCancel = () => {
-    setClickQnABtn(false);
+    setClickCommentBtn(false);
     setShowBtn(false);
   };
 
   return (
     <>
-      {user.userData.isAuth && !user.userData.isSeller && (
-        <QnABtn clickQnABtn={clickQnABtn} onClick={() => setClickQnABtn(true)}>
-          Q&A 작성하기
-        </QnABtn>
-      )}
-      {clickQnABtn && (
+      {clickCommentBtn && (
         <CommentContent>
-          <Writer>{user.userData.name}</Writer>
           <StyledCommentBox
             placeholder="댓글을 입력하세요."
             contentEditable
@@ -83,7 +96,7 @@ const CommentBox = ({ user, productId }) => {
           />
           <BtnWrapper>
             <Btn onClick={handleClickCancel}>취소</Btn>
-            <Btn onClick={handleSubmit}>댓글</Btn>
+            <Btn onClick={() => handleSubmit(type)}>댓글</Btn>
           </BtnWrapper>
         </CommentContent>
       )}
@@ -91,4 +104,4 @@ const CommentBox = ({ user, productId }) => {
   );
 };
 
-export default React.memo(CommentBox);
+export default CommentBox;

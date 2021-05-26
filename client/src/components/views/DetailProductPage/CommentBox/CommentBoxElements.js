@@ -1,33 +1,7 @@
 import styled, { css } from "styled-components";
 
-export const QnABtn = styled.button`
-  margin-bottom: 0.5rem;
-  padding: 0 15px;
-  height: 34px;
-  border: none;
-  background: #565656;
-  font-size: 12px;
-  color: white;
-
-  ${({ clickQnABtn }) =>
-    clickQnABtn &&
-    css`
-      display: none;
-    `}
-`;
-
 export const CommentContent = styled.div`
   padding: 0.5rem 0.5rem;
-`;
-
-export const Writer = styled.span`
-  display: inline-block;
-  margin-bottom: 1rem;
-  padding: 2px 6px;
-  border-radius: 2px;
-  background: #565656;
-  color: white;
-  font-size: 15px;
 `;
 
 export const StyledCommentBox = styled.div`
@@ -60,7 +34,6 @@ export const StyledCommentBox = styled.div`
 export const BtnWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 1rem;
 `;
 
 export const Btn = styled.button`

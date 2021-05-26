@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const CommentContent = styled.div`
   padding-top: 1rem;
@@ -6,19 +6,29 @@ export const CommentContent = styled.div`
 
 export const StyledCommentBox = styled.div`
   outline: none;
-  padding: 2px 2px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
   font-size: 15px;
-  font-weight: lighter;
-  line-height: 20px;
-  cursor: text;
+  border-bottom: 1px solid #e2e2e2;
   color: #5f5f5f;
-  background: #fff;
+  font-weight: lighter;
+  cursor: text;
 
   &:empty:before {
     content: attr(placeholder);
     color: grey;
     display: inline-block;
   }
+
+  &:focus {
+    border-color: #5f5f5f;
+  }
+
+  ${({ showBtn }) =>
+    showBtn &&
+    css`
+      border-color: #5f5f5f;
+    `}
 `;
 
 export const BtnWrapper = styled.div`

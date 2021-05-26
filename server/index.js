@@ -26,6 +26,7 @@ app.use(
     secret: "t4t",
     resave: false,
     saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 60 },
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_URI,
     }),

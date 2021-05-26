@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import ReplyComment from "../ReplyComments/ReplyComment";
 import { useDispatch } from "react-redux";
 import { deleteComment } from "../../../../_actions/commentActions";
+import CommentBox from "../CommentBox/CommentBox";
 import {
   CommentList,
   Writer,
@@ -12,8 +13,23 @@ import {
 } from "./SingleCommentElements";
 import axios from "axios";
 
-const SingleComment = ({ commentLists, user }) => {
+const SingleComment = ({ comment, user }) => {
+  const {
+    _id,
+    writer,
+    createdDate,
+    answerCompleted,
+    replyComment,
+    content,
+  } = comment;
   const dispatch = useDispatch();
+  const [clickCommentBtn, setClickCommentBtn] = useState(false);
+  const [type, setType] = useState("");
+
+  const handleModifyCommentBtn = () => {
+    setClickCommentBtn(true);
+    setType("modify");
+  };
 
   const handleDeleteCommentBtn = async (commentId) => {
     try {
@@ -26,38 +42,39 @@ const SingleComment = ({ commentLists, user }) => {
 
   return (
     <>
-      {commentLists.map(
-        ({
-          writer,
-          createdDate,
-          content,
-          _id,
-          answerCompleted,
-          replyComment,
-        }) => (
-          <CommentList key={_id}>
-            <div>
-              <Writer>{writer.name}</Writer>
-              <CreatedAt>{createdDate}</CreatedAt>
-              {user.userData._id === writer._id && (
-                <>
-                  <ModifyComment>수정</ModifyComment>
-                  <DeleteComment onClick={() => handleDeleteCommentBtn(_id)}>
-                    삭제
-                  </DeleteComment>
-                </>
+      <CommentList>
+        <div>
+          <Writer>{writer.name}</Writer>
+          <CreatedAt>{createdDate}</CreatedAt>
+          {user.userData._id === writer._id && (
+            <>
+              {!answerCompleted && (
+                <ModifyComment onClick={handleModifyCommentBtn}>
+                  수정
+                </ModifyComment>
               )}
-              <Comment>{content}</Comment>
-            </div>
-            <ReplyComment
-              answerCompleted={answerCompleted}
-              parentCommentId={_id}
-              replyComment={replyComment}
-              user={user}
-            />
-          </CommentList>
-        )
-      )}
+              <DeleteComment onClick={() => handleDeleteCommentBtn(_id)}>
+                삭제
+              </DeleteComment>
+            </>
+          )}
+          {!clickCommentBtn && <Comment>{content}</Comment>}
+          <CommentBox
+            user={user}
+            clickCommentBtn={clickCommentBtn}
+            setClickCommentBtn={setClickCommentBtn}
+            comment={content}
+            commentId={_id}
+            type={type}
+          />
+        </div>
+        <ReplyComment
+          answerCompleted={answerCompleted}
+          parentCommentId={_id}
+          replyComment={replyComment}
+          user={user}
+        />
+      </CommentList>
     </>
   );
 };

@@ -8,9 +8,10 @@ const COMMENTS = "comments";
 const RATING = "rating";
 const REVIEW = "review";
 const PRODUCT_DETAIL = "product_detail";
-const UPDATE_COMMENT = "update_comment";
-const UPDATE_REPLY_COMMENT = "reply_comment";
+const SAVE_COMMENT = "save_comment";
+const MODIFY_COMMENT = "modify_comment";
 const DELETE_COMMENT = "delete_comment";
+const UPDATE_REPLY_COMMENT = "reply_comment";
 
 export {
   LOGOUT_USER,
@@ -23,7 +24,8 @@ export {
   RATING,
   REVIEW,
   PRODUCT_DETAIL,
-  UPDATE_REPLY_COMMENT,
-  UPDATE_COMMENT,
+  SAVE_COMMENT,
+  MODIFY_COMMENT,
   DELETE_COMMENT,
+  UPDATE_REPLY_COMMENT,
 };

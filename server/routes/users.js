@@ -58,20 +58,18 @@ router.get("/auth", auth, (req, res) => {
   });
 });
 
-router.get("/logout", auth, (req, res) => {
-  User.findOneAndUpdate(
-    { _id: req.user._id },
-    { token: "", tokenExp: "" },
-    (err, doc) => {
-      if (err) {
-        return res.json({ success: false, err });
-      }
-      req.session.destroy();
-      res.status(200).send({
-        logoutSuccess: true,
-      });
-    }
-  );
+router.get("/logout", auth, async (req, res) => {
+  try {
+    const { _id } = req.user;
+
+    await User.findOneAndUpdate({ _id }, { token: "", tokenExp: "" });
+
+    await req.session.destroy();
+
+    return res.status(200).json({ logoutSuccess: true });
+  } catch (err) {
+    res.status(400).json({ success: false, err });
+  }
 });
 
 module.exports = router;

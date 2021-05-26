@@ -1,5 +1,21 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FaExclamationCircle } from "react-icons/fa/index";
+
+export const QnABtn = styled.button`
+  margin-bottom: 0.5rem;
+  padding: 0 15px;
+  height: 34px;
+  border: none;
+  background: #565656;
+  font-size: 12px;
+  color: white;
+
+  ${({ clickCommentBtn }) =>
+    clickCommentBtn &&
+    css`
+      display: none;
+    `}
+`;
 
 export const CommentContainer = styled.div`
   margin-top: 1rem;

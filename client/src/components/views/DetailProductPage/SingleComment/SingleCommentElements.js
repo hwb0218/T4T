@@ -12,6 +12,7 @@ export const Writer = styled.span`
   display: inline-block;
   margin-right: 0.5rem;
   padding: 4px 6px;
+  margin-bottom: 0.8rem;
   border-radius: 2px;
   background: #5f0080;
   color: white;
@@ -31,7 +32,7 @@ export const CreatedAt = styled.span`
 export const Comment = styled.p`
   position: relative;
   left: 2px;
-  margin: 0.6rem 0;
+  margin-bottom: 0.8rem;
   font-size: 14px;
   color: #5f5f5f;
 `;

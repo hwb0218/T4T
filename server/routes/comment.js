@@ -27,6 +27,22 @@ router.post("/getComments", async (req, res) => {
   }
 });
 
+router.post("/modifyComment", async (req, res) => {
+  try {
+    const { content, commentId } = req.body;
+
+    const comment = await Comment.findOneAndUpdate(
+      { _id: commentId },
+      { content },
+      { new: true }
+    ).populate("writer");
+
+    return res.status(200).json({ success: true, comment });
+  } catch (err) {
+    res.status(400).json({ success: false, err });
+  }
+});
+
 router.post("/deleteComment", async (req, res) => {
   try {
     const { commentId } = req.body;
