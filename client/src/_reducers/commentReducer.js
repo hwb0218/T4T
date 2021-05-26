@@ -1,6 +1,7 @@
 import {
   COMMENTS,
   UPDATE_COMMENT,
+  DELETE_COMMENT,
   UPDATE_REPLY_COMMENT,
 } from "../_actions/types";
 
@@ -12,6 +13,11 @@ const commentReducer = (state = initialState, action) => {
       return action.payload;
     case UPDATE_COMMENT:
       return action.payload.concat(state);
+    case DELETE_COMMENT:
+      const comments = state.filter(
+        (comment) => comment._id !== action.payload._id
+      );
+      return comments;
     case UPDATE_REPLY_COMMENT:
       const updateReplyComment = state.map((comment) =>
         comment._id === action.payload.parentCommentId

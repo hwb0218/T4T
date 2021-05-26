@@ -10,6 +10,7 @@ const REVIEW = "review";
 const PRODUCT_DETAIL = "product_detail";
 const UPDATE_COMMENT = "update_comment";
 const UPDATE_REPLY_COMMENT = "reply_comment";
+const DELETE_COMMENT = "delete_comment";
 
 export {
   LOGOUT_USER,
@@ -24,4 +25,5 @@ export {
   PRODUCT_DETAIL,
   UPDATE_REPLY_COMMENT,
   UPDATE_COMMENT,
+  DELETE_COMMENT,
 };

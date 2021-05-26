@@ -21,7 +21,8 @@ export const Writer = styled.span`
 
 export const CreatedAt = styled.span`
   position: relative;
-  top: -2px;
+  top: -1.5px;
+  margin-right: 5px;
   font-size: 11px;
   color: #b4b4b4;
   font-weight: bold;
@@ -33,4 +34,25 @@ export const Comment = styled.p`
   margin: 0.6rem 0;
   font-size: 14px;
   color: #5f5f5f;
+`;
+
+export const ModifyComment = styled.span`
+  position: relative;
+  top: -1.5px;
+  font-size: 11px;
+  color: #5f5f5f;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+`;
+
+export const DeleteComment = styled.span`
+  position: relative;
+  top: -1.5px;
+  left: 4px;
+  font-size: 11px;
+  color: #5f5f5f;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
 `;

@@ -27,33 +27,45 @@ router.post("/getComments", async (req, res) => {
   }
 });
 
-router.post("/saveReplyComment", async (req, res) => {
+router.post("/deleteComment", async (req, res) => {
   try {
-    const { parentCommentId, replyComment } = req.body;
+    const { commentId } = req.body;
 
-    const comments = await Comment.findOneAndUpdate(
-      { _id: parentCommentId },
-      { replyComment, answerCompleted: true },
-      { new: true }
-    ).populate("writer");
+    const comment = await Comment.findOneAndDelete({ _id: commentId });
 
-    return res.status(200).json({ success: true, comments });
+    return res.status(200).json({ success: true, comment });
   } catch (err) {
     res.status(400).json({ success: false, err });
   }
 });
 
-router.post("/removeReplyComment", async (req, res) => {
+router.post("/saveReplyComment", async (req, res) => {
+  try {
+    const { parentCommentId, replyComment } = req.body;
+
+    const comment = await Comment.findOneAndUpdate(
+      { _id: parentCommentId },
+      { replyComment, answerCompleted: true },
+      { new: true }
+    ).populate("writer");
+
+    return res.status(200).json({ success: true, comment });
+  } catch (err) {
+    res.status(400).json({ success: false, err });
+  }
+});
+
+router.post("/deleteReplyComment", async (req, res) => {
   try {
     const { parentCommentId } = req.body;
 
-    const comments = await Comment.findOneAndUpdate(
+    const comment = await Comment.findOneAndUpdate(
       { _id: parentCommentId },
       { replyComment: "", answerCompleted: false },
       { new: true }
     ).populate("writer");
 
-    return res.status(200).json({ success: true, comments });
+    return res.status(200).json({ success: true, comment });
   } catch (err) {
     res.status(400).json({ success: false, err });
   }

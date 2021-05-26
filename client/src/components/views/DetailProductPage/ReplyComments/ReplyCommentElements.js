@@ -34,9 +34,9 @@ export const AnswerIcon = styled.span`
 
 export const ModifyReply = styled.span`
   position: relative;
-  top: -2px;
+  top: -1.5px;
   font-size: 11px;
-  color: #b4b4b4;
+  color: #5f5f5f;
   font-weight: bold;
   cursor: pointer;
   user-select: none;
@@ -44,10 +44,10 @@ export const ModifyReply = styled.span`
 
 export const DeleteReply = styled.span`
   position: relative;
-  top: -2px;
+  top: -1.5px;
   left: 4px;
   font-size: 11px;
-  color: #b4b4b4;
+  color: #5f5f5f;
   font-weight: bold;
   cursor: pointer;
   user-select: none;

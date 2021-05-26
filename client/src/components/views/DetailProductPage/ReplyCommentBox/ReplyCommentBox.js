@@ -34,7 +34,7 @@ const ReplyCommentBox = ({ replyComment, setOpenReply, parentCommentId }) => {
       };
 
       const res = await axios.post("/api/comment/saveReplyComment", variables);
-      dispatch(updateReplyComment(res.data.comments, parentCommentId));
+      dispatch(updateReplyComment(res.data.comment, parentCommentId));
       setCommentValue("");
       setOpenReply(false);
     } catch (err) {

@@ -1,4 +1,9 @@
-import { COMMENTS, UPDATE_COMMENT, UPDATE_REPLY_COMMENT } from "./types";
+import {
+  COMMENTS,
+  UPDATE_COMMENT,
+  DELETE_COMMENT,
+  UPDATE_REPLY_COMMENT,
+} from "./types";
 
 export const setComments = (comments) => {
   return {
@@ -11,6 +16,13 @@ export const updateComment = (newComment) => {
   return {
     type: UPDATE_COMMENT,
     payload: newComment,
+  };
+};
+
+export const deleteComment = (deletedComment) => {
+  return {
+    type: DELETE_COMMENT,
+    payload: deletedComment,
   };
 };
 

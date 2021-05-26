@@ -23,12 +23,12 @@ const ReplyComment = ({
 
   const [openReply, setOpenReply] = useState(false);
 
-  const removeReplyComment = async () => {
+  const deleteReplyComment = async () => {
     try {
-      const res = await axios.post("/api/comment/removeReplyComment", {
+      const res = await axios.post("/api/comment/deleteReplyComment", {
         parentCommentId,
       });
-      dispatch(updateReplyComment(res.data.comments, parentCommentId));
+      dispatch(updateReplyComment(res.data.comment, parentCommentId));
     } catch (err) {
       console.error(err);
     }
@@ -47,10 +47,14 @@ const ReplyComment = ({
         <StyledReplyComment>
           <Arrow />
           <AnswerIcon>판매자</AnswerIcon>
-          <ModifyReply onClick={() => setOpenReply(!openReply)}>
-            수정
-          </ModifyReply>
-          <DeleteReply onClick={removeReplyComment}>삭제</DeleteReply>
+          {user.userData && user.userData.isSeller && (
+            <>
+              <ModifyReply onClick={() => setOpenReply(!openReply)}>
+                수정
+              </ModifyReply>
+              <DeleteReply onClick={deleteReplyComment}>삭제</DeleteReply>
+            </>
+          )}
           {!openReply && <Content>{replyComment}</Content>}
         </StyledReplyComment>
       )}
