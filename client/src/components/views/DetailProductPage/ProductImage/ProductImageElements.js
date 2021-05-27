@@ -13,7 +13,7 @@ export const ProductImageContainer = styled.div`
 export const OriginalImg = styled.img`
   display: block;
   height: 100%;
-  fwidth: 550px;
+  width: 550px;
   margin-right: 1rem;
   object-fit: cover;
 

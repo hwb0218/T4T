@@ -17,24 +17,24 @@ const HistoryPage = ({ user }) => {
   const [histories, setHistories] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  const { _id } = user.userData;
-
   useEffect(() => {
-    try {
-      showLoader();
-      const fetchHistory = async () => {
-        const res = await axios.post("/api/payment/history", {
-          userId: _id,
-        });
-        hideLoader();
-        setHistories(res.data.histories);
-      };
-      fetchHistory();
-    } catch (err) {
-      console.error(err);
-    }
+    const fetchHistory = async () => {
+      try {
+        if (user.userData) {
+          showLoader();
+          const res = await axios.post("/api/payment/history", {
+            userId: user.userData._id,
+          });
+          hideLoader();
+          setHistories(res.data.histories);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchHistory();
     return () => hideLoader();
-  }, [_id]);
+  }, [showLoader, hideLoader]);
 
   const modifyPayment = (newHistory) => {
     setHistories(newHistory);

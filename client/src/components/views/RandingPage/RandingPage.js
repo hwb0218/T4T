@@ -43,7 +43,7 @@ const RandingPage = ({ location }) => {
     };
     fetchProducts();
     return () => hideLoader();
-  }, [filters]);
+  }, [filters, showLoader, hideLoader]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const updateProducts = (searchTerm) => setSearchedProducts(searchTerm);

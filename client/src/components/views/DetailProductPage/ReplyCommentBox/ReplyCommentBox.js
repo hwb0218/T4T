@@ -14,13 +14,16 @@ const ReplyCommentBox = ({ replyComment, setOpenReply, parentCommentId }) => {
 
   const [commentValue, setCommentValue] = useState("");
 
-  const elRef = useCallback((node) => {
-    if (node !== null) {
-      node.focus();
-      node.textContent = replyComment;
-      setCommentValue(replyComment);
-    }
-  }, []);
+  const elRef = useCallback(
+    (node) => {
+      if (node !== null) {
+        node.focus();
+        node.textContent = replyComment;
+        setCommentValue(replyComment);
+      }
+    },
+    [replyComment]
+  );
 
   const handleSubmit = async () => {
     if (commentValue === "") {

@@ -33,9 +33,9 @@ const Pagination = ({
     paginate(nextGroup + 1);
   };
 
-  const renderPageNumbers = pagesNumber.map((pageNum, i) => {
-    if (Math.trunc(i / pageNumberLimit) === groupNumber) {
-      return (
+  const renderPageNumbers = pagesNumber.map(
+    (pageNum, i) =>
+      Math.trunc(i / pageNumberLimit) === groupNumber && (
         <PageLi key={pageNum}>
           <PageLink
             to={`/?page=${pageNum}`}
@@ -45,9 +45,8 @@ const Pagination = ({
             {pageNum}
           </PageLink>
         </PageLi>
-      );
-    }
-  });
+      )
+  );
 
   return (
     <PageUl>

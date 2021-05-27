@@ -26,13 +26,16 @@ const CommentBox = ({
   const [commentValue, setCommentValue] = useState("");
   const [showBtn, setShowBtn] = useState(false);
 
-  const elRef = useCallback((node) => {
-    if (node !== null) {
-      node.focus();
-      node.textContent = comment;
-      setCommentValue(comment);
-    }
-  }, []);
+  const elRef = useCallback(
+    (node) => {
+      if (node !== null) {
+        node.focus();
+        node.textContent = comment;
+        setCommentValue(comment);
+      }
+    },
+    [comment]
+  );
 
   const handleSubmit = async (type) => {
     try {

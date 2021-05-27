@@ -39,7 +39,7 @@ const Comment = ({ productId }) => {
       }
     };
     fetchComments();
-  }, [productId]);
+  }, [productId, dispatch]);
 
   return (
     <CommentContainer>

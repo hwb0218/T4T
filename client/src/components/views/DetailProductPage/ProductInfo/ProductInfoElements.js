@@ -67,8 +67,6 @@ export const ProductContent = styled.div`
 `;
 
 export const ProductDescription = styled.div`
-  min-width: 300px;
-  margin-right: 1rem;
   font-weight: bold;
   font-size: 13px;
 `;
@@ -154,4 +152,15 @@ export const CntPlus = styled(FaCaretRight)`
       color: #e2e2e2;
       cursor: inherit;
     `}
+`;
+
+export const Description = styled.div`
+  min-width: 320px;
+  width: 320px;
+  margin-right: 1rem;
+
+  ${({ theme }) => theme.mobile`
+    width: auto;
+    max-width: inherit;
+  `}
 `;

@@ -17,6 +17,7 @@ import {
   Amount,
   CntMinus,
   CntPlus,
+  Description,
 } from "./ProductInfoElements";
 
 const ProductInfo = ({ detail, productId, history }) => {
@@ -95,10 +96,10 @@ const ProductInfo = ({ detail, productId, history }) => {
             <ProductContent>{detail.views}</ProductContent>
           </ProductInfoList>
         </ul>
-        <div>
+        <Description>
           <TitleBox>Description</TitleBox>
           <ProductDescription>{detail.description}</ProductDescription>
-        </div>
+        </Description>
         <BtnWrapper>
           <AmountControl>
             <CntMinus

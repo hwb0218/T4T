@@ -36,20 +36,26 @@ const CartPage = ({ user }) => {
   const [quantity, setQuantity] = useState(0);
   const [productId, setProductId] = useState("");
 
-  const { _id } = user.userData;
-
   useEffect(() => {
     const getCartItems = async () => {
-      showLoader();
-      const res = await axios.post("/api/cart/getCartItems", { userId: _id });
-      hideLoader();
-      setCartProducts(res.data.cart);
-      setCheckedItems(res.data.cart);
-      calculate(res.data.cart);
+      try {
+        if (user.userData) {
+          showLoader();
+          const res = await axios.post("/api/cart/getCartItems", {
+            userId: user.userData._id,
+          });
+          hideLoader();
+          setCartProducts(res.data.cart);
+          setCheckedItems(res.data.cart);
+          calculate(res.data.cart);
+        }
+      } catch (err) {
+        console.error(err);
+      }
     };
     getCartItems();
     return () => hideLoader();
-  }, [_id]);
+  }, [showLoader, hideLoader]);
 
   const handleToggle = (item) => {
     const checked = checkedItems.includes(item);
@@ -81,7 +87,7 @@ const CartPage = ({ user }) => {
 
   const handleRemoveItems = async (productId) => {
     const res = await axios.post("/api/cart/removeCartItems", {
-      userId: _id,
+      userId: user.userData._id,
       productId,
     });
     setCartProducts(res.data.cart);
@@ -96,7 +102,7 @@ const CartPage = ({ user }) => {
 
     const date = moment().format("YYYY.MM");
     const data = {
-      user: _id,
+      user: user.userData._id,
       products: checkedItems,
       date,
     };

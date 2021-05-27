@@ -28,7 +28,7 @@ export const ReviewContent = styled.li`
 export const Writer = styled.span`
   display: inline-block;
   margin-bottom: 0.5rem;
-  padding: 2px 6px;
+  padding: 4px 6px;
   border-radius: 2px;
   background: #565656;
   color: white;

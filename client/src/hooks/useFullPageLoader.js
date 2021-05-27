@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import FullPageLoader from "../components/utils/FullPageLoader";
 
 const UseFullPageLoader = () => {
   const [loading, setLoading] = useState(false);
+
   return [
     loading ? <FullPageLoader /> : null,
-    () => setLoading(true),
-    () => setLoading(false),
+    useCallback(() => {
+      setLoading(true);
+    }, []),
+    useCallback(() => {
+      setLoading(false);
+    }, []),
   ];
 };
 

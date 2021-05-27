@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import Auth from "../hoc/auth";
+import Auth from "../hoc/withAuth";
 import RandingPage from "./views/RandingPage/RandingPage";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import LoginPage from "./views/LoginPage/LoginPage";

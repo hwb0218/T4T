@@ -29,16 +29,14 @@ const DetailProductPage = ({ match }) => {
           `/api/product/products_by_id?id=${productId}`
         );
         hideLoader();
-        if (res.data.success) {
-          setProduct(res.data.product[0]);
-        }
+        setProduct(res.data.product[0]);
       } catch (err) {
         console.error(err);
       }
     };
     getProduct();
     return () => hideLoader();
-  }, [productId]);
+  }, [productId, showLoader, hideLoader]);
 
   return (
     <DetailProductPageContainer>

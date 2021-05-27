@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logoutUser, auth } from "../../../../_actions/userActions";
+import { logoutUser } from "../../../../_actions/userActions";
 import { NavItem, NavLinks, Button } from "../NavbarElements";
 
 const navItems = [{ 주문정보: "/history" }, { 장바구니: "/user/cart" }];

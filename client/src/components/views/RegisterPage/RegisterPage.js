@@ -18,13 +18,12 @@ const RegisterPage = ({ history }) => {
 
   const onSubmit = (data) => {
     console.log(data);
-    const { email, name, password, passwordConfirm, role } = data;
+    const { email, name, password, passwordConfirm } = data;
     const dataToSubmit = {
       email,
       name,
       password,
       passwordConfirm,
-      role: Number(role),
     };
 
     dispatch(registerUser(dataToSubmit)).then((response) => {
