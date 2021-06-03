@@ -116,7 +116,20 @@ __`여행패키지 쇼핑몰`__
 
   </div>
   </details>
+
+- $sort를 사용하여 내림차순 정렬, aggregate() 메소드를 사용하면 Mongoose의 populate() 메소드로                 
+  products 컬렉션 document를 참조할 수 없어 $lookup을 사용해 payments 컬렉션 필드에 products 컬렉션 필드를 조인,                  
+  $group으로 특정 필드 그룹핑을 수행했습니다.
   
+  <details>
+  <summary><b>aggregate 결과</b></summary>      
+  <div markdown="1">
+  
+  ![aggregate](https://user-images.githubusercontent.com/52212226/120635348-56379d80-c4a7-11eb-9598-639bd0c7f88d.PNG)        
+  
+  </div>
+  </details>        
+          
 </br>
 
 ## 6. 느낀점
