@@ -21,6 +21,7 @@ __`여행패키지 쇼핑몰`__
 - Node.js
 - Express
 - MongoDB
+- Mongoose
 - Heroku
 - Third-party-library (jwt, bcrypt 등)
 
@@ -59,9 +60,63 @@ __`여행패키지 쇼핑몰`__
 
 ## 5. 트러블 슈팅
 ### 5.1 새로고침 시 리덕스 store의 state 초기화
-- history page, Cart page에서 useEffect hooks를 사용해 컴포넌트가 렌더링 될 때 비동기 처리를 하고 있습니다. 
+- historyPage, CartPage 컴포넌트에서 useEffect hooks를 사용해 컴포넌트가 렌더링 될 때 비동기 처리를 하고 있습니다. 
 
 - 이 때, post 요청 데이터로 리덕스 store의 user state를 이용해 이용자의 주문정보와, 장바구니 상품을 가져오고 있고              
   성공적으로 비동기 처리가 되고있습니다.
   
-- 하지만 페이지 새로고침을 할 경우 리덕스의 store는 state가 초기화 되고, user state가 날아가버려 DB의 데이터를 가져오지 못합니다. 
+- 하지만 페이지 새로고침을 할 경우 리덕스 store의 state가 초기화 되어버리기 때문에,                  
+  user state를 이용한 DB 데이터를 가져 올 수 없었습니다.
+
+- 때문에 redux state 초기화에 대해 구글링 하였으며, 해결방법으로 __redux-persist__ 라이브러리를 사용했습니다.
+
+- redux-persist를 사용하여 redux state를 웹 스토리지에 저장하고, 새로고침 시에도 저장공간에 있는 데이터를 redux에 불러와             
+  state를 정상적으로 유지하게 됐습니다.
+  
+### 5.2 MongoDB 배열 필드 내림차순 정렬
+- 상품 주문 페이지를 보면 일반적으로 가장 최근의 주문이 리스트 맨 위에 올라와 있습니다.
+
+- MongoDB에서 select 한 데이터를 오름차순이나 내림차순으로 정렬 할 경우 sort() 메소드를 사용하면 되기 때문에                 
+  배열 필드에도 똑같이 적용하면 될 것이라 생각했습니다.
+
+- 하지만 sort()는 document를 정렬하는 메소드이기 때문에 배열 타입 필드에서의 사용이 불가능 했습니다. 
+   
+- 다른 해결방법을 찾기위해 구글링을 하였고, aggregate() 메소드를 통해 배열 필드를 가공할 수 있다는 것을 알아냈습니다.
+  
+  <details>
+  <summary><b>해결한 코드</b></summary>
+  <div markdown="1">
+
+  ~~~javascript
+  const history = await Payment.aggregate([
+  {
+    $match: { user: ObjectId(userId) },
+  }
+  { $unwind: "$products" },
+  { $sort: { "products.createdAt": -1 } },
+  {
+    $lookup: {
+      from: "products",
+      localField: "products.productDetail",
+      foreignField: "_id",
+      as: "products.productDetail",
+    },
+  },
+  { $unwind: "$products.productDetail" },
+  {
+    $group: {
+      products: { $push: "$products" },
+      _id: "$_id",
+      user: { $first: "$user" },
+      createdMonth: { $first: "$createdMonth" },
+    },
+  },
+  ]).sort({ createdMonth: -1 });
+  ~~~
+
+  </div>
+  </details>
+  
+</br>
+
+## 6. 느낀점
