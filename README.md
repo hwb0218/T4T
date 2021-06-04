@@ -1,6 +1,7 @@
 # 📌 Thanks for traveling
 __`여행패키지 쇼핑몰`__
-> Demolink: [Thanks for traveling](http://t4t-node.herokuapp.com/)
+> Demolink
+> [Thanks for traveling](http://t4t-node.herokuapp.com/)
         
 </br>
 
@@ -133,3 +134,6 @@ __`여행패키지 쇼핑몰`__
 </br>
 
 ## 6. 느낀점
+안올것만 같았던 프로젝트를 성공적으로 끝마쳤습니다.                    
+사용해본적 없었던 리액트를 사용하려고 하니 낯설고 사용법과 동작원리를 이해하는데 애를 먹기도 했습니다.               
+하지만 자바스크립트를 처음 배웠을 때 처럼     
