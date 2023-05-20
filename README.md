@@ -1,7 +1,5 @@
 # 📌 Thanks for traveling
 __`여행패키지 쇼핑몰`__
-> Demolink              
-> [Thanks for traveling](http://t4t-node.herokuapp.com/)
         
 </br>
 
